@@ -16,7 +16,7 @@ const ProductCard = ({
   if (!product.name) return null;
   
   const [imgSRC, setSRC] = useState(product.gorsel);
-  const _imgSRC = `https://resize.aloparca.com/upload/w_260,h_200/yedekparca_img${imgSRC}`;
+  const _imgSRC = `https://resize.aloparca.com/upload/w_260,h_200/${imgSRC}`;
 
   const onErrImg = () => setSRC('/yedekparca/A27015906001000302561.JPG');
 

@@ -235,7 +235,7 @@ class ProductCard extends React.Component {
             <Box
               className="product-image"
               style={{
-                backgroundImage: `url('https://resize.aloparca.com/upload/w_200,h_150/yedekparca_img${
+                backgroundImage: `url('https://resize.aloparca.com/upload/w_200,h_150/${
                   product.urun_detay.gorsel
                 }')`,
               }}

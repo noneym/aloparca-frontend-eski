@@ -126,7 +126,7 @@ const ProductCard = ({ item }) => {
       <div>
         <ImageBg
           className="image"
-          src={`https://resize.aloparca.com/upload/w_260,h_200,pns/yedekparca_img${item.resim}`}
+          src={`https://resize.aloparca.com/upload/w_260,h_200,pns/${item.resim}`}
           alt={`${item.stokkodu} kodlu Oto Yedek Parça ${item.stokadi}`}
         />
         <div className="info">

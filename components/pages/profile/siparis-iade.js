@@ -429,7 +429,7 @@ class SiparisIade extends React.Component {
                   width={[1, 2 / 12]}
                 >
                   <img
-                    src={`https://resize.aloparca.com/upload/w_100,h_75/yedekparca_img${
+                    src={`https://resize.aloparca.com/upload/w_100,h_75/${
                       item.resim
                     }`}
                     alt={item.aciklama}

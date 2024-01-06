@@ -165,7 +165,7 @@ const FlashMessage = ({ dispatch, flashMessage, getCartMessage }) => {
         <GetCartStyles>
           <GcsFlex>
             <GcsImage>
-              <GcsImg src={`https://resize.aloparca.com/upload/w_100,h_80,pns/yedekparca_img${gorsel}`} alt={name} />
+              <GcsImg src={`https://resize.aloparca.com/upload/w_100,h_80,pns/${gorsel}`} alt={name} />
             </GcsImage>
             <GcsProduct>
               <GcsProductAdded>

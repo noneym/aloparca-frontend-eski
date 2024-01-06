@@ -606,7 +606,7 @@ class Header extends React.Component {
                                         <ListScrollLi key={cartItem.urun_detay.no}>
                                           <ListImage>
                                             <ListImageImg
-                                              src={`https://resize.aloparca.com/upload/w_50/yedekparca_img${cartItem.urun_detay.gorsel}`}
+                                              src={`https://resize.aloparca.com/upload/w_50/${cartItem.urun_detay.gorsel}`}
                                               alt={cartItem.urun_detay.name}
                                               avatar
                                             />

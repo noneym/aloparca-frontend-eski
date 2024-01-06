@@ -431,7 +431,7 @@ class ProductCardB2b extends React.Component {
           <Link to={`/yedek-parca${item.slug}`}>
             <ImageBg
               className="product-image"
-              src={`https://resize.aloparca.com/upload/w_130,h_100,pns/yedekparca_img${
+              src={`https://resize.aloparca.com/upload/w_130,h_100,pns/${
                 item.gorsel
               }`}
             />

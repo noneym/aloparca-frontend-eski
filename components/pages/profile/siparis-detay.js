@@ -350,7 +350,7 @@ class SiparisDetay extends React.Component {
                 px={2}
               >
                 <img
-                  src={`https://resize.aloparca.com/upload/w_100,h_75/yedekparca_img${item.resim}`}
+                  src={`https://resize.aloparca.com/upload/w_100,h_75/${item.resim}`}
                   alt={item.aciklama}
                 />
               </Flex>

@@ -575,7 +575,7 @@ class SearchBar extends React.Component {
                       style={{ backgroundImage: `url(${ item.arac_marka 
                         ? this.selectLogo(item.arac_marka.toLowerCase())
                         : item.gorsel && item.gorsel !== null ? `https://resize.aloparca.com/upload/w_260,h_200` + item.gorsel : 
-                        "https://resize.aloparca.com/upload/w_260,h_200/yedekparca/A27015906001000302561.JPG"
+                        "https://resize.aloparca.com/upload/w_260,h_200/A27015906001000302561.JPG"
                       })` }}
                       />
                     <div className="bilgi">
@@ -629,7 +629,7 @@ class SearchBar extends React.Component {
                     <div
                       className="img"
                       style={{
-                        backgroundImage: `url(https://resize.aloparca.com/upload/w_50/yedekparca_img${
+                        backgroundImage: `url(https://resize.aloparca.com/upload/w_50/${
                           item.resim
                         })`,
                       }}

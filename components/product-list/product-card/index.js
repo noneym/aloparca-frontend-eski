@@ -348,7 +348,7 @@ class ProductCard extends React.Component {
 
               <ImageBg
                 className="product-image"
-                src={`https://resize.aloparca.com/upload/w_260,h_200,pns/yedekparca_img${item.gorsel}`}
+                src={`https://resize.aloparca.com/upload/w_260,h_200,pns/${item.gorsel}`}
                 alt={`${item.stokmarka} Marka ${item.parcakodu} kodlu Oto Yedek Parça ${item.tedarikci_aciklama}`}
               />
               <Discount

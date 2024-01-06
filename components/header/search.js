@@ -554,7 +554,7 @@ class SearchBar extends React.Component {
                     <div
                       className="img"
                       style={{
-                        backgroundImage: `url(https://resize.aloparca.com/upload/w_50/yedekparca_img${
+                        backgroundImage: `url(https://resize.aloparca.com/upload/w_50/${
                           item.gorsel
                         })`,
                       }}

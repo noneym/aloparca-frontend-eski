@@ -12,7 +12,7 @@ const ProductCard = ({ item, dispatch }) => (
     <div style={{ padding: '7.5px' }}>
       <ImageBg
         className="image"
-        src={`https://resize.aloparca.com/upload/w_260,h_200,pns/yedekparca_img${item.gorsel}`}
+        src={`https://resize.aloparca.com/upload/w_260,h_200,pns/${item.gorsel}`}
         alt={`${item.stokmarka} Marka ${item.parcakodu} kodlu Oto Yedek Parça ${item.tedarikci_aciklama}`}
       />
       <Discount percent={parseInt((1 - item.fiyat / item.liste_fiyat) * 100, 10)} type="grid" />

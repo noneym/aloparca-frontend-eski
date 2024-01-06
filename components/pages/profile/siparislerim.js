@@ -413,7 +413,7 @@ class Siparislerim extends React.Component {
                           >
                             <Box>
                               <img
-                                src={`https://resize.aloparca.com/upload/w_100,h_75/yedekparca_img${
+                                src={`https://resize.aloparca.com/upload/w_100,h_75/${
                                   urun.resim
                                   }`}
                                 alt={urun.aciklama}

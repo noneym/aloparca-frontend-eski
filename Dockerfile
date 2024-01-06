@@ -27,22 +27,14 @@ ENV GOOGLE_MAPS_KEY=$GOOGLE_MAPS_KEY
 ENV NODE_ENV=$NODE_ENV
 
 # Build Next.js files
-RUN yarn build
+RUN yarn install --production=true  && yarn next build
+RUN mkdir www && cp -rfp package.json *.js .next node_modules static www/
 
 FROM node:16-alpine AS runtime
 
-WORKDIR /app
+COPY --from=builder /var/app/www /var/www/
+WORKDIR /var/www
 
-# Install production packages only
-COPY package.json yarn.lock ./
-COPY server.js .
-
-RUN yarn --production=true
-
-# Copy the minimum required stuff for Next.js
-COPY next.config.js .
-COPY --from=builder /app/.next .next
-COPY --from=builder /app/public public
 
 # Run the frontend!
 CMD ["yarn", "start"]

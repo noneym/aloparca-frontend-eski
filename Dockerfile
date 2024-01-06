@@ -1,6 +1,6 @@
 # TODO: change to lts when 16 becomes LTS
 # TODO: change to lts when 16 becomes LTS 2
-FROM node:16-slim AS builder
+FROM node:12.12-alpine as builder
 
 WORKDIR /var/app
 ADD . /var/app
@@ -30,7 +30,7 @@ ENV NODE_ENV=$NODE_ENV
 RUN yarn install --production=true  && yarn next build
 RUN mkdir www && cp -rfp package.json *.js .next node_modules static www/
 
-FROM node:16-alpine AS runtime
+FROM node:12.12-alpine as runtime
 
 COPY --from=builder /var/app/www /var/www/
 WORKDIR /var/www

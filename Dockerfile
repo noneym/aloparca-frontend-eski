@@ -35,6 +35,8 @@ WORKDIR /app
 
 # Install production packages only
 COPY package.json yarn.lock ./
+COPY server.js .
+
 RUN yarn --production=true
 
 # Copy the minimum required stuff for Next.js

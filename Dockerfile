@@ -2,17 +2,17 @@
 # TODO: change to lts when 16 becomes LTS 2
 FROM node:16-slim AS builder
 
-WORKDIR /app
+WORKDIR /var/app
+ADD . /var/app
+ADD ["package.json", "yarn.lock"] /var/app
+
 
 # Since we are connecting to our Sentry instance, we need to have SSL certificates available.
 RUN apt update && apt install ca-certificates -y
 
 # Copy your code into the Docker image
-COPY . /app
-
-# Install packages
-COPY package.json yarn.lock ./
-RUN yarn
+RUN yarn install --production=true  && yarn next build
+RUN mkdir www && cp -rfp package.json *.js .next node_modules static www/
 
 # Set build arguments from .env variables
 ARG BASE_URL
@@ -35,6 +35,4 @@ FROM node:16-alpine AS runtime
 COPY --from=builder /var/app/www /var/www/
 WORKDIR /var/www
 
-
-# Run the frontend!
 CMD ["yarn", "start"]

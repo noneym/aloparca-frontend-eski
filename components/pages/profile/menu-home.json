@@ -1,0 +1,41 @@
+[{
+        "title": "SİPARİŞLERİM",
+        "route": "profile",
+        "slug": "siparislerim"
+    },
+    {
+        "title": "İNDİRİM ÇEKLERİM",
+        "route": "profile",
+        "slug": "indirim-ceklerim"
+    },
+    {
+        "title": "KUMBARA",
+        "route": "profile",
+        "slug": "kumbara"
+    },
+    {
+        "title": "BİLGİLERİMİ GÜNCELLE",
+        "route": "profile",
+        "slug": "bilgilerimi-guncelle"
+    },
+    {
+        "title": "ŞİFREMİ DEĞİŞTİR",
+        "route": "profile",
+        "slug": "sifremi-degistir"
+    },
+    {
+        "title": "ADRESLERİM",
+        "route": "profile",
+        "slug": "adreslerim"
+    },
+    {
+        "title": "IBAN BİLGİLERİM",
+        "route": "profile",
+        "slug": "iban-bilgilerim"
+    },
+    {
+        "title": "DESTEK MERKEZİ",
+        "route": "profile",
+        "slug": "destek-merkezi"
+    }
+]

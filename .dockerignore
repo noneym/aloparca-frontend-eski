@@ -1,0 +1,15 @@
+.DS_Store
+.idea/
+.git
+.gitignore
+.gitlab-ci.yml
+docker-compose.yml
+README.md
+
+node_modules
+.next
+nohup.out
+out
+.env
+
+package-lock.json

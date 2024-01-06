@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Devamlı Güncellenen Kampanyalar",
+    "description": "Yüksek iskontolu parça fiyatlarına ilave olarak her ay güncellenen kampanyalarla sizlere fiyat rekabeti avantajı sağlıyoruz.",
+    "icon": "b2b-campaign"
+  },
+  {
+    "title": "Ücretsiz Kargo",
+    "description": "Birçok markada ücretsiz kargo ile satın aldığınız ürünler kapınıza teslim edilir.",
+    "icon": "b2b-cargo"
+  },
+  {
+    "title": "Hızlı Parça Numarası Tespiti",
+    "description": "Parça numarasına ihtiyaç duyduğunuzda sistem üzerinden gönderdiğiniz talepleriniz destek ekiplerimiz tarafından anında cevaplanarak size ulaştırılır.",
+    "icon": "b2b-support"
+  },
+  {
+    "title": "Müşterileriniz İçin Teklif Hazırlama",
+    "description": "Müşterilerinize teklif edilen perakende satış fiyatları üzerinden listenizi hazırlayabilir, kendi özel işçiliklerinizi ve iskontolarınızı girerek teklifi verebilirsiniz.",
+    "icon": "b2b-form"
+  },
+  {
+    "title": "Özel Sipariş Hazırlama",
+    "description": "Uzun siparişlerinizde özel fiyat çalışması isteyebilir, toplu stok alımlarınızda fiyat avantajını arttırabilirsiniz.",
+    "icon": "b2b-tag"
+  },
+  {
+    "title": "Online Fiyat ve Stok Sorgulama",
+    "description": "Sistemde bulunan firmaların tüm katalog bilgilerine online olarak erişebilir, stok ve fiyat bilgilerini sorgulayabilirsiniz.",
+    "icon": "b2b-online"
+  },
+  {
+    "title": "Tüm Sipariş ve Sevkiyat Aşamalarını Takip Edebilme",
+    "description": "Siparişlerinizin hangi aşamada olduğunu ve tahmini teslim tarihini sistem üzerinden takip edebilirsiniz.",
+    "icon": "b2b-search"
+  },
+  {
+    "title": "Kredi Kartlarına Taksit İmkanı",
+    "description": "Birçok markada uzun taksit seçenekleriyle ödemelerinizi daha rahat yapabilirsiniz.",
+    "icon": "b2b-credit-card"
+  }
+]

@@ -1,0 +1,268 @@
+@font-face {
+  font-family: 'icomoon';
+  src: url('fonts/icomoon.eot?w0wwj9');
+  src: url('fonts/icomoon.eot?w0wwj9#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?w0wwj9') format('truetype'),
+    url('fonts/icomoon.woff?w0wwj9') format('woff'),
+    url('fonts/icomoon.svg?w0wwj9#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+[class^='icon-'],
+[class*=' icon-'] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-rotate:before {
+  content: '\e92d';
+}
+.icon-home:before {
+  content: '\e941';
+}
+.icon-cart:before {
+  content: '\e92a';
+}
+.icon-share:before {
+  content: '\e92b';
+}
+.icon-remove:before {
+  content: '\e928';
+}
+.icon-add:before {
+  content: '\e929';
+}
+.icon-chevrons-right:before {
+  content: '\e90b';
+}
+.icon-mobile-menu:before {
+  content: '\e93c';
+}
+.icon-logout:before {
+  content: '\e93b';
+}
+.icon-uyumlu:before {
+  content: '\e939';
+}
+.icon-check:before {
+  content: '\e938';
+}
+.icon-chevron-thin-left:before {
+  content: '\e927';
+}
+.icon-chevron-thin-right:before {
+  content: '\e909';
+}
+.icon-kategoriler-fren:before {
+  content: '\e904';
+}
+.icon-kategoriler-filtre:before {
+  content: '\e905';
+}
+.icon-kategoriler-direksiyon:before {
+  content: '\e906';
+}
+.icon-kategoriler-debriyaj:before {
+  content: '\e907';
+}
+.icon-kategoriler-aydinlatma:before {
+  content: '\e908';
+}
+.icon-chevron-thin-down:before {
+  content: '\e903';
+}
+.icon-hesabim-kumbara:before {
+  content: '\e94a';
+}
+.icon-b2b-online:before {
+  content: '\e942';
+}
+.icon-b2b-campaign:before {
+  content: '\e943';
+}
+.icon-b2b-cargo:before {
+  content: '\e944';
+}
+.icon-b2b-credit-card:before {
+  content: '\e945';
+}
+.icon-b2b-form:before {
+  content: '\e946';
+}
+.icon-b2b-search:before {
+  content: '\e947';
+}
+.icon-b2b-support:before {
+  content: '\e948';
+}
+.icon-b2b-tag:before {
+  content: '\e949';
+}
+.icon-warning:before {
+  content: '\e940';
+}
+.icon-hesabim-kayitli-kartlarim:before {
+  content: '\e934';
+}
+.icon-hesabim-destek-merkezi:before {
+  content: '\e937';
+}
+.icon-hesabim-adreslerim:before {
+  content: '\e930';
+}
+.icon-hesabim-bilgilerimi-guncelle:before {
+  content: '\e931';
+}
+.icon-hesabim-iban-bilgilerim:before {
+  content: '\e932';
+}
+.icon-hesabim-indirim-ceklerim:before {
+  content: '\e933';
+}
+.icon-hesabim-sifremi-degistir:before {
+  content: '\e935';
+}
+.icon-hesabim-siparislerim:before {
+  content: '\e936';
+}
+.icon-x-altx-alt:before {
+  content: '\e92e';
+}
+.icon-guvenli-alisveris:before {
+  content: '\e922';
+}
+.icon-iade:before {
+  content: '\e923';
+}
+.icon-kapida-odeme:before {
+  content: '\e924';
+}
+.icon-taksit:before {
+  content: '\e925';
+}
+.icon-teslimat:before {
+  content: '\e926';
+}
+.icon-kategoriler-sarj-sistemi:before {
+  content: '\e914';
+}
+.icon-kategoriler-atesleme-sistemi:before {
+  content: '\e915';
+}
+.icon-kategoriler-aydinlatma-aksami:before {
+  content: '\e916';
+}
+.icon-kategoriler-basincli-hava-sistemi:before {
+  content: '\e917';
+}
+.icon-kategoriler-debriyaj-sistemi:before {
+  content: '\e918';
+}
+.icon-kategoriler-direksiyon-sistemi:before {
+  content: '\e919';
+}
+.icon-kategoriler-egzoz-sistemi:before {
+  content: '\e91a';
+}
+.icon-kategoriler-filtre-sistemi:before {
+  content: '\e91b';
+}
+.icon-kategoriler-isitma-ve-sogutma-sistemi:before {
+  content: '\e91c';
+}
+.icon-kategoriler-mars-sistemi:before {
+  content: '\e91d';
+}
+.icon-kategoriler-motor-ve-parcalari:before {
+  content: '\e91e';
+}
+.icon-kategoriler-tekerlek-ve-suspansiyon:before {
+  content: '\e91f';
+}
+.icon-kategoriler-triger-ve-gergi-sistemleri:before {
+  content: '\e920';
+}
+.icon-kategoriler-yakit-ve-enjeksiyon-sistemi:before {
+  content: '\e921';
+}
+.icon-dot-arrow:before {
+  content: '\e90c';
+}
+.icon-sepet:before {
+  content: '\e900';
+}
+.icon-uyelik:before {
+  content: '\e901';
+}
+.icon-garaj:before {
+  content: '\e902';
+}
+.icon-arrow-left:before {
+  content: '\e913';
+}
+.icon-filtre:before {
+  content: '\e90e';
+}
+.icon-list-style-2:before {
+  content: '\e90d';
+}
+.icon-list-style-1:before {
+  content: '\e90f';
+}
+.icon-sort:before {
+  content: '\e910';
+}
+.icon-triangle-right:before {
+  content: '\e90a';
+}
+.icon-google-plus:before {
+  content: '\ea8b';
+}
+.icon-facebook:before {
+  content: '\ea90';
+}
+.icon-instagram:before {
+  content: '\ea92';
+}
+.icon-twitter:before {
+  content: '\ea96';
+}
+.icon-youtube:before {
+  content: '\ea9d';
+}
+.icon-star-o:before {
+  content: '\e93d';
+}
+.icon-sort-numeric-desc:before {
+  content: '\e93e';
+}
+.icon-sort-numeric-asc:before {
+  content: '\e93f';
+}
+.icon-location-arrow:before {
+  content: '\e93a';
+}
+.icon-plus-circle:before {
+  content: '\e92f';
+}
+.icon-level-up:before {
+  content: '\e92c';
+}
+.icon-caret-right:before {
+  content: '\e911';
+}
+.icon-caret-left:before {
+  content: '\e912';
+}

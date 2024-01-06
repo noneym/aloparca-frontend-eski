@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Kolay İade",
+    "icon": "iade",
+    "color": "#0c486c",
+    "route": "kurumsal",
+    "slug": "garanti-ve-iade"
+  },
+  {
+    "title": "9 Taksit İmkanı",
+    "icon": "taksit",
+    "color": "#eb9605",
+    "route": "yardim",
+    "slug": "odeme"
+  },
+  {
+    "title": "Hızlı Teslimat",
+    "icon": "teslimat",
+    "color": "#fe4e50",
+    "route": "kurumsal",
+    "slug": "kargo-hakkinda"
+  },
+  {
+    "title": "%100 Güvenli Alışveriş",
+    "icon": "guvenli-alisveris",
+    "color": "#24273a",
+    "route": "yardim",
+    "slug": "odeme"
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "title": "Üyelik",
+    "route": "yardim",
+    "slug": "uyelik"
+  },
+  {
+    "title": "Ürünler",
+    "route": "yardim",
+    "slug": "urunler"
+  },
+  {
+    "title": "Ödeme",
+    "route": "yardim",
+    "slug": "odeme"
+  },
+  {
+    "title": "Sipariş",
+    "route": "yardim",
+    "slug": "siparis"
+  },
+  {
+    "title": "Kargo ve Teslimat",
+    "route": "yardim",
+    "slug": "kargo-ve-teslimat"
+  },
+  {
+    "title": "Fatura",
+    "route": "yardim",
+    "slug": "fatura"
+  },
+  {
+    "title": "İade ve Geri Gönderim",
+    "route": "yardim",
+    "slug": "iade-ve-geri-gonderim"
+  }
+]

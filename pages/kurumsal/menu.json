@@ -1,0 +1,84 @@
+[
+  {
+    "title": "Müşteri Hizmetleri",
+    "route": "contact"
+  },
+  {
+    "title": "Havale Bildirimi",
+    "route": "kurumsal",
+    "slug": "havale-bildirimi"
+  },
+  {
+    "title": "Gizlilik ve Çerez Politikası",
+    "route": "kurumsal",
+    "slug": "gizlilik-ve-cerez-politikasi"
+  },
+  {
+    "title": "Kişisel Verilerin Korunması",
+    "route": "kurumsal",
+    "slug": "kisisel-verilerin-korunmasi"
+  },
+  {
+    "title": "Künye",
+    "route": "kurumsal",
+    "slug": "kunye"
+  },
+  {
+    "title": "Garanti ve İade",
+    "route": "kurumsal",
+    "slug": "garanti-ve-iade"
+  },
+  {
+    "title": "Bayi Olmak İstiyorum",
+    "route": "contact"
+  },
+  {
+    "title": "Sıkça Sorulan Sorular",
+    "route": "kurumsal",
+    "slug": "sikca-sorulan-sorular"
+  },
+  {
+    "title": "Öneri ve Şikayet",
+    "route": "kurumsal",
+    "slug": "oneri-ve-sikayet"
+  },
+  {
+    "title": "Kargo Hakkında",
+    "route": "kurumsal",
+    "slug": "kargo-hakkinda"
+  },
+  {
+    "title": "İade İşlemleri",
+    "route": "kurumsal",
+    "slug": "iade-islemleri"
+  },
+  {
+    "title": "Parça veya Hizmet Teklifi",
+    "route": "kurumsal",
+    "slug": "toplu-parca-teklifi"
+  },
+  {
+    "title": "Bize Yazın",
+    "route": "contact"
+  },
+  {
+    "title": "Banka Bilgileri",
+    "route": "kurumsal",
+    "slug": "banka-bilgileri"
+  },
+  {
+    "title": "Hakkımızda",
+    "route": "kurumsal",
+    "slug": "hakkimizda"
+  },
+  {
+    "title": "Aynı Gün Teslimat",
+    "route": "kurumsal",
+    "slug": "ayni-gun-teslimat"
+  },
+  {
+    "title": "Üyelik Sözleşmesi",
+    "route": "kurumsal",
+    "slug": "uyelik-sozlesmesi"
+  }
+]

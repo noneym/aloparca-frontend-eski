@@ -1,0 +1,8 @@
+[
+    { "title": "OTO YEDEK PARÇA", "route": "list-brand" },
+    { "title": "MADENİ YAĞLAR", "route": "motor-oil" },
+    { "title": "AKSESUARLAR", "route": "accessories" },
+    { "title": "BAKIM SETİ ROBOTU", "route": "bakimseti" },
+    { "title": "KAMPANYALI ÜRÜNLER", "route": "campaign" },
+    { "title": "TEMİZLİK VE HİJYEN", "route": "temizlik" }
+]

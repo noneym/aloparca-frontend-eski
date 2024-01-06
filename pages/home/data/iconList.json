@@ -1,0 +1,27 @@
+[
+  {
+    "title": "Kolay İade",
+    "image": "/static/img/t/icons/iade.svg",
+    "color": "#d32f2f"
+  },
+  {
+    "title": "9 Taksit İmkanı",
+    "image": "/static/img/t/icons/taksit.svg",
+    "color": "#c2185b"
+  },
+  {
+    "title": "Hızlı Teslimat",
+    "image": "/static/img/t/icons/teslimat.svg",
+    "color": "#7b1fa2"
+  },
+  {
+    "title": "Kapıda Ödeme",
+    "image": "/static/img/t/icons/kapida-odeme.svg",
+    "color": "#512da8"
+  },
+  {
+    "title": "%100 Güvenli Alışveriş",
+    "image": "/static/img/t/icons/guvenli-alisveris.svg",
+    "color": "#3144be"
+  }
+]

@@ -1,0 +1,391 @@
+
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<script src="/cdn-cgi/apps/head/NwBQw1fZyg4QYAeAQKlh-oyHxVM.js"></script></head>
+<body>
+<table id="t" width="372" cellspacing="1" cellpadding="1" border="0" bgcolor="#000066" align="center" height="385">
+<tbody>
+<tr>
+<td valign="top" bgcolor="#ffffff">
+<div style="background-color:#FFFFFF; border:0px; float:both; clear:none; margin:0em; border-style:none">
+<table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="white" align="center" height="60">
+<tbody>
+<tr>
+<td width="50%" valign="bottom" align="left"><img src="https://demo5.payfull.com/sites/all/themes/payfull_theme/design/assets/admin/img/schema1.gif" alt="" 3dslogo="scheme" 3dslogourl="content/001/vbv_dtv.gif" border="0">
+</td>
+<td width="50%" valign="bottom" align="right"><img src="https://demo5.payfull.com/sites/all/themes/payfull_theme/design/assets/admin/scripts/card/img/banks/Akbank.png" alt="Issuer logo" 3dslogo="issuer" 3dslogourl="/mdpayacs/graphics/cardissuer_logo.jpg" border="0">
+</td>
+</tr>
+</tbody>
+</table>
+<hr width="100%" size="2" color="#000080" align="center">
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody>
+<tr>
+<td class="header">
+</td>
+</tr>
+<tr>
+<td>
+
+<form action="https://demo5.payfull.com/3d_secure/return/asseco" method="POST" 3dsaction="manual" name="f" id="f"><br>
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody>
+<tr>
+<td class="name" width="48%" align="right">
+Üye işyeri
+</td>
+<td class="name" width="4%" align="center">
+:
+</td>
+<td class="value" 3dsdisplay="merchant" width="48%">
+Akbank Payfull Test
+</td>
+</tr>
+<tr>
+<td class="name" width="48%" align="right">
+Tutar
+</td>
+<td class="name" width="4%" align="center">
+:
+</td>
+<td class="value" 3dsdisplay="amount" width="48%">
+TRY 100.00
+</td>
+</tr>
+<tr>
+<td class="name" width="48%" align="right">
+Tarih (GMT)
+</td>
+<td class="name" width="4%" align="center">
+ :
+</td>
+<td class="value" 3dsdisplay="date" width="48%">
+20180314 10:02:58
+</td>
+</tr>
+<tr>
+<td class="name" width="48%" align="right">
+Kart Numarası
+</td>
+<td class="name" width="4%" align="center">
+:
+</td>
+<td class="value" 3dsdisplay="pan" width="48%">
+XXXX XXXX XXXX XXXX
+</td>
+</tr>
+</tbody>
+</table>
+<br>
+<table cellspacing="0" cellpadding="0" border="0" align="center">
+<tbody>
+<tr>
+<td class="error" 3dsdisplay="error" align="center">
+<br>
+</td>
+</tr>
+<tr>
+<td class="message" 3dsdisplay="prompt" 3dslabel="prompt" align="center">
+Lütfen Verified by Visa şifrenizi giriniz
+</td>
+</tr>
+<tr>
+<td align="center">
+<input class="value" 3dsinput="password" name="password" tabindex="1" type="password">
+<div class="link">
+<a href="#" 3dslink="chg_password" 3dslabel="Şifremi unutttum/Şifremi değiştirmek istiyorum" onclick="disableControl()">Şifremi unutttum/Şifremi değiştirmek istiyorum</a>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<br>
+<table width="300" cellspacing="4" cellpadding="0" border="0" align="center">
+<input id="iefix" name="" value="" type="hidden">
+<tbody>
+<tr>
+<td valign="bottom">
+<img name="help" alt="Help" src="https://demo5.payfull.com/sites/all/themes/payfull_theme/design/assets/admin/img/default_help.gif" 3dsinput="help" 3dslabel="YARDIM" class="none" tabindex="2" onclick="return false;" border="0">
+</td>
+<td valign="bottom">
+<img name="cancel" alt="Cancel" src="https://demo5.payfull.com/sites/all/themes/payfull_theme/design/assets/admin/img/default_cancel.gif" 3dsinput="cancel" 3dslabel="İPTAL" class="none" tabindex="3" onclick="cancelTrx();" border="0">
+</td>
+<td valign="bottom" align="right">
+<img id="submitbutton" name="submitbtn" alt="Submit" src="https://demo5.payfull.com/sites/all/themes/payfull_theme/design/assets/admin/img/default_submit.gif" 3dsinput="ok" 3dslabel="GÖNDER" class="none" tabindex="4" onclick="saleTrx();" border="0">
+</td>
+</tr>
+<tr>
+<td class="header1" colspan="3" align="center">
+</td>
+</tr>
+</tbody>
+</table>
+<input id="cancelInput" type="hidden" name="cancel" value="0">
+<input id="saleInput" type="hidden" name="sale" value="0">
+<input id="transactionID" type="hidden" name="transactionID" value="P_F_5e0e207261_afb01f8c3">
+<input id="isSuccessful" type="hidden" name="isSuccessful" value="True">
+</form>
+
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<script>
+function saleTrx() {
+  document.getElementById('saleInput').value = 1;
+  document.getElementById('cancelInput').value = 0;
+  document.getElementById('isSuccessful').value = 'True';
+  document.f.submit();
+}
+function cancelTrx() {
+  document.getElementById('saleInput').value = 0;
+  document.getElementById('cancelInput').value = 1;
+  document.getElementById('isSuccessful').value = 'False';
+  document.f.submit();
+}
+</script>
+<style>
+#images {
+	background-color: Silver;
+	padding: 16px 0px 0px 0px;
+	height: 64px;
+}
+
+
+#issuer_image {
+	margin:10px;
+	padding: 0px 10px 0px 10px;
+}
+
+#schema_image {
+	margin:10px;
+	padding: 0px 10px 0px 10px width: 96px height: 56px border: 0;
+}
+
+#thin_blue_line {
+		background-color: #000066;
+		height: 2px;
+}
+
+#container {
+	/* padding: 0px 175px 0px 110px;
+	*/
+	margin:1px auto;
+	width: 380px;
+	background-color: White;
+	border-style: groove;
+	border: 1;
+	height: 490px;
+}
+
+.error_message {
+	color: #990000;
+	height: 20px;
+	font-size: 11px;
+}
+
+.hint_text {
+	margin: 5px;
+	font-size: 11px;
+}
+
+.hint_input{
+	text-align: center;
+	border: black;
+	border-style:solid;
+  	border-width:1px;
+
+}
+
+#upper {
+       height: 440px;
+}
+
+#links {
+	margin: 15px;
+
+}
+
+#cancel {
+	margin: 0px 30px 0px 30px;
+}
+
+#continue {
+	  margin: 0px 30px 0px 30px;
+}
+
+.heading {
+	margin: 5px 0px 5px 0px;
+	font-size: 10px;
+}
+
+input {
+	font-size: 11px;
+	color: Navy;
+	border-style: solid;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+}
+
+.none {
+	border: 0px solid FFF;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8px;
+	color: White;
+}
+
+input.button1 {
+	background-color: #B3B3B3;
+	border-style: solid;
+	border-color:  #E8E8E8 #8F8F8F #8F8F8F #FFFFFF;
+	letter-spacing: .1em;
+	border-width: 2px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	font-size: 10px;
+	text-align : center;
+}
+
+input.button2 {
+	background-color: #FE9504;
+	border-style: solid;
+	border-color:  #FFD293 #A05D01 #A05D01 #EEF1F8;
+	letter-spacing: .1em;
+	border-width: 2px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	font-size: 8px;
+	text-align : center;
+}
+
+BODY {
+	font-family: Arial, Helvetica, sans-serif;
+	text-align:center;
+	background : White;
+	margin-bottom : 1px;
+	margin-left : 1px;
+	margin-right : 1px;
+	margin-top : 1px;
+}
+.header {
+	margin: 0px 10px;
+	padding: 0px 0px 0px 0px;
+	font-family: Verdana,Helvetica;
+	font-size: 10pt;
+	font-weight: bold;
+	text-align : left;
+}
+.message {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color: #4459A9;
+	font-weight: bold;
+}
+.error {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color: #F78F08;
+	font-weight: bold;
+	text-align=center;
+}
+.name {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	font-weight: normal;
+}
+
+.button {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+}
+
+.value {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	text-align: left;
+	float: center;
+}
+
+
+.label {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	float: left;
+}
+
+.password_label {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+}
+
+
+.password_input {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	margin: 3px 0px 3px 15px;
+	text-align: left;
+}
+
+.valuepair {
+	   text-align: center;
+	   margin-left: 10px;
+	   margin-right: 10px;
+	   padding: 15px 0px 15px 0px;
+}
+
+.default {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color: #999999;
+	text-align: justify;
+}
+.linkcaption {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color: #cccccc;
+}
+.link {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+}
+
+.main_text {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	text-align: justify;
+	margin: 15px 10px;
+}
+
+.p {
+	font: 8pt Arial;
+	margin-top: 0px;
+	text-align: justify;
+}
+.warning {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	text-align: center;
+	margin: 15px 10px;
+	color: red;
+}
+.header1 {
+	margin: 10px 0px;
+	padding: 0px 10px 0px 10px;
+	font-family: Verdana,Helvetica;
+	font-size: 7pt;
+	font-weight: bold;
+	text-align : center;
+}
+</style>
+</body>
+</html>

@@ -1,0 +1,52 @@
+[{
+        "title": "Siparişlerim",
+        "route": "profile",
+        "slug": "siparislerim"
+    },
+    {
+        "title": "İndirim Çeklerim",
+        "route": "profile",
+        "slug": "indirim-ceklerim"
+    },
+    {
+        "title": "Kumbara",
+        "route": "profile",
+        "slug": "kumbara"
+    },
+    {
+        "title": "Hesap Ayarlarım",
+        "route": "profile",
+        "slug": "bilgilerimi-guncelle",
+        "subcategory": [{
+                "title": "Bilgilerimi Güncelle",
+                "route": "profile",
+                "slug": "bilgilerimi-guncelle"
+            },
+            {
+                "title": "Şifremi Değiştir",
+                "route": "profile",
+                "slug": "sifremi-degistir"
+            },
+            {
+                "title": "Adreslerim",
+                "route": "profile",
+                "slug": "adreslerim"
+            }
+        ]
+    },
+    {
+        "title": "IBAN Bilgilerim",
+        "route": "profile",
+        "slug": "iban-bilgilerim"
+    },
+    {
+        "title": "Garajım",
+        "route": "profile",
+        "slug": "garaj"
+    },
+    {
+        "title": "Destek Merkezi",
+        "route": "profile",
+        "slug": "destek-merkezi"
+    }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "title": "VW Yedek Parça",
+    "content": "Volkswagen orjinal yedek parçalarını; Periyodik değişen parçalarınızı ya da motor ve mekanik aksam parçalarını sitemizden sipariş verebilirsiniz. Volkswagen Yedek parçalarını listelemek için",
+    "image": "/static/img/t/brands/ww.svg",
+    "marka": "VW"
+  },
+  {
+    "title": "BMW Yedek Parça",
+    "content": "Bmw Marka aracınızın 1 Serisi, 3 Serisi, 5 Serisi, X1, X3, X5, X6 ve giğer modellerinin, yedek parçalarını satın alabilirsiniz ve fiyatlarına ulaşabilirsiniz. Bmw Yedek parçalarını listelemek için",
+    "image": "/static/img/t/brands/bmw.svg",
+    "marka": "BMW"
+  },
+  {
+    "title": "Fiat Yedek Parça",
+    "content": "Fiat Albea, Fiat Doblo, Fiat Fiorino, Fiat Punto ve diğer tüm fiat markalarının orjinal oto yedek parçalarını iade garantili satın alabilirsiniz. Fiat Yedek parçalarını listelemek için",
+    "image": "/static/img/t/brands/fiat.svg",
+    "marka": "FIAT"
+  },
+  {
+    "title": "Opel Yedek Parça",
+    "content": "Opel Corsa, Insignia, Astra ve diğer tüm Opel marlakarının yedek parçalarına sitemizden ulaşabilirsiniz. Sitemizdeki tüm parçalar garantilidir. Opel Yedek parçalarını listelemek için",
+    "image": "/static/img/t/brands/opel.svg",
+    "marka": "OPEL"
+  },
+  {
+    "title": "Ford Yedek Parça",
+    "content": "Ford Fiesta, Focus veya diğer Ford marka araçlarınızın tüm yedek parçalarını hızlı ve iki sene garantili olarak sipariş verebilirsiniz. Ford Yedek parçalarını listelemek için",
+    "image": "/static/img/t/brands/ford.svg",
+    "marka": "FORD"
+  },
+  {
+    "title": "Renault Yedek Parça",
+    "content": "Renault marka otomobilinizin mekanik aksam ve motor parçalarını aloparca.com üzerinden hızlı ve kolayca sipariş verebilirsiniz. Renault Yedek parçalarını listelemek için",
+    "image": "/static/img/t/brands/renault.svg",
+    "marka": "RENAULT"
+  },
+  {
+    "title": "Citroen Yedek Parça",
+    "content": "Citroen C3, Citroen C4, Citroen C5 ve Başka Citroen otomobillerin yedek parçalarına sitemizden ulaşabilirsiniz. 9 taksitle alabilirsiniz. Citroen Yedek parçalarını listelemek için",
+    "image": "/static/img/t/brands/citroen.svg",
+    "marka": "CITROEN"
+  },
+  {
+    "title": "Peugeot Yedek Parça",
+    "content": "Sitemizde tüm Peugeot marka otomabillerin oto yedek parçalarını garantili ve uygun fiyata ve taksitli sipariş verebilirsiniz. Peugeot Yedek parçalarını listelemek için",
+    "image": "/static/img/t/brands/peugeot.svg",
+    "marka": "PEUGEOT"
+  }
+]

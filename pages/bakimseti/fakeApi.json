@@ -1,0 +1,95 @@
+{
+    "count": 3,
+    "paketler": {
+        "0": {
+            "marka": "OEM (Logolu Orjinal)",
+            "logo": "arac",
+            "urunler": {
+                "0": {
+                    "no": 898061018,
+                    "urun_adi": "CASTROL EDGE 0W30 - 4 LT - BENZINLI DIZEL MOTOR YAĞI",
+                    "stok_kodu": "EDGE 0W-30 4X4L Ti TU",
+                    "fiyat": 210.0
+                },
+                "1": {
+                    "no": 998083747,
+                    "urun_adi": "HAVA FILTRESI BRAVO-DO BLO-IDEA -PUNTO-ALBEA-STILO-MUSA-MITO-EGEA 1,21,4",
+                    "stok_kodu": "SH1388",
+                    "fiyat": 31.83
+                },
+                "2": {
+                    "no": 80183136,
+                    "urun_adi": "YAG FILTRESI",
+                    "stok_kodu": "2343800",
+                    "fiyat": 43.0
+                },
+                "3": {
+                    "no": 36080,
+                    "urun_adi": "POLEN FİLTRESİ",
+                    "stok_kodu": "CU2040",
+                    "fiyat": 126.0
+                }
+            }
+        },
+        "1": {
+            "marka": "BOSCH (Logosuz Orjinal)",
+            "logo": "Brand_logos/488.jpg",
+            "urunler": {
+                "0": {
+                    "no": 106109,
+                    "urun_adi": "Subap Lastiği",
+                    "stok_kodu": "EDGE 0W-30 4X4L Ti TU",
+                    "fiyat": 210.0
+                },
+                "1": {
+                    "no": 230039,
+                    "urun_adi": "Debriyaj seti",
+                    "stok_kodu": "SH1388",
+                    "fiyat": 31.83
+                },
+                "2": {
+                    "no": 1012021,
+                    "urun_adi": "Sis fari",
+                    "stok_kodu": "2343800",
+                    "fiyat": 43.0
+                },
+                "3": {
+                    "no": 1056393,
+                    "urun_adi": "Yakıt Filtresi, İbiza V, Leon, Toledo Iii, Octavia, Eos, Golf V, Jetta Iii, Passat, Polo, Scirocco, Touran .",
+                    "stok_kodu": "CU2040",
+                    "fiyat": 126.0
+                }
+            }
+        },
+        "2": {
+            "marka": "VALEO (Logosuz Orjinal)",
+            "logo": "Brand_logos/488.jpg",
+            "urunler": {
+                "0": {
+                    "no": 1255650,
+                    "urun_adi": "CASTROL EDGE 0W30 - 4 LT - BENZINLI DIZEL MOTOR YAĞI",
+                    "stok_kodu": "EDGE 0W-30 4X4L Ti TU",
+                    "fiyat": 210.0
+                },
+                "1": {
+                    "no": 1257123,
+                    "urun_adi": "HAVA FILTRESI BRAVO-DO BLO-IDEA -PUNTO-ALBEA-STILO-MUSA-MITO-EGEA 1,21,4",
+                    "stok_kodu": "SH1388",
+                    "fiyat": 31.83
+                },
+                "2": {
+                    "no": 1257167,
+                    "urun_adi": "YAG FILTRESI",
+                    "stok_kodu": "2343800",
+                    "fiyat": 43.0
+                },
+                "3": {
+                    "no": 1257546,
+                    "urun_adi": "POLEN FİLTRESİ",
+                    "stok_kodu": "CU2040",
+                    "fiyat": 126.0
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,58 @@
+[
+  {
+    "title": "8'li Park Led 6000K Beyaz",
+    "brand": "Photon",
+    "originalPrice": 30,
+    "salePrice": 20,
+    "image": "/static/img/t/products/6.jpg"
+  },
+  {
+    "title": "Seat Leon 3D Havuzlu Paspas Seti",
+    "brand": "BoostZone",
+    "originalPrice": 293.51,
+    "salePrice": 195.51,
+    "image": "/static/img/t/products/7.jpg"
+  },
+  {
+    "title": "Egsoz Ucu D031",
+    "brand": "BoostZone",
+    "originalPrice": 60,
+    "salePrice": 40,
+    "image": "/static/img/t/products/8.jpg"
+  },
+  {
+    "title": "Boostzone Hyundai Xg30 Branda",
+    "brand": "BoostZone",
+    "originalPrice": 204.25,
+    "salePrice": 136.25,
+    "image": "/static/img/t/products/4.jpg"
+  },
+  {
+    "title": "Plastik Kar Zinciri Mini Kar Paleti Kelepçe",
+    "brand": "Muadil Ürün",
+    "originalPrice": 30,
+    "salePrice": 20,
+    "image": "/static/img/t/products/9.jpg"
+  },
+  {
+    "title": "Kia Ceed Hb 5-Kapi Bagaj Havuzu",
+    "brand": "Muadil Ürün",
+    "originalPrice": 101,
+    "salePrice": 67,
+    "image": "/static/img/t/products/10.jpg"
+  },
+  {
+    "title": "Land Rover Discovery Sport Yan Basamak İthal Ürün",
+    "brand": "BoostZone",
+    "originalPrice": 1800,
+    "salePrice": 1200,
+    "image": "/static/img/t/products/5.jpg"
+  },
+  {
+    "title": "Dacia Duster Blackline Yan Koruma (Siyah)",
+    "brand": "OMSA LINE",
+    "originalPrice": 909.8,
+    "salePrice": 606.8,
+    "image": "/static/img/t/products/10.jpg"
+  }
+]

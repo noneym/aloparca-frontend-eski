@@ -1,0 +1,239 @@
+* {
+  box-sizing: border-box;
+  outline: 0;
+}
+html {
+  font-size: 14px;
+}
+body {
+  font-family: 'Barlow', sans-serif;
+  font-weight: 400;
+  line-height: 1.2;
+  background: #fff;
+  color: #666;
+  font-size: 14px;
+}
+body.no-scroll {
+  overflow-y: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Barlow', sans-serif;
+  line-height: 1.3;
+  font-weight: 400;
+}
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+figure {
+  margin: 0;
+}
+figure img {
+  display: block;
+}
+button {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+}
+button:disabled {
+  opacity: 0.5;
+}
+a {
+  color: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+a:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #ff8900;
+}
+b,
+strong {
+  font-weight: bold;
+}
+pre {
+  background: #ccc;
+  padding: 25px;
+}
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+}
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  textarea,
+  input[type='text'] {
+    font-size: 16px;
+  }
+}
+.ui.wide.left.sidebar {
+  width: 300px;
+}
+.mobile-menu-overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 100;
+}
+.mobile-menu-overlay.active {
+  display: block;
+}
+.ui.modal .content > .description {
+  padding: 0 !important;
+}
+.modal-header {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.modal-header span.icon-filtre {
+  margin-right: 10px;
+}
+.modal-description {
+  height: 80vh !important;
+}
+.modal-description .ui.selection.dropdown {
+  width: 60%;
+  border-radius: 0;
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px;
+}
+.modal-description .ui.checkbox label,
+.modal-description .ui.checkbox + label,
+.modal-description .ui.checkbox input:active ~ label {
+  color: white !important;
+}
+.modal-actions {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.modal-actions a {
+  display: block;
+  width: 50%;
+  padding: 10px 0;
+  text-align: center;
+}
+.modal-actions a.clear {
+  color: white;
+  border: 1px solid white;
+}
+.modal-actions a.submit {
+  color: black;
+  border: 1px solid white;
+  background-color: white;
+}
+.service-list + .service-list {
+  border-top: 1px solid #dddddd;
+}
+.ui.input input {
+  font-family: 'Barlow', sans-serif;
+}
+.warning-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #ce1b31;
+}
+.warning-title i {
+  font-size: 24px;
+  margin-right: 20px;
+}
+.warning-content {
+  color: #ce1b31;
+  text-align: center;
+  line-height: 2em;
+}
+@media screen and (device-aspect-ratio: 2/3) {
+  select,
+  textarea,
+  input[type='text'],
+  input[type='password'],
+  input[type='datetime'],
+  input[type='datetime-local'],
+  input[type='date'],
+  input[type='month'],
+  input[type='time'],
+  input[type='week'],
+  input[type='number'],
+  input[type='email'],
+  input[type='url'] {
+    font-size: 16px !important;
+  }
+}
+@media screen and (device-aspect-ratio: 40/71) {
+  select,
+  textarea,
+  input[type='text'],
+  input[type='password'],
+  input[type='datetime'],
+  input[type='datetime-local'],
+  input[type='date'],
+  input[type='month'],
+  input[type='time'],
+  input[type='week'],
+  input[type='number'],
+  input[type='email'],
+  input[type='url'] {
+    font-size: 16px !important;
+  }
+}
+@media screen and (device-aspect-ratio: 375/667) {
+  select,
+  textarea,
+  input[type='text'],
+  input[type='password'],
+  input[type='datetime'],
+  input[type='datetime-local'],
+  input[type='date'],
+  input[type='month'],
+  input[type='time'],
+  input[type='week'],
+  input[type='number'],
+  input[type='email'],
+  input[type='url'] {
+    font-size: 16px !important;
+  }
+}
+@media screen and (device-aspect-ratio: 9/16) {
+  select,
+  textarea,
+  input[type='text'],
+  input[type='password'],
+  input[type='datetime'],
+  input[type='datetime-local'],
+  input[type='date'],
+  input[type='month'],
+  input[type='time'],
+  input[type='week'],
+  input[type='number'],
+  input[type='email'],
+  input[type='url'] {
+    font-size: 16px !important;
+  }
+}

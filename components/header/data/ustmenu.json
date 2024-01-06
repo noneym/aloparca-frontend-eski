@@ -1,0 +1,10 @@
+[
+    { "title": "Hesabım", "route": "profile" },
+    { "title": "Kargo Takip", "route": "profile", "slug": "siparislerim" },
+    { "title": "Sipariş Takip", "route": "profile", "slug": "siparislerim" },
+    { "title": "Parça ve Hizmet Teklifi", "route": "kurumsal", "slug": "toplu-parca-teklifi" },
+    { "title": "Destek", "route": "profile", "slug": "destek-merkezi" },
+    { "title": "Yardım", "route": "yardim" },
+    { "title": "İletişim", "route": "contact" },
+    { "title": "Blog", "route": "blog" }
+]

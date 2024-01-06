@@ -1,0 +1,55 @@
+[
+  {
+    "id": 1,
+    "title": "Bridgestone",
+    "slug": "bridgestone"
+  },
+
+  {
+    "id": 2,
+    "title": "Michelin",
+    "slug": "michelin"
+  },
+
+  {
+    "id": 3,
+    "title": "Continental",
+    "slug": "continental"
+  },
+
+  {
+    "id": 4,
+    "title": "Goodyear",
+    "slug": "goodyear"
+  },
+
+  {
+    "id": 5,
+    "title": "Pirelli",
+    "slug": "pirelli"
+  },
+
+  {
+    "id": 6,
+    "title": "Lassa",
+    "slug": "lassa"
+  },
+
+  {
+    "id": 7,
+    "title": "Petlas",
+    "slug": "petlas"
+  },
+
+  {
+    "id": 8,
+    "title": "Hankook",
+    "slug": "hankook"
+  },
+
+  {
+    "id": 9,
+    "title": "Kleber",
+    "slug": "kleber"
+  }
+]

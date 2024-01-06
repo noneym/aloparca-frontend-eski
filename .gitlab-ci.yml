@@ -1,0 +1,54 @@
+stages:
+  - check
+  - build
+  - run
+  - push 
+  - deploy
+  
+before_script:
+  - export IMAGE_VERSION=$(git show -s --format=%ct $CI_COMMIT_SHORT_SHA | date +%y.%m.%d.$CI_COMMIT_SHORT_SHA)
+
+check:
+  stage: check
+  only:
+    - master
+  script:
+    - echo $IMAGE_VERSION 
+
+build_image:
+  stage: build
+  only:
+    - release/prod
+  script:
+    - docker build -t aloparca/frontend:$IMAGE_VERSION .
+
+run_image:
+  stage: run
+  only:
+    - release/prod
+  script:
+   # - docker stop aloparca-frontend && docker rm aloparca-frontend && docker run --name aloparca-frontend -e SITE="aloparca" -e DOMAIN_URL="https://aloparca.com" -e API_URL="https://api.aloparca.com/api/" -p 3000:3000 -d aloparca/frontend:$IMAGE_VERSION
+  #  - docker stop aloparca-b2b && docker rm aloparca-b2b && docker run --name aloparca-b2b -e SITE="b2b" -e DOMAIN_URL="https://aloparca.com" -e API_URL="https://api.aloparca.com/api/" -p 3001:3000 -d aloparca/frontend:$IMAGE_VERSION
+
+  - docker stop aloparca-frontend && docker rm aloparca-frontend && docker run --name aloparca-frontend -e SITE="aloparca" -e DOMAIN_URL="https://aloparca.com" -e API_URL="https://api.aloparca.com/api/" -p 3000:3000 -d aloparca/frontend:$IMAGE_VERSION
+  - docker stop aloparca-b2b && docker rm aloparca-b2b && docker run --name aloparca-b2b -e SITE="b2b" -e DOMAIN_URL="https://aloparca.com" -e API_URL="https://api.aloparca.com/api/" -p 3001:3000 -d aloparca/frontend:$IMAGE_VERSION
+
+
+push_image:
+  stage: push
+  only:
+    - release/prod
+  script:
+    - docker tag aloparca/frontend:$IMAGE_VERSION registry.alopar.ca/aloparca/frontend:$IMAGE_VERSION
+    - docker tag aloparca/frontend:$IMAGE_VERSION registry.alopar.ca/aloparca/frontend:latest
+    - docker login -u gitlab -p 431431 registry.alopar.ca
+    - docker push registry.alopar.ca/aloparca/frontend:$IMAGE_VERSION
+    - docker push registry.alopar.ca/aloparca/frontend:latest
+
+deploy_image:
+  stage: deploy
+  only:
+    - release/prod
+  script:
+    # docker service frontend_b2c webhook işlemleri
+    - curl -X POST -i http://46.4.117.158:9005/api/webhooks/$PORTAINER_WEBHOOK_SECRET

@@ -1,0 +1,37 @@
+[
+  {
+    "title": "Porya",
+    "brand": "MGA",
+    "originalPrice": 293.51,
+    "salePrice": 195.51,
+    "image": "/static/img/t/products/1.jpg"
+  },
+  {
+    "title": "Moligraf F1",
+    "brand": "ELF",
+    "originalPrice": 104,
+    "salePrice": 69,
+    "image": "/static/img/t/products/2.jpg"
+  },
+  {
+    "title": "Fren Diski Ön",
+    "brand": "TRW",
+    "originalPrice": 488,
+    "salePrice": 325,
+    "image": "/static/img/t/products/3.jpg"
+  },
+  {
+    "title": "Boostzone Hyundai Xg30 Branda",
+    "brand": "BoostZone",
+    "originalPrice": 204.25,
+    "salePrice": 136.25,
+    "image": "/static/img/t/products/4.jpg"
+  },
+  {
+    "title": "Land Rover Discovery Sport Yan Basamak İthal Ürün",
+    "brand": "BoostZone",
+    "originalPrice": 1800,
+    "salePrice": 1200,
+    "image": "/static/img/t/products/5.jpg"
+  }
+]

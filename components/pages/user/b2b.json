@@ -1,0 +1,30 @@
+{
+  "companyTypes": [
+    {
+      "value": "as",
+      "text": "Anonim Şirketi (A.Ş.)"
+    },
+    {
+      "value": "ltd",
+      "text": "Limited Şirketi"
+    }
+  ],
+  "workTypes": [
+    "Yetkili Servis",
+    "Özel Servis",
+    "Usta",
+    "Perakende",
+    "Toptan",
+    "Filo Kademe",
+    "İş Makinası",
+    "Ağır Vasıta",
+    "Oto Galeri",
+    "Turizm Şirketi",
+    "Çıkmacı",
+    "Benzin İstasyonu",
+    "Elektrikçi",
+    "Diğer"
+  ],
+  "workAreas": ["0-100 m²", "100-300 m²", "300-500 m²", "500-1000 m²", "1000 m² üstü"],
+  "workCars": ["Fiat", "Volkswagen", "Renault", "Honda", "Alman", "Japon", "İtalyan", "Diğer"]
+}

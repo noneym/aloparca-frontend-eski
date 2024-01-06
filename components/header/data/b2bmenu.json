@@ -1,0 +1,6 @@
+[
+    { "title": "Parça Kodu Sor", "route": "/hesabim/destek-merkezi" },
+    { "title": "Kumbara", "route": "/hesabim/kumbara" },
+    { "title": "Garaj", "route": "/hesabim/garaj" },
+    { "title": "Kampanyalı Ürünler", "route": "/kampanyali-urunler" }
+]

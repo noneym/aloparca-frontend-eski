@@ -1,0 +1,15 @@
+Allow /
+User-agent: *
+Sitemap: https://www.aloparca.com/ownbs/sitemap_urunler-index.xml
+Sitemap: https://www.aloparca.com/ownbs/sitemap_urunler.xml
+Sitemap: https://www.aloparca.com/ownbs/sitemap_urunler-1.xml
+Sitemap: https://www.aloparca.com/ownbs/sitemap_urunler-2.xml
+Sitemap: https://www.aloparca.com/ownbs/sitemap_urunler-3.xml
+Sitemap: https://www.aloparca.com/ownbs/sitemap_urunler-4.xml
+Sitemap: https://www.aloparca.com/ownbs/sitemap_urunler-5.xml
+Sitemap: https://www.aloparca.com/ownbs/sitemap_kategoriler_alt.xml
+Sitemap: https://www.aloparca.com/ownbs/sitemap_kategoriler_alt-1.xml
+Sitemap: https://www.aloparca.com/ownbs/sitemap_kategoriler_alt-2.xml
+Sitemap: https://www.aloparca.com/ownbs/sitemap_kategoriler_ust.xml
+Sitemap: https://www.aloparca.com/ownbs/sitemap_kapsam.xml
+Sitemap: https://www.aloparca.com/ownbs/sitemap_blog.xml

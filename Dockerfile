@@ -7,9 +7,6 @@ ADD . /var/app
 ADD ["package.json", "yarn.lock"] /var/app
 
 
-# Since we are connecting to our Sentry instance, we need to have SSL certificates available.
-#RUN apt update && apt install ca-certificates -y
-
 # Copy your code into the Docker image
 RUN yarn install --production=true  && yarn next build
 RUN mkdir www && cp -rfp package.json *.js .next node_modules static www/

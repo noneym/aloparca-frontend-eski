@@ -204,6 +204,8 @@ class SearchBar extends React.Component {
   handlePressEnter = () => {
     const { activeOption } = this.state;
     if (this.optionElements[activeOption] && this.optionElements[activeOption].firstChild) {
+
+      console.log(this.optionElements[activeOption].firstChild.innerHTML)
       this.handleSelect(this.optionElements[activeOption].firstChild.innerHTML);
     }
   };

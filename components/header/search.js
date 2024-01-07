@@ -97,10 +97,16 @@ class SearchBar extends React.Component {
       const q = Router.router.query;
       this.fillSearchTags(q);
     }
+
+    document.addEventListener('mousedown', this.handleClickOutside);
+    document.addEventListener('touchstart', this.handleClickOutside);
+
   }
 
   componentWillUnmount() {
     this.setState({selectionIsActive: false})
+    document.removeEventListener('mousedown', this.handleClickOutside);
+    document.removeEventListener('touchstart', this.handleClickOutside);
   }
   
 
@@ -150,7 +156,7 @@ class SearchBar extends React.Component {
     }
     this.setState({ searchLoading: true, selectionIsActive: true });
     const params = this.getParams();
-    let apiUrl = 'Products/araclarv2/';
+    let apiUrl = 'Products/araclar/';
     if (params.marka) apiUrl += `marka/${encodeURIComponent(params.marka).replace(/_/g, ' ')}/`;
     if (params.model) apiUrl += `model/${encodeURIComponent(params.model).replace(/_/g, ' ')}/`;
     if (params.kasa) apiUrl += `kasa/${encodeURIComponent(params.kasa).replace(/_/g, ' ')}/`;
@@ -210,10 +216,11 @@ class SearchBar extends React.Component {
 
   handlePressEnter = () => {
     const { activeOption } = this.state;
-    if (this.optionElements[activeOption] && this.optionElements[activeOption].firstChild) {
-      this.handleSelect(this.optionElements[activeOption].firstChild.innerHTML);
+    if (this.optionElements[activeOption]) {
+      this.handleSelect(this.optionElements[activeOption].innerText.trim());
     }
   };
+  
 
   handlePressHorizontalArrow = (dir) => {
     const optionElementsLength = this.optionElements.filter((item) => item).length;
@@ -352,59 +359,71 @@ class SearchBar extends React.Component {
     await this.onSearch();
   };
 
-  async optionsData(name, value) {
-    try {
-      const { options, activeStep } = this.state;
-      if (activeStep === 6) return;
-      if (value && options[name].selected === value) return;
-      const index = parents.findIndex((item) => item.name === name);
-      const currentSelected = { [name]: { ...options[name], selected: value } };
-      const prevStateOptionsFiltered = Object.keys(options).filter((key) => {
-        const prevIndex = parents.findIndex((item) => item.name === key);
-        return prevIndex < index;
-      });
-      const prevStateOptions = prevStateOptionsFiltered.reduce(
-        (obj, key) => ({ ...obj, [key]: options[key] }),
-        {},
-      );
-      let nextOptions = {};
-      if (index !== parents.length - 1) {
-        let dataUrl = 'Products/araclarv2';
-        if (value) {
-          if (index > 0) {
-            dataUrl += prevStateOptionsFiltered.reduce(
-              (prevDataURL, prevName) => `${prevDataURL}/${prevName === 'yil' ? 'model_yili' : prevName}/${encodeURIComponent(prevStateOptions[prevName].selected).replace(/_/g, ' ')}`,
-              '',
-            );
-          }
-          let newName = '';
-          if (name === 'yil') {
-            newName = 'model_yili';
-          } else {
-            newName = name;
-          }
-          dataUrl += `/${newName}/${encodeURIComponent(value).replace(/_/g, ' ')}`;
+async optionsData(name, value) {
+  try {
+    const { options, activeStep } = this.state;
+
+
+    //console.log(options);
+    //console.log(name);
+    //console.log(value);
+
+    if (activeStep === 6) return;
+    if (value && options[name].selected === value) return;
+    const index = parents.findIndex((item) => item.name === name);
+    const currentSelected = { [name]: { ...options[name], selected: value } };
+    const prevStateOptionsFiltered = Object.keys(options).filter((key) => {
+      const prevIndex = parents.findIndex((item) => item.name === key);
+      return prevIndex < index;
+    });
+    const prevStateOptions = prevStateOptionsFiltered.reduce(
+      (obj, key) => ({ ...obj, [key]: options[key] }),
+      {},
+    );
+    let nextOptions = {};
+    if (index !== parents.length - 1) {
+      let dataUrl = 'Products/araclar';
+      if (value) {
+        if (index > 0) {
+          dataUrl += prevStateOptionsFiltered.reduce(
+            (prevDataURL, prevName) => `${prevDataURL}/${prevName === 'yil' ? 'model_yili' : prevName}/${encodeURIComponent(prevStateOptions[prevName].selected).replace(/_/g, ' ')}`,
+            '',
+          );
         }
-        const nextParent = parents[index + (value ? 1 : 0)];
-        if (nextParent) {
-          const {
-            results: { opts },
-          } = await Api.get(dataUrl);
-          const data = opts.map((text) => ({ text, value: text }));
-          nextOptions = { [nextParent.name]: { opts: data } };
+        let newName = '';
+        if (name === 'yil') {
+          newName = 'model_yili';
+        } else {
+          newName = name;
         }
+        dataUrl += `/${newName}/${encodeURIComponent(value).replace(/_/g, ' ')}`;
       }
-      await this.setState({
-        options: {
-          ...prevStateOptions,
-          ...currentSelected,
-          ...nextOptions,
-        },
-      });
-    } catch (error) {}
+      const nextParent = parents[index + (value ? 1 : 0)];
+      if (nextParent) {
+        const {
+          results: { opts },
+        } = await Api.get(dataUrl);
+        const data = opts.map((opt) => typeof opt === 'object' && opt !== null ? opt.name : opt);
+        nextOptions = { [nextParent.name]: { opts: data } };
+      }
+    }
+    await this.setState({
+      options: {
+        ...prevStateOptions,
+        ...currentSelected,
+        ...nextOptions,
+      },
+    });
+  } catch (error) {
+    console.error(error);
   }
+}
+
+  
 
   renderOptions = (options, activeStep, query) => {
+
+    console.log(options);
 
     let btnInnerText = '';
 
@@ -431,18 +450,17 @@ class SearchBar extends React.Component {
         break;
     }
 
-    if (activeStep === 6) return;
-    const filteredOptions = options[parents[activeStep].name].opts.filter((item) => {
-      if (query) {
-        return (
-          item.text
-            .toString()
-            .toLowerCase()
-            .indexOf(query.toLowerCase()) > -1
-        );
-      }
-      return true;
-    });
+    const parentOptions = options[parents[activeStep].name];
+  const filteredOptions = parentOptions && parentOptions.opts 
+      ? parentOptions.opts.filter((item) => {
+          let itemName = typeof item === 'object' && item !== null ? item.name : item;
+          if (query) {
+            return itemName.toLowerCase().indexOf(query.toLowerCase()) > -1;
+          }
+          return true;
+        })
+      : [];
+    
 
     if (filteredOptions.length === 0) {
       return (
@@ -451,25 +469,35 @@ class SearchBar extends React.Component {
         </li>
       );
     }
+
+    
     const { activeOption } = this.state;
-    return filteredOptions.map((item, index) => (
-      <li
-        className={cx({ active: index === activeOption })}
-        ref={(n) => {
-          this.optionElements[index] = n;
-        }}
-        style={{ width: steps[activeStep].marka_width || '100%' }}
-        key={item.text}
-      >
-        <a className="option" href="javascript:;" onClick={() => this.handleSelect(item.text)}>
-          {item.text}
-          <div className="select-button">{btnInnerText}</div>
-        </a>
-      </li>
-    ));
+    return filteredOptions.map((item, index) => {
+      let itemName = typeof item === 'object' && item !== null ? item.name : item;
+      return (
+        <li
+          className={cx({ active: index === activeOption })}
+          ref={(n) => { this.optionElements[index] = n; }}
+          style={{ width: steps[activeStep].marka_width || '100%' }}
+          key={itemName}
+        >
+          <a className="option" href="javascript:;" onClick={() => this.handleSelect(itemName)}>
+            {itemName}
+            <div className="select-button">{btnInnerText}</div>
+          </a>
+        </li>
+      );
+    });
   };
 
   renderProductSlug = (item) => `/yedek-parca${item.slug}`;
+
+  handleClickOutside = (event) => {
+    // Eğer tıklanan element, dropdown menünün dışındaysa, menüyü kapat
+    if (this.dropdownRef && !this.dropdownRef.contains(event.target)) {
+      this.setState({ selectionIsActive: false });
+    }
+  };
 
   render() {
     const {
@@ -528,7 +556,8 @@ class SearchBar extends React.Component {
             }}
           />
           <Submit className="search-button" />
-          <Results style={{ width: resultsWidth }} className={cx({ active: selectionIsActive })}>
+          <div ref={(ref) => this.dropdownRef = ref}>
+          <Results style={{ width: resultsWidth }}  className={cx({ active: selectionIsActive })} >
             {activeStep !== 6 && (
               <Markalar onClick={() => this.searchInput.value = ''}>{this.renderOptions(options, activeStep, query)}</Markalar>
             )}
@@ -583,6 +612,7 @@ class SearchBar extends React.Component {
                 ))}
             </Urunler>
           </Results>
+          </div>
         </InputHolder>
         <Preload className="preload">
           <div className="bar" />

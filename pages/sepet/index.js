@@ -191,11 +191,22 @@ const ModalCloseIcon = styled.div`
 
 class Sepet extends React.Component {
   static async getInitialProps() {
-    const onerilenUrunler = await Api.get(
-      'Products/kargoyu_bedava_yapan_urunler',
-    );
-    return { onerilenUrunler };
+    try {
+      const response = await Api.get('Products/kargoyu_bedava_yapan_urunler');
+      
+      if (!response.ok) {
+        throw new Error(`API hatası: ${response.status}`);
+      }
+  
+      
+      const onerilenUrunler = await response.json();
+      return { onerilenUrunler };
+    } catch (error) {
+      console.error('API çağrısında hata:', error);
+      return { onerilenUrunler: [] }; // API hata verirse boş bir dizi döndür
+    }
   }
+  
 
   state = {
     isLoadingDiscount: false,
@@ -350,6 +361,8 @@ class Sepet extends React.Component {
   };
 
   render() {
+    // const urunlerVarMi = onerilenUrunler && onerilenUrunler.length > 0;
+
     const {
       openModal,
       openDiscount,
@@ -364,17 +377,18 @@ class Sepet extends React.Component {
     } = this.props;
     // this.forRefresh();
     // console.log(urunler,cokSatan);
-    let getNoAllOnerilen = [];
-    onerilenUrunler.urunler.map((item) => {
-      getNoAllOnerilen.push(item.no);
-    });
-    const getCart = cart === null ? [] : cart.urunler;
-    let onerilenForModal = [];
-    if(typeof getCart !== 'undefined'){
-      onerilenForModal = getCart.filter((item) => {
-        return getNoAllOnerilen.includes(item.urun_detay.no);
-      });
-    }
+    // let getNoAllOnerilen = [];
+    // onerilenUrunler.urunler.map((item) => {
+    //   getNoAllOnerilen.push(item.no);
+    // });
+  
+    // const getCart = cart === null ? [] : cart.urunler;
+    // let onerilenForModal = [];
+    // if(typeof getCart !== 'undefined'){
+    //   onerilenForModal = getCart.filter((item) => {
+    //     return getNoAllOnerilen.includes(item.urun_detay.no);
+    //   });
+    // }
     
     return (
       <Layout meta={{ title: 'Sepet', isSepet }}>
@@ -693,7 +707,7 @@ class Sepet extends React.Component {
             <SiteFeature />
           </Container>
 
-          {typeof getCart !== 'undefined' && getCart.length !== 0 && onerilenForModal.length === 0 && openModal && site === 'aloparca' && parseInt(cart.subtotal) < 200 &&(
+          {/* {typeof getCart !== 'undefined' && getCart.length !== 0 && onerilenForModal.length === 0 && openModal && site === 'aloparca' && parseInt(cart.subtotal) < 200 &&(
             <Modal
               size="large"
               dimmer="blurring"
@@ -719,7 +733,7 @@ class Sepet extends React.Component {
                 </SliderWrapper>
               </Modal.Content>
             </Modal>
-          )}
+          )} */}
         </CartPage>
       </Layout>
     );

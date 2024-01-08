@@ -20,7 +20,7 @@ import Slider from '../../components/home-slider';
 import CarSelect from './car-select';
 import Categories from './categories';
 import SeoText from './seo-text';
-import WorkHours from './work-hours';
+// import WorkHours from './work-hours';
 import Brands from './brands';
 
 import Api from '../../api';
@@ -126,7 +126,7 @@ class Home extends React.Component {
         <HomeContainer>
           {categories.length > 0 && <Categories categories={categories} />}
           <SeoText />
-          <WorkHours />
+          
           <Flex className="double-banners" flexWrap="wrap" mx={[0, 0, -2]}>
             <Box width={[1, 1, 1 / 2]} px={[0, 0, 2]}>
               <Link route="motor-oil" params={{ id: 7 }}>

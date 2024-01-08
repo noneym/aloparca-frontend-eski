@@ -265,7 +265,6 @@ const getPanes = (product, taksitTutar, cars, carLimit, changeState) => {
           <Tab.Pane attached={false}>
             <OemKod
               oemler={product.oemler}
-              slug={product.tedarikci_aciklama_slug}
             />
           </Tab.Pane>
         )
@@ -920,9 +919,9 @@ class Product extends React.Component {
           <Container>
             {site === "aloparca" && (
               <>
-                {/* <Box className="breadcrumb-wrapper" pt={2} pb={1}>
+                <Box className="breadcrumb-wrapper" pt={2} pb={1}>
                   <BreadCrumb items={product.breadcrumb || ""} isProduct />
-                </Box> */}
+                </Box>
 
                 <Section className="product-header" my={0} mx={-2}>
                   <Flex alignItems="center" justifyContent="space-between">
@@ -1491,7 +1490,7 @@ class Product extends React.Component {
                         <Ozellikler ozellikler={product.ozellikler} />
                       </Accordion.Content>
                     </Menu.Item>
-                    <Menu.Item>
+                    {/* <Menu.Item>
                       <Accordion.Title
                         active={activeIndex === 3}
                         index={3}
@@ -1508,10 +1507,9 @@ class Product extends React.Component {
                       <Accordion.Content active={activeIndex === 3}>
                         <OemKod
                           oemler={product.oemler}
-                          slug={product.tedarikci_aciklama_slug}
                         />
                       </Accordion.Content>
-                    </Menu.Item>
+                    </Menu.Item> */}
                     <Menu.Item>
                       <Accordion.Title
                         active={activeIndex === 4}

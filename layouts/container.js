@@ -187,7 +187,7 @@ class Container extends React.Component {
             <link rel="canonical" href={meta.canonical} />
           ) : null}
           {meta.canonical ? (
-            <link rel="alternate" hreflang="tr" href={meta.canonical} />
+            <link rel="alternate" hrefLang="tr" href={meta.canonical} />
           ) : null}
           <meta name="x-canonical-url" content={this.props.router.asPath} />
           {meta.keywords ? (

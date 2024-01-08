@@ -474,13 +474,19 @@ class Product extends React.Component {
       }
       const { slug, seotitle } = query;
 
+     // slug değerini string'e çevir
+     if (typeof slug !== 'string') {
+      slug = slug.toString();
+    }
+
+
       const product = await Api.get(`Products/product/no/${slug}`);
 
       // console.log(seotitle);
-      if (product.status === false) {
-        return await Router.push(`/arama/q/${slug}`);
-        // throw 404;
-      }
+      // if (product.status === false) {
+      //   return await Router.push(`/arama/q/${slug}`);
+      //   // throw 404;
+      // }
 
       // if (product.status === false) {
       //   return window.location.replace(`https://www.aloparca.com/arama/q/${slug}`);
@@ -559,12 +565,12 @@ class Product extends React.Component {
       )
     });
 
-    if (err || product.status === false) {
-      return await Router.push(`/arama/q/${slug}`);
-    }
+    // if (err || product.status === false) {
+    //   return await Router.push(`/arama/q/${slug}`);
+    // }
 
     if (err) return;
-
+    console.log(product);
     this.setFiyat(product);
 
     let uyumluArac = product.araclar;
@@ -579,6 +585,8 @@ class Product extends React.Component {
         uyumluArac = product.araclar;
       }
     }
+
+  
     this.changeState({ uyumluArac });
 
     const { name } = parents[0];
@@ -589,7 +597,7 @@ class Product extends React.Component {
   }
 
   UNSAFE_componentWillReceiveProps({ slug }) {
-    if (JSON.stringify(this.props.slug) !== JSON.stringify(slug)) {
+    if (JSON.stringify(this.props.slug.toString) !== JSON.stringify(slug.toString)) {
       this.getMeta(true);
     }
   }
@@ -897,9 +905,9 @@ class Product extends React.Component {
 
     var newTitle = product && product.title ? product.title : null;
 
-    if(product.breadcrumb !== null){
-      newTitle = product.breadcrumb[1].name + ' | ' + newTitle;
-    }
+    // if(product.breadcrumb !== null){
+    //   newTitle = product.breadcrumb[1].name + ' | ' + newTitle;
+    // }
    
     const prodMeta = meta ? meta : {title:newTitle, description:product.metaDescription,canonical:'https://www.aloparca.com/'+product.breadcrumb[2].link};
     return (
@@ -912,9 +920,9 @@ class Product extends React.Component {
           <Container>
             {site === "aloparca" && (
               <>
-                <Box className="breadcrumb-wrapper" pt={2} pb={1}>
+                {/* <Box className="breadcrumb-wrapper" pt={2} pb={1}>
                   <BreadCrumb items={product.breadcrumb || ""} isProduct />
-                </Box>
+                </Box> */}
 
                 <Section className="product-header" my={0} mx={-2}>
                   <Flex alignItems="center" justifyContent="space-between">

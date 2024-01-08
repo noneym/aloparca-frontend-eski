@@ -89,7 +89,7 @@ class MyApp extends App {
               sizes="180x180"
               href="/static/app-icons/icons/apple-touch-icon.png"
             />
-            <meta id="Content-Language" http-equiv="Content-Language" content="tr"/>
+            <meta id="Content-Language" httpEquiv="Content-Language" content="tr"/>
             <meta name="revisit-after" content="1 Days"/>
             <meta name="author" content="aloparca.com" />
             <meta name="Designer" content="Designed by Boranka" href="http://www.boranka.com" />

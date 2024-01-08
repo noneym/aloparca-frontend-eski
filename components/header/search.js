@@ -423,7 +423,7 @@ async optionsData(name, value) {
 
   renderOptions = (options, activeStep, query) => {
 
-    console.log(options);
+    // console.log(options);
 
     let btnInnerText = '';
 

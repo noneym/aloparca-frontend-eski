@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import { reduce } from 'asyncro';
 import { Select, Button } from 'semantic-ui-react';
-import { Flex, Box } from 'grid-styled';
-import { initStore } from '../../../store';
+import { Flex, Box } from '@rebass/grid';
 import Api from '../../../api';
 import Outer from './style';
+var singleSelect = false;
 
 import { Router } from '../../../routes';
 
@@ -39,7 +39,7 @@ class CarSelect extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProp) {
+  UNSAFE_componentWillReceiveProps(nextProp) {
     if (nextProp.marka) {
       let garage = {};
       if (nextProp.marka) garage = { ...garage, marka: decodeURIComponent(nextProp.marka) };
@@ -150,6 +150,8 @@ class CarSelect extends React.Component {
   }
 
   async optionsData(name, value) {
+    singleSelect = false;
+
     const { options } = this.state;
 
     if (value && options[name].selected === value) return;
@@ -196,6 +198,16 @@ class CarSelect extends React.Component {
         } = await Api.get(dataUrl);
         const data = opts.map(text => ({ text, value: text }));
         nextOptions = { [nextParent.name]: { opts: data } };
+
+        var sNext=Object;
+        var sVal="";
+
+       if(Object.keys(opts).length==1){
+            sNext = nextParent.name;
+            sVal = nextOptions[nextParent.name].opts[0].value;
+            singleSelect = true;
+            nextOptions[nextParent.name].selectedValue=nextOptions[nextParent.name].opts[0].value;
+        }
       }
     }
 
@@ -207,6 +219,10 @@ class CarSelect extends React.Component {
       },
     });
 
+    if(singleSelect){
+      this.optionsData(sNext,sVal);
+    }
+
     if (index === parents.length - 1) {
       this.onSubmit();
     }
@@ -214,8 +230,8 @@ class CarSelect extends React.Component {
 
   render() {
     return (
-      <Outer>
-        <Flex py={2} mb={2} column className="parca-ara">
+      <Outer key={Math.floor(Math.random() * 1001202000000)}>
+        <Flex py={2} mb={2} flexDirection="column" className="parca-ara">
           <Box px={3} mb={2} className="label">
             Araç Bilgileri ile Ara
           </Box>

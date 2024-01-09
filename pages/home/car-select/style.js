@@ -1,54 +1,90 @@
 import styled from 'styled-components';
-import { media, container } from '../../../style/theme';
+import { media } from '../../../style/theme';
 
-const Outer = styled.form`
-  margin-top: 0px;
-  ${container()};
-  color: white;
-  position: relative;
-  h3 {
-    // box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.1);
-    background-color: ${props => props.theme.color.primary};
-    padding-bottom: 25px;
-    padding-left: 15px;
-    margin-top:0;
-    display: inline-flex;
-    margin-bottom: -1px;
-    border-radius: 3px 3px 0 0;
-    text-transform: uppercase;
-    font-size: 1.1rem;
-    ${media.tablet`
-      font-size: 0.8em;
-      padding: 0 15px;
-      margin-top: 15px;
-    `}
-  }
+const Outer = styled.div`
+  margin-top: -50px;
+
   .car-select {
-    min-height: 138px;
-    background-color: ${props => props.theme.color.primary};
-    border-radius: 0 0 0.28571429rem 0.28571429rem;
-    box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.1);
-    .container {
-      ${media.tablet`
-        align-item: center;
-        flex-direction: column;
-        margin: 10px 0;
-        height: auto;
-        padding: 0px;
-      `};
-    }
+    ${media.tablet`
+      align-item: center;
+      flex-direction: column;
+      margin: 10px 0;
+    `};
     .car-select-box {
+      padding: 0 10px;
       ${media.tablet`
-       margin: 8px 0;
-     `};
-    }
-
-    .car-select-box.disabled {
-      ${media.tablet`
+        margin: 10px 0;
+        padding: 0 20px;
+      `};
+      &.disabled {
+        ${media.tablet`
           display: none;
         `};
+      }
     }
   }
+
+  .ui.attached.menu {
+    border: none;
+    width: auto;
+    display: inline-flex;
+    align-items: flex-start;
+    .item {
+      font-weight: 500;
+      text-transform: uppercase;
+      color: white;
+      border-radius: 3px 3px 0 0 !important;
+      border: none;
+      background-color: #ffb000;
+      position: relative;
+      transition: none;
+      height: 50px;
+      padding: 0 30px;
+      box-shadow: 0 -3px 1px rgba(0, 0, 0, 0.05);
+      &:not(.active):before {
+        content: '';
+        display: block;
+        background-color: #ffb000;
+        height: 3px;
+        width: 6px;
+        position: absolute;
+        top: 0;
+        left: -3px;
+      }
+      &:first-child:before {
+        left: auto;
+        right: -3px;
+      }
+      &.active {
+        background-color: ${props => props.theme.color.primary};
+        font-weight: 500;
+        z-index: 2;
+      }
+      ${media.tablet`
+        font-size: 0.8em;
+        padding: 0 15px;
+      `};
+    }
+  }
+  .ui.attached.tab {
+    border: none;
+    padding: 0 30px;
+    height: 124px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    background-color: ${props => props.theme.color.primary};
+    ${media.tablet`
+      height: auto;
+      padding: 0px;
+    `};
+    form {
+      flex: 1;
+    }
+  }
+
   label {
     padding-bottom: 4px;
     display: block;
@@ -73,7 +109,7 @@ const Outer = styled.form`
     .menu {
       border: none;
       margin: 0;
-      min-width: max-content;
+      min-width: 100%;
       width: 100%;
     }
     .icon {
@@ -88,16 +124,9 @@ const Outer = styled.form`
         content: '\\e903';
       }
     }
-    .text {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 100%;
-    }
   }
 
   .ui.button {
-    min-width: max-content;
     color: white;
     text-transform: uppercase;
     border-radius: 3px;

@@ -5,12 +5,10 @@ import cx from 'classnames';
 
 import { Container } from '../../../reactor';
 import { Router } from '../../../routes';
+import { initStore } from '../../../store';
 import { addGarage } from '../../../actions';
 import Api from '../../../api';
 import Outer from './style';
-
-// EE
-let singleSelect = false;
 
 const panes = [
   {
@@ -32,7 +30,10 @@ const parents = [
   { title: 'Beygir Gücü', name: 'beygir' },
 ];
 
-class CarSelect extends React.Component {
+class CarForm extends React.Component {
+  static async getInitialProps(store) {
+    return {};
+  }
   state = {
     options: {
       marka: { opts: [] },
@@ -58,7 +59,6 @@ class CarSelect extends React.Component {
     const { options } = this.state;
     const params = parents.reduce((prevParams, item) => {
       const selected = options[item.name] && options[item.name].selected;
-
       if (selected) {
         const selectedValue =
           typeof selected === 'string' ? selected.replace(/\s/g, '_') : selected;
@@ -66,7 +66,6 @@ class CarSelect extends React.Component {
         if (item.name === 'model_yili') {
           newName = 'yil';
         }
-
         return { ...prevParams, [newName]: selectedValue };
       }
       return prevParams;
@@ -86,9 +85,6 @@ class CarSelect extends React.Component {
   };
 
   async optionsData(name, value) {
-    // EE
-    singleSelect = false;
-
     const { options } = this.state;
 
     if (value && options[name].selected === value) return;
@@ -124,29 +120,12 @@ class CarSelect extends React.Component {
         }
         dataUrl += `/${newName}/${encodeURIComponent(value)}`;
       }
-      const opts = Object;
+
       const nextParent = parents[index + (value ? 1 : 0)];
       if (nextParent) {
-        const {
-          results: { opts },
-        } = await Api.get(dataUrl);
-
+        const { results: { opts } } = await Api.get(dataUrl);
         const data = opts.map(text => ({ text, value: text }));
         nextOptions = { [nextParent.name]: { opts: data } };
-
-        // Added Erdal EROĞLU /*
-        var sNext = Object;
-        var sVal = '';
-
-        if (Object.keys(opts).length == 1) {
-          sNext = nextParent.name;
-
-          sVal = nextOptions[nextParent.name].opts[0].value;
-          singleSelect = true;
-          nextOptions[nextParent.name].selectedValue = nextOptions[nextParent.name].opts[0].value;
-        }
-
-        // Added Erdal EROĞLU  */
       }
     }
 
@@ -158,11 +137,6 @@ class CarSelect extends React.Component {
       },
     });
 
-    // Added Erdal EROĞLU
-    if (singleSelect) {
-      this.optionsData(sNext, sVal);
-    }
-
     if (index === parents.length - 1) {
       this.onSubmit();
     }
@@ -170,49 +144,55 @@ class CarSelect extends React.Component {
 
   render() {
     return (
-      <Outer>
-        <Flex className="car-select" px={[1, 1, 2]} justifyContent="center" flexDirection="column">
-        <h3>Araç Bilgileri ile Ara</h3>
-          <Flex className="container" mx={-1} alignItems="flex-end">
-            {parents.map(({ name, title }) => {
-              const select = this.state.options[name] || {};
-              const options = select.opts || [];
+      <form>
+        <Flex className="car-select" mx={[-1, -1, -2]} align="flex-end">
+          {parents.map(({ name, title }) => {
+            const select = this.state.options[name] || {};
+            const options = select.opts || [];
 
-              return (
-                <Box
-                  className={cx('car-select-box', { disabled: options.length === 0 })}
-                  width={[1, 1, 1 / 7]}
-                  px={1}
-                  key={title}
-                >
-                  <label>{title}</label>
-                  <Select
-                    name={name}
-                    placeholder={title}
-                    disabled={options.length === 0}
-                    options={options}
-                    onChange={this.onChange}
-                    value={select.selected || ''}
-                    search
-                  />
-                </Box>
-              );
-            })}
-            <Box className="car-select-box" width={[1, 1, 1 / 7]} px={1}>
-              <Button
-                type="button"
-                onClick={this.onSubmit}
-                disabled={!this.state.options[parents[1].name]}
-                fluid
+            return (
+              <Box
+                className={cx('car-select-box', { disabled: options.length === 0 })}
+                width={[1, 1, 1 / 7]}
+                px={[1, 1, 2]}
+                key={title}
               >
-                Parça Ara
-              </Button>
-            </Box>
-          </Flex>
+                <label>{title}</label>
+                <Select
+                  name={name}
+                  placeholder={`${title} Seçiniz`}
+                  disabled={options.length === 0}
+                  options={options}
+                  onChange={this.onChange}
+                  value={select.selected || ''}
+                  search
+                />
+              </Box>
+            );
+          })}
+          <Box className="car-select-box" width={[1, 1, 1 / 7]} px={[1, 1, 2]}>
+            <Button
+              type="button"
+              onClick={this.onSubmit}
+              disabled={!this.state.options[parents[1].name]}
+              fluid
+            >
+              Parça Ara
+            </Button>
+          </Box>
         </Flex>
-      </Outer>
+      </form>
     );
   }
 }
 
+const ConnectedCarForm = connect()(CarForm);
+
+const CarSelect = () => (
+  <Outer>
+    <Container>
+      <Tab panes={panes} renderActiveOnly />
+    </Container>
+  </Outer>
+);
 export default connect()(CarSelect);

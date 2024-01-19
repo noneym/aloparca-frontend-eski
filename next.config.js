@@ -13,8 +13,8 @@ if (process.env.NODE_ENV === 'production') {
   plugins = plugins.concat(offline);
 }
 
-const devDomainURL = `http://localhost:${process.env.PORT || 3000}`;
-// const devDomainURL = process.env.DOMAIN_URL;
+//const devDomainURL = `http://localhost:${process.env.PORT || 3000}`;
+const devDomainURL = process.env.DOMAIN_URL;
 
 const isDev = process.env.NODE_ENV !== 'production';
 

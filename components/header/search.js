@@ -11,38 +11,23 @@ import { media } from '../../style/theme';
 
 const parents = [
   { title: 'Marka', name: 'marka' },
-  { title: 'Model', name: 'model' },
-  { title: 'Kasa', name: 'kasa' },
   { title: 'Yıl', name: 'yil' },
-  { title: 'Motor Hacmi', name: 'motor' },
-  { title: 'Beygir Gücü', name: 'beygir' },
+  { title: 'Model', name: 'model' },
+  { title: 'Araç', name: 'arac' } // 'Kasa', 'Motor Hacmi' ve 'Beygir Gücü' adımlarını kaldırdık
 ];
-
 const steps = {
   0: {
-    placeholder: 'Marka Seçiniz veya Parça No, Parça İsmi giriniz',
-    col: 4,
-    marka_width: '25%',
+    placeholder: 'Marka Seçiniz veya Parça No, Parça İsmi giriniz'
   },
   1: {
-    placeholder: 'Model Seçiniz',
-    col: 3,
-    marka_width: '33.3%',
+    placeholder: 'Yıl Seçiniz'
   },
   2: {
-    placeholder: 'Kasa Seçiniz',
-    col: 2,
-    marka_width: '50%',
+    placeholder: 'Model Seçiniz'
   },
   3: {
-    placeholder: 'Yıl Seçiniz',
-  },
-  4: {
-    placeholder: 'Motor Hacmi Seçiniz',
-  },
-  5: {
-    placeholder: 'Beygir Gücünü Seçiniz',
-  },
+    placeholder: 'Araç Seçiniz'
+  }
 };
 
 class SearchBar extends React.Component {
@@ -180,13 +165,12 @@ class SearchBar extends React.Component {
     return parents.reduce((prevParams, item) => {
       const selected = options[item.name] && options[item.name].selected;
       if (selected) {
-        const selectedValue = typeof selected === 'string' ? selected.replace(/\s/g, '_') : selected;
-        return { ...prevParams, [item.name]: selectedValue };
+        // API istekleri için 'id' değerini kullan
+        return { ...prevParams, [item.name]: selected.id };
       }
       return prevParams;
     }, {});
   };
-
   setResultsWidth = () => {
     const { isMobile } = this.state;
     setTimeout(() => {
@@ -214,35 +198,36 @@ class SearchBar extends React.Component {
   // eslint-disable-next-line react/sort-comp
   optionElements = [];
 
-  handlePressEnter = () => {
-    const { activeOption } = this.state;
-    if (this.optionElements[activeOption]) {
-      this.handleSelect(this.optionElements[activeOption].innerText.trim());
-    }
-  };
+// Klavye ile seçim yapma işlevlerini yeniden etkinleştir
+handlePressEnter = () => {
+  const { activeOption } = this.state;
+  if (this.optionElements[activeOption]) {
+    this.handleSelect(this.optionElements[activeOption].dataset.item);
+  }
+};
   
 
-  handlePressHorizontalArrow = (dir) => {
-    const optionElementsLength = this.optionElements.filter((item) => item).length;
-    this.setState((prevState) => ({
-      activeOption:
-        dir === 'left'
-          ? Math.max(prevState.activeOption - 1, 0)
-          : Math.min(prevState.activeOption + 1, optionElementsLength - 1),
-    }));
-  };
+handlePressHorizontalArrow = (dir) => {
+  const optionElementsLength = this.optionElements.filter((item) => item).length;
+  this.setState((prevState) => ({
+    activeOption:
+      dir === 'left'
+        ? Math.max(prevState.activeOption - 1, 0)
+        : Math.min(prevState.activeOption + 1, optionElementsLength - 1),
+  }));
+};
 
-  handlePressVerticalArrow = (dir) => {
-    const { activeStep } = this.state;
-    const optionElementsLength = this.optionElements.filter((item) => item).length;
-    const step = Math.max(4 - activeStep, 1);
-    this.setState((prevState) => ({
-      activeOption:
-        dir === 'top'
-          ? Math.max(prevState.activeOption - step, 0)
-          : Math.min(prevState.activeOption + step, optionElementsLength - 1),
-    }));
-  };
+handlePressVerticalArrow = (dir) => {
+  const { activeStep } = this.state;
+  const optionElementsLength = this.optionElements.filter((item) => item).length;
+  const step = Math.max(4 - activeStep, 1);
+  this.setState((prevState) => ({
+    activeOption:
+      dir === 'top'
+        ? Math.max(prevState.activeOption - step, 0)
+        : Math.min(prevState.activeOption + step, optionElementsLength - 1),
+  }));
+};
 
   openSearch = () => {
     this.setState({ isSearchDisabled: false });
@@ -312,24 +297,40 @@ class SearchBar extends React.Component {
   };
 
   // eslint-disable-next-line react/sort-comp
-  async handleSelect(newTag, autofill = false) {
+  async handleSelect(selectedOption, autofill = false) {
     const { activeStep } = this.state;
-    await this.optionsData(parents[activeStep].name, newTag);
-    this.setResultsWidth();
-    this.setState((prevState) => ({
-      tags: [...prevState.tags, newTag],
-      activeStep: prevState.activeStep + 1,
-      query: '',
-      activeOption: 0,
-    }));
+  
+    if (activeStep === 3) {
+      // Araç seçimi durumu için ayrı bir işlem
+      this.setState({
+        tags: [{ ...selectedOption }],
+        // activeStep'i artırmak yerine, başka bir işlem yap
+      });
+    } else {
+      const selectedName = selectedOption.name; // API'den gelen 'name' değerini kullan
+      const selectedId = selectedOption.id; // API'den gelen 'id' değerini kullan
+  
+      // selectedOption'un hem name hem de id bilgisini optionsData'ya gönder
+      await this.optionsData(parents[activeStep].name, { name: selectedName, id: selectedId });
+  
+      this.setState((prevState) => ({
+        tags: [...prevState.tags, { name: selectedName, id: selectedId }],
+        activeStep: prevState.activeStep + 1,
+        query: '',
+        activeOption: 0,
+      }));
+    }
     this.onSearch();
+  
     if (activeStep !== 5) {
       if (!autofill) this.searchInput.focus();
       return;
     }
+  
     // Submit only in last step
     this.onSubmit(null, autofill);
   }
+  
 
   handleTagClick = async (index) => {
     this.searchInput.value = '';
@@ -359,129 +360,118 @@ class SearchBar extends React.Component {
     await this.onSearch();
   };
 
-async optionsData(name, value) {
-  try {
-    const { options, activeStep } = this.state;
-
-
-    //console.log(options);
-    //console.log(name);
-    //console.log(value);
-
-    if (activeStep === 6) return;
-    if (value && options[name].selected === value) return;
-    const index = parents.findIndex((item) => item.name === name);
-    const currentSelected = { [name]: { ...options[name], selected: value } };
-    const prevStateOptionsFiltered = Object.keys(options).filter((key) => {
-      const prevIndex = parents.findIndex((item) => item.name === key);
-      return prevIndex < index;
-    });
-    const prevStateOptions = prevStateOptionsFiltered.reduce(
-      (obj, key) => ({ ...obj, [key]: options[key] }),
-      {},
-    );
-    let nextOptions = {};
-    if (index !== parents.length - 1) {
+  async optionsData(name, selectedOption = null) {
+    try {
+      const { options, activeStep } = this.state;
+  
+      if (activeStep === 4) return; // Eğer son adımdaysak, işlem yapma
+  
+      const index = parents.findIndex((item) => item.name === name);
+      
       let dataUrl = 'Products/araclar';
-      if (value) {
-        if (index > 0) {
-          dataUrl += prevStateOptionsFiltered.reduce(
-            (prevDataURL, prevName) => `${prevDataURL}/${prevName === 'yil' ? 'model_yili' : prevName}/${encodeURIComponent(prevStateOptions[prevName].selected).replace(/_/g, ' ')}`,
-            '',
-          );
-        }
-        let newName = '';
-        if (name === 'yil') {
-          newName = 'model_yili';
-        } else {
-          newName = name;
-        }
-        dataUrl += `/${newName}/${encodeURIComponent(value).replace(/_/g, ' ')}`;
+      let currentSelected = {};
+  
+      if (selectedOption) {
+        const selectedValue = selectedOption.id || selectedOption.name;
+        if (selectedValue && options[name].selected === selectedValue) return;
+  
+        currentSelected = { [name]: { ...options[name], selected: selectedOption } };
+        
+        dataUrl += Object.keys(options).reduce((prevDataURL, prevName) => {
+          if (prevName === name) return prevDataURL;
+          const selected = options[prevName].selected;
+          const valueToSend = selected && selected.id ? encodeURIComponent(selected.id) : encodeURIComponent(selected.name);
+          return `${prevDataURL}/${prevName === 'yil' ? 'model_yili' : prevName}/${valueToSend}`;
+        }, '');
       }
-      const nextParent = parents[index + (value ? 1 : 0)];
+  
+      const nextParent = parents[index + (selectedOption ? 1 : 0)];
+      let nextOptions = {};
       if (nextParent) {
-        const {
-          results: { opts },
-        } = await Api.get(dataUrl);
-        const data = opts.map((opt) => typeof opt === 'object' && opt !== null ? opt.name : opt);
-        nextOptions = { [nextParent.name]: { opts: data } };
+        dataUrl += selectedOption ? `/${name === 'yil' ? 'model_yili' : name}/${encodeURIComponent(selectedOption.id || selectedOption.name)}` : '';
+        const response = await Api.get(dataUrl);
+        let opts;
+        if (activeStep === 3) {
+          // Araç seçimi için özel işlem
+          opts = response.results.opts.map(opt => ({
+            id: opt.TYPEL, // veya başka bir benzersiz değer
+            name: `${opt.TYPEL} - Beygir: ${opt.PCS_POWER_PS || 'Bilinmiyorx'} - Kasa: ${opt["get_text(pcs.PCS_BODY_TYPE, 23)"] || 'Bilinmiyor'} - Piyasaya çıkış: ${opt.PCS_CONSTRUCTION_INTERVAL_START.split('-')[0]} - ${opt.PCS_CONSTRUCTION_INTERVAL_END.split('-')[0]}`
+          }));
+        } else {
+          opts = response.results.opts.map(opt => ({
+            id: opt.id,
+            name: opt.name
+          }));
+        }
+        nextOptions = { [nextParent.name]: { opts: opts } };
       }
+  
+      await this.setState({
+        options: {
+          ...options,
+          ...currentSelected,
+          ...nextOptions,
+        },
+      });
+    } catch (error) {
+      console.error(error);
     }
-    await this.setState({
-      options: {
-        ...prevStateOptions,
-        ...currentSelected,
-        ...nextOptions,
-      },
-    });
-  } catch (error) {
-    console.error(error);
   }
-}
-
   
 
   renderOptions = (options, activeStep, query) => {
 
-    // console.log(options);
+    if (activeStep >= parents.length) {
+      // Eğer activeStep, parents dizisinin dışındaysa, işlem yapma
+      return null;
+    }
 
     let btnInnerText = '';
-
+  
     switch (activeStep) {
       case 0:
         btnInnerText = 'Marka Seç';
         break;
       case 1:
-        btnInnerText = 'Model Seç';
-        break;
-      case 2:
-        btnInnerText = 'Kasa Seç';
-        break;
-      case 3:
         btnInnerText = 'Yıl Seç';
         break;
-      case 4:
-        btnInnerText = 'Motor Seç';
+      case 2:
+        btnInnerText = 'Model Seç';
         break;
-      case 5:
-        btnInnerText = 'Güç Seç';
+      case 3:
+        btnInnerText = 'Araç Seç';
         break;
       default:
         break;
     }
-
+  
     const parentOptions = options[parents[activeStep].name];
-  const filteredOptions = parentOptions && parentOptions.opts 
-      ? parentOptions.opts.filter((item) => {
-          let itemName = typeof item === 'object' && item !== null ? item.name : item;
-          if (query) {
-            return itemName.toLowerCase().indexOf(query.toLowerCase()) > -1;
-          }
-          return true;
-        })
-      : [];
-    
-
+  
+    // Filtrelenmiş seçeneklerin listesini oluştur
+    const filteredOptions = parentOptions && parentOptions.opts
+    ? parentOptions.opts.filter((item) => {
+        let itemName = item.name; // API'den gelen 'name' değerini kullan
+        if (query) {
+          return itemName.toLowerCase().indexOf(query.toLowerCase()) > -1;
+        }
+        return true;
+      })
+    : [];
+  
     if (filteredOptions.length === 0) {
-      return (
-        <li style={{ width: '100%' }}>
-          {`Aramanız için ${parents[activeStep].name} sonucu bulunamadı`}
-        </li>
-      );
+      return <li style={{ width: '100%' }}>Aramanız için {parents[activeStep].name} sonucu bulunamadı</li>;
     }
-
-    
     const { activeOption } = this.state;
     return filteredOptions.map((item, index) => {
-      let itemName = typeof item === 'object' && item !== null ? item.name : item;
+      let itemName = item.name; // API'den gelen 'name' değerini kullan
       return (
         <li
           className={cx({ active: index === activeOption })}
           ref={(n) => { this.optionElements[index] = n; }}
-          style={{ width: steps[activeStep].marka_width || '100%' }}
+          style={{ width: activeStep === 0 ? '25%' : '100%' }} // Eğer 'marka' adımındaysa, genişlik %25, değilse %100
           key={itemName}
         >
-          <a className="option" href="javascript:;" onClick={() => this.handleSelect(itemName)}>
+          <a className="option" href="javascript:;" onClick={() => this.handleSelect(item)}>
             {itemName}
             <div className="select-button">{btnInnerText}</div>
           </a>
@@ -520,7 +510,7 @@ async optionsData(name, value) {
       placeholder = 'Yükleniyor...';
     } else if (isMobile || tags.length === 6) {
       placeholder = 'Parça Ara...';
-    } else {
+    } else if (steps[activeStep]) { // Bu kontrol eklendi
       placeholder = steps[activeStep].placeholder;
     }
     return (
@@ -531,15 +521,16 @@ async optionsData(name, value) {
               <i className="icon-home" />
             </a>
           </div>
-          <ul className="tags">
-            {tags.map((tag, index) => (
-              <li style={{ zIndex: tags.length - index }} key={tag}>
-                <a href="javascript:;" onClick={() => this.handleTagClick(index)}>
-                  {tag}
-                </a>
-              </li>
-            ))}
-          </ul>
+<ul className="tags">
+  {tags.map((tag, index) => (
+    <li style={{ zIndex: tags.length - index }} key={tag.id}>
+      <a href="javascript:;" onClick={() => this.handleTagClick(index)}>
+        {tag.name}
+      </a>
+    </li>
+  ))}
+</ul>
+
         </TagsWrap>
         <InputHolder className="input-holder">
           <input

@@ -124,19 +124,19 @@ class CarFooter extends React.Component {
                 },
               }}
             >
-              {MarkaList.results.opts.map(item => (
+              {MarkaList.results.opts.map((item) => (
                 <Link
                   route="listcar"
-                  params={{ marka: item.replace(/\s/g, '_') }}
-                  title={item}
-                  key={item}
+                  params={{ marka: item.name }}
+                  title={item.name}
+                  key={item.name}
                 >
                   <img
                     className="swiper-lazy"
-                    data-src={`/static/img/logolar/markalar/marka_${item
+                    data-src={`/static/img/logolar/markalar/marka_${item.name
                       .replace(/\s/g, '')
                       .toLowerCase()}.svg`}
-                    alt={item}
+                    alt={item.name}
                   />
                 </Link>
               ))}

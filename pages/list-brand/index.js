@@ -65,20 +65,20 @@ class ListBrand extends React.Component {
                 </Flex>
                 <Flex flexWrap="wrap" m={-1}>
                   {brands && brands.length ? (
-                    brands.map(brand => (
-                      <Flex className="brand-wrapper" p={1} key={brand}>
+                    brands.map((brand) => (
+                      <Flex className="brand-wrapper" p={1} key={brand.name}>
                         <Flex className="brand" alignItems="center" justifyContent="center">
                           <Link
                             route="listcar"
-                            params={{ marka: brand.replace(/\s/g, '_') }}
-                            title={brand}
+                            params={{ marka: brand.name.replace(/\s/g, '_') }}
+                            title={brand.name}
                           >
                             <LazyLoad>
                               <img
-                                src={`/static/img/logolar/markalar/marka_${brand
+                                src={`/static/img/logolar/markalar/marka_${brand.name
                                   .replace(/\s/g, '')
                                   .toLowerCase()}.svg`}
-                                alt={brand}
+                                alt={brand.name}
                               />
                             </LazyLoad>
                           </Link>

@@ -33,9 +33,9 @@ class ListBrand extends React.Component {
 
     const brands = results.opts.filter((item) => {
       if (activeChar !== 'Tümü') {
-        return item.startsWith(activeChar);
+        return item.name.startsWith(activeChar);
       }
-      return item;
+      return item.name;
     });
     return (
       <Layout meta={{ title: 'Oto Yedek Parça Marka Listesi' }}>

@@ -48,11 +48,11 @@ class CarForm extends React.Component {
   onChange = (e, { name, value }) => {
     this.optionsData(name, value);
     // localStorage alanı
-    // const activeParent = parents.findIndex(item => item.name === name);
-    // localStorage.setItem(name, value);
-    // parents.forEach((item, index) => {
-    //   if (activeParent < index) localStorage.removeItem(item.name);
-    // });
+    const activeParent = parents.findIndex((item) => item.name === name);
+    localStorage.setItem(name, value);
+    parents.forEach((item, index) => {
+      if (activeParent < index) localStorage.removeItem(item.name);
+    });
   };
 
   onSubmit = () => {
@@ -124,7 +124,9 @@ class CarForm extends React.Component {
       const nextParent = parents[index + (value ? 1 : 0)];
       if (nextParent) {
         const { results: { opts } } = await Api.get(dataUrl);
-        const data = opts.map(text => ({ text, value: text }));
+        // const data = opts.map((text) => ({ text, value: text.name }));
+        const data = opts.map((text) => ({ key: text.id, value: text.id, text: text.name }));
+
         nextOptions = { [nextParent.name]: { opts: data } };
       }
     }

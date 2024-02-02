@@ -23,11 +23,11 @@ const panes = [
 
 const parents = [
   { title: 'Marka', name: 'marka' },
+  { title: 'Yıl', name: 'model_yili' },
   { title: 'Model', name: 'model' },
   { title: 'Kasa', name: 'kasa' },
-  { title: 'Yıl', name: 'model_yili' },
-  { title: 'Motor Hacmi', name: 'motor' },
-  { title: 'Beygir Gücü', name: 'beygir' },
+  // { title: 'Motor Hacmi', name: 'motor' },
+  // { title: 'Beygir Gücü', name: 'beygir' },
 ];
 
 class CarForm extends React.Component {

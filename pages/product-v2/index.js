@@ -256,7 +256,7 @@ const getPanes = (product, taksitTutar, cars, carLimit, changeState) => {
       }
     ];
   }
-  if (product?.oemler && product?.oemler.length > 0) {
+  if (product?.data?.oems && product?.data?.oems.length > 0) {
     tabs = [
       ...tabs,
       {
@@ -264,7 +264,7 @@ const getPanes = (product, taksitTutar, cars, carLimit, changeState) => {
         render: () => (
           <Tab.Pane attached={false}>
             <OemKod
-              oemler={product.oemler}
+              oemler={product?.data?.oems}
             />
           </Tab.Pane>
         )
@@ -313,11 +313,11 @@ const TabDetail = ({ content, muadil, seo, brandDescription }) => (
           {seo.text}
         </p>
       )}
-      <SeoContent
+      {/* <SeoContent
         title={seo && seo.baslik}
         content={content}
         mt={!isMobile && "-10"}
-      />
+      /> */}
 
       {/*content && (
       <div dangerouslySetInnerHTML={{ __html: content.replace(/\\r\n|\\n|\\r/g, '') }} />
@@ -1407,11 +1407,11 @@ class Product extends React.Component {
                 isCart
               />
             )} */}
-            {false && site === "aloparca" && (
+            {site === "aloparca" && (
               <>
                 <Section className="product-detail" my={1}>
                   <ProductDetailTab
-                    product={_product}
+                    product={product.data}
                     taksitTutar={taksitTutar}
                     cars={uyumluArac}
                     carLimit={carLimit}
@@ -1438,7 +1438,7 @@ class Product extends React.Component {
                         <TabDetail
                           content={_product.urun_aciklama}
                           muadil={_product.orjinal_yan}
-                          seo={_product.urun_tanim}
+                          seo={_product.urunAdi}
                           brandDescription={_product.marka_aciklama}
                         />
                       </Accordion.Content>

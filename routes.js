@@ -13,19 +13,20 @@ routes.add('product', '/yedek-parca/:seomake/:seotitle?/:seoid/:extra1?/:extra2?
 routes.add('product-v2', '/yedek-parca-v2/:seomake/:seotitle?/:seoid/:extra1?/:extra2?/:slug');
 routes.add('product-oem', '/oem-yedek-parca/:slug');
 
-routes.add('maincategory', categoryURL, 'category');
-routes.add('subcategory', `${categoryURL}/altkategori/:subcategory`, 'category');
+routes.add('maincategory', categoryURL, 'category-v2');
+routes.add('subcategory', `${categoryURL}/altkategori/:subcategory`, 'category-v2');
 routes.add(
   'listsubcategory',
   `${baseURL}/:marka?/:model?/:kasa?/:yil?/:motor?/:beygir?/altkategori/:subcategory`,
-  'list',
+  'list-v2',
 );
 routes.add(
   'listmaincategory',
   `${baseURL}/:marka?/:model?/:kasa?/:yil?/:motor?/:beygir?/ustkategori/:maincategory`,
-  'list',
+  'list-v2',
 );
 routes.add('listcar', `${baseURL}/:marka?/:model?/:kasa?/:yil?/:motor?/:beygir?`, 'list');
+routes.add('listcar-v2', `${baseURL}/:marka?/:model?/:kasa?/:yil?/:motor?/:beygir?`, 'list');
 // routes.add('listcar-b2b',`${baseURL}/:marka?`, 'list' )
 routes.add('listoem', '/i/:no/:slug', 'list-oem');
 routes.add('listmarka', '/marka/:marka/:slug?', 'list-marka');

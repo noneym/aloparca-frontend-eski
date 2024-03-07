@@ -9,8 +9,8 @@ const baseURL = '/oto-yedek-parca';
 const categoryURL = `${baseURL}/ustkategori/:maincategory`;
 
 routes.add('home', '/', publicRuntimeConfig.SITE === 'aloparca' ? 'home' : 'home-b2b');
-routes.add('product', '/yedek-parca/:seomake/:seotitle?/:seoid/:extra1?/:extra2?/:slug');
-routes.add('product-v2', '/yedek-parca-v2/:seomake/:seotitle?/:seoid/:extra1?/:extra2?/:slug');
+// routes.add('product', '/yedek-parca/:seomake/:seotitle?/:seoid/:extra1?/:extra2?/:slug');
+routes.add('product-v2', '/yedek-parca/:seomake/:seotitle?/:seoid/:extra1?/:extra2?/:slug');
 routes.add('product-oem', '/oem-yedek-parca/:slug');
 
 routes.add('maincategory', categoryURL, 'category-v2');
@@ -25,8 +25,8 @@ routes.add(
   `${baseURL}/:marka?/:model?/:kasa?/:yil?/:motor?/:beygir?/ustkategori/:maincategory`,
   'list-v2',
 );
-routes.add('listcar', `${baseURL}/:marka?/:model?/:kasa?/:yil?/:motor?/:beygir?`, 'list');
-routes.add('listcar-v2', `${baseURL}/:marka?/:model?/:kasa?/:yil?/:motor?/:beygir?`, 'list');
+routes.add('listcar', `${baseURL}/:marka?/:model?/:kasa?/:yil?/:motor?/:beygir?`, 'list-v2');
+routes.add('listcar-v2', `${baseURL}/:marka?/:model?/:kasa?/:yil?/:motor?/:beygir?`, 'list-v2');
 // routes.add('listcar-b2b',`${baseURL}/:marka?`, 'list' )
 routes.add('listoem', '/i/:no/:slug', 'list-oem');
 routes.add('listmarka', '/marka/:marka/:slug?', 'list-marka');

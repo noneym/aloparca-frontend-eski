@@ -28,7 +28,7 @@ class ProductList extends React.Component {
     const { sayfa = 1, maincategory, subcategory } = query;
     let apiUrl = 'Products/kategori_urunler_v2';
     if (maincategory) apiUrl += `?ustkategori=${maincategory}`;
-    if (subcategory) apiUrl += `&altkategori=${subcategory}`;
+    if (subcategory) apiUrl += `${(apiUrl.indexOf('?') > -1 ? '&' : '?')}altkategori=${subcategory}`;
     // if (query.srt === 'PRICE_HIGH') apiUrl += 'order_by/desc/';
     // if (query.srt === 'PRICE_LOW') apiUrl += 'order_by/asc/';
     // if (query.type === 'original') apiUrl += 'orjinal_yansanayi/Orjinal/';
@@ -41,7 +41,7 @@ class ProductList extends React.Component {
       const productList = await Api.get(`${apiUrl}&limit=20&sayfa=${sayfa}`);
       // console.log(`${apiUrl}limit/20/sayfa/${sayfa}/`,"list", productList);
 
-      console.log(`${apiUrl}&limit=20&sayfa=${sayfa}`, productList);
+      // console.log(`${apiUrl}&limit=20&sayfa=${sayfa}`, productList);
       if (parseInt(productList.status, 10) === 404) {
         throw 404;
       }
@@ -158,10 +158,11 @@ class ProductList extends React.Component {
       meta, viewList, filterOpen, openFilter, original, filterCar,
     } = this.state;
     const catProps = { maincategory, subcategory };
-    console.log(productList.baslik.h1);
+    // console.log(productList.baslik.h1);
     return (
       <Layout meta={{title:productList.baslik.h1}}>
         <ListPage>
+          {/* <div>V2</div> */}
           <Container>
             <Flex mx={-1}>
               {site === 'aloparca' && (

@@ -95,7 +95,7 @@ class ProductList extends React.Component {
     let apiType = '';
     let categoryUrl = '';
     if (query.marka) {
-      apiType = 'Products/products';
+      apiType = 'Products/products_v2';
       if (query.marka) apiUrl += `marka/${encodeURIComponent(query.marka).replace(/_/g, ' ')}/`;
       if (query.model) apiUrl += `model/${encodeURIComponent(query.model).replace(/_/g, ' ')}/`;
       if (query.kasa) apiUrl += `kasa/${encodeURIComponent(query.kasa).replace(/_/g, ' ')}/`;
@@ -105,7 +105,7 @@ class ProductList extends React.Component {
       if (query.motor) apiUrl += `motor/${encodeURIComponent(query.motor).replace(/_/g, ' ')}/`;
       if (query.beygir) apiUrl += `beygir/${encodeURIComponent(query.beygir).replace(/_/g, ' ')}/`;
     } else if (garage.marka) {
-      apiType = 'Products/products';
+      apiType = 'Products/products_v2';
       if (garage.marka) apiUrl += `marka/${encodeURIComponent(garage.marka).replace(/_/g, ' ')}/`;
       if (garage.model) apiUrl += `model/${encodeURIComponent(garage.model).replace(/_/g, ' ')}/`;
       if (garage.kasa) apiUrl += `kasa/${encodeURIComponent(garage.kasa).replace(/_/g, ' ')}/`;
@@ -132,8 +132,8 @@ class ProductList extends React.Component {
         if (redirect) return redirect;
       }
 
-      const productList = await Api.get(`${apiType}/${apiUrl}&limit=20&sayfa=${sayfa}/`);
-      console.log(`${apiType}/${apiUrl}&limit=20&sayfa=${sayfa}/`, productList)
+      const productList = await Api.get(`${apiType}/${apiUrl}&limit=20&sayfa=${sayfa}`);
+      console.log(`${apiType}/${apiUrl}&limit=20&sayfa=${sayfa}`, productList)
       if (parseInt(productList.status, 10) === 404) {
         // eslint-disable-next-line no-throw-literal
         throw 404;

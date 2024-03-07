@@ -10,8 +10,8 @@ const TabOem = ({ oemler }) => (
     </Table.Header>
     <Table.Body>
       {oemler.map(oem => (
-        <Table.Row key={`${oem.marka}-${oem.oem}`}>
-          <Table.Cell>{oem.marka}</Table.Cell>
+        <Table.Row key={`${oem.brand}-${oem.oem}`}>
+          <Table.Cell>{oem.brand}</Table.Cell>
           <Table.Cell>
               {oem.oem}
           </Table.Cell>

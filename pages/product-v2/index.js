@@ -198,7 +198,7 @@ const parents = [
 ];
 
 const getUrunAciklama = product => {
-  return '<h2>'+product.name+'</h2>'+product.urun_aciklama;
+  return '<h2>'+product?.name+'</h2>'+product?.urun_aciklama;
 };
 
 const getPanes = (product, taksitTutar, cars, carLimit, changeState) => {
@@ -209,9 +209,9 @@ const getPanes = (product, taksitTutar, cars, carLimit, changeState) => {
         <Tab.Pane attached={false}>
           <TabDetail
             content={getUrunAciklama(product)}
-            muadil={product.orjinal_yan}
-            seo={product.urun_tanim}
-            brandDescription={product.marka_aciklama}
+            muadil={product?.orjinal_yan}
+            seo={product?.urun_tanim}
+            brandDescription={product?.marka_aciklama}
           />
         </Tab.Pane>
       )
@@ -256,7 +256,7 @@ const getPanes = (product, taksitTutar, cars, carLimit, changeState) => {
       }
     ];
   }
-  if (product?.data?.oems && product?.data?.oems.length > 0) {
+  if (product?.oems && product?.oems.length > 0) {
     tabs = [
       ...tabs,
       {
@@ -264,7 +264,7 @@ const getPanes = (product, taksitTutar, cars, carLimit, changeState) => {
         render: () => (
           <Tab.Pane attached={false}>
             <OemKod
-              oemler={product?.data?.oems}
+              oemler={product?.oems}
             />
           </Tab.Pane>
         )
@@ -272,7 +272,7 @@ const getPanes = (product, taksitTutar, cars, carLimit, changeState) => {
     ];
   }
 
-  if (product?.taksitler && product?.taksitler) {
+  if (product?.taksitler) {
     tabs = [
       ...tabs,
       {
@@ -505,11 +505,12 @@ class Product extends React.Component {
       const meta = res ? await seoMeta(res.req.url) : {};
       // console.log(res.req.url);
       const ilIlceNested = await Api.get("/Usta/ililcev2");
+      const newData = Object.assign({},{...product.data})
       return {
-        product,
+        product: newData,
         meta,
         slug,
-        ilIlceNested
+        ilIlceNested,
       };
     } catch (e) {
       if (res) {
@@ -556,7 +557,8 @@ class Product extends React.Component {
         query: { slug }
       }
     } = Router;
-    const { product, garage, err } = this.props;
+    let { product, garage, err } = this.props;
+
 
     this.setState({
       motorYag: !!(
@@ -569,7 +571,7 @@ class Product extends React.Component {
     // }
 
     if (err) return;
-    console.log(product);
+    // console.log(product);
     this.setFiyat(product);
 
     let uyumluArac = product.araclar;
@@ -802,8 +804,8 @@ class Product extends React.Component {
         id: product.no,
         quantity: this.adet.value,
         name: product.name,
-        gorsel: product.gorsel
-      })
+        gorsel: this.handleImages(product.gorsel),
+      }),
     );
 
     this.setState({ isLoading: false });
@@ -816,6 +818,17 @@ class Product extends React.Component {
   closeModalServices = () => {
     this.setState({ openModalServices: false });
   };
+
+  handleImages = (images) => {
+    let parsedImage;
+    try {
+      parsedImage = JSON.parse(images);
+    } catch (err) {
+      parsedImage = images;
+    }
+
+    return parsedImage;
+  }
 
   render() {
     const {
@@ -846,12 +859,16 @@ class Product extends React.Component {
       motorYag,
       b2bFiyati
     } = this.state;
-    const _product = product.data
-    const { kredikarti, ...tutarlar } = _product.taksitler;
+    
+    
+    
+    const kart = product.taksitler;
+    
+    const {kredikarti, ...tutarlar} = kart;
     const taksitTutar = Object.values(tutarlar);
-    const remaining = _product.kampanya_bitis
+    const remaining = product.kampanya_bitis
       ? moment(
-          moment(_product.kampanya_bitis)
+          moment(product.kampanya_bitis)
             .utc()
             .format()
         ).diff(
@@ -867,7 +884,7 @@ class Product extends React.Component {
     }));
 
     const logo =
-    _product && _product.parca_tipi && _product.parca_tipi == 1
+    product && product.parca_tipi && product.parca_tipi == 1
         ? "/static/b2b/orijinal.svg"
         : product.parca_tipi == 2
         ? "/static/b2b/logosuz-orijinal.svg"
@@ -875,23 +892,23 @@ class Product extends React.Component {
 
     const b2bPrice =
       product.b2b_indirim_yuzdesi === undefined
-        ? Number(_product.fiyat)
-        : Number(_product.fiyat) -
-          (Number(_product.fiyat) / 100) * _product.b2b_indirim_yuzdesi;
+        ? Number(product.fiyat)
+        : Number(product.fiyat) -
+          (Number(product.fiyat) / 100) * product.b2b_indirim_yuzdesi;
 
     let benzerSlider = "";
 
-    if (_product.benzer) {
-      benzerSlider = _product.benzer;
+    if (product.benzer) {
+      benzerSlider = product.benzer;
     } else {
       benzerSlider = "";
     }
 
-    const kampanyaliFiyat = _product.fiyat/1.05;
+    const kampanyaliFiyat = product.fiyat/1.05;
 
     const productNameUpdated = () => {
-      console.log(_product)
-      const pNo = _product.stokkodu;
+      // console.log(product)
+      const pNo = product.stokkodu;
       switch (pNo) {
         case "15932938":
           return "5W40 MOTOR YAĞI (BENZİNLİ) 229.3 5LT";
@@ -900,29 +917,33 @@ class Product extends React.Component {
           return "5W40 MOTOR YAĞI (BENZİNLİ) 229.3 1LT";
 
         default:
-          return _product.urunAdi;
+          return product.urunAdi;
       }
     };
 
-    var newTitle = _product && _product.title ? _product.title : null;
+    var newTitle = product && product.title ? product.title : null;
 
     // if(product.breadcrumb !== null){
     //   newTitle = product.breadcrumb[1].name + ' | ' + newTitle;
     // }
-    // const prodMeta = meta ? meta : {title:newTitle, description:_product.metaDescription,canonical:'https://www.aloparca.com/'+product.breadcrumb[2].link};
+    // const prodMeta = meta ? meta : {title:newTitle, description:product.metaDescription,canonical:'https://www.aloparca.com/'+product.breadcrumb[2].link};
     const prodMeta = null;
     return (
       <Layout
         meta={prodMeta}
         isProductDetail
-        hasFixedAddCart={parseInt(_product.stokdurumu, 10) !== 0}
+        hasFixedAddCart={parseInt(product.stokdurumu, 10) !== 0}
       >
+        
         <ProductPage className={site === "b2b" && "b2b"}>
+        
           <Container>
+            {/* <div>{JSON.stringify(this.handleImages(product.resim))}</div> */}
+            <div>{JSON.stringify(product.resim)}</div>
             {site === "aloparca" && (
               <>
                 <Box className="breadcrumb-wrapper" pt={2} pb={1}>
-                  <BreadCrumb items={_product.breadcrumb || ""} isProduct />
+                  <BreadCrumb items={product.breadcrumb || ""} isProduct />
                 </Box>
 
                 <Section className="product-header" my={0} mx={-2}>
@@ -943,17 +964,17 @@ class Product extends React.Component {
                 </Section>
               </>
             )}
-
+            
             <Section className="product" my={1}>
               <Flex className="product-top">
-                {/* <Slider
-                  images={_product.gorsel}
-                  key={_product.no}
-                  name={_product.name}
-                  isOem={_product.parca_tipi === 1}
-                /> */}
+                <Slider
+                  images={product.resim}
+                  key={product.no}
+                  name={product.name}
+                  isOem={product.parca_tipi === 1}
+                />
 
-                {/* <Box className="image-area resimsiz-urun" width={[1, 1, 3 / 7]}>
+                <Box className="image-area resimsiz-urun" width={[1, 1, 3 / 7]}>
                   <Box className="product-no-image">
                     <img
                       className="zoom-items"
@@ -962,7 +983,7 @@ class Product extends React.Component {
                     />
                     <span>{product.name}</span>
                   </Box>
-                </Box> */}
+                </Box>
 
                 <Flex
                   width={[1, 1, 4 / 7]}
@@ -970,8 +991,8 @@ class Product extends React.Component {
                   justifyContent="space-between"
                 >
                   {site === "aloparca" &&
-                    _product?.kampanya_bitis &&
-                    _product?.kampanya_aciklama &&
+                    product?.kampanya_bitis &&
+                    product?.kampanya_aciklama &&
                     remaining > 0 && (
                       <Flex
                         className="campaign-wrapper"
@@ -979,7 +1000,7 @@ class Product extends React.Component {
                         alignItems="center"
                       >
                         <Box className="campaign-text">
-                          {_product?.kampanya_aciklama}
+                          {product?.kampanya_aciklama}
                         </Box>
                         <Flex className="campaign-end" flexDirection="column">
                           <Countdown date={Date.now() + remaining * 1000} />
@@ -995,18 +1016,18 @@ class Product extends React.Component {
                     alignItems="center"
                   >
                     {/* <h1>{productNameUpdated().toUpperCase()}</h1> */}
-                    {_product?.marka_logo && (
+                    {product?.marka_logo && (
                       <>
                         <img
-                          data-tip={`<div style="background:white; max-width: 300px;"><div style="font-weight: 700; margin: 5px 0 7.5px; padding-bottom: 5px; font-size: 16px; width: 100%; border-bottom: 1px solid #eee;">${_product.stokmarka}</div><div style="font-size: 14px;"></div>${product.marka_aciklama}</div>`}
+                          data-tip={`<div style="background:white; max-width: 300px;"><div style="font-weight: 700; margin: 5px 0 7.5px; padding-bottom: 5px; font-size: 16px; width: 100%; border-bottom: 1px solid #eee;">${product.stokmarka}</div><div style="font-size: 14px;"></div>${product.marka_aciklama}</div>`}
                           data-place="left"
                           data-effect="solid"
                           data-type="light"
                           data-html
                           data-class="brand-tooltip"
                           className="brand"
-                          src={`https://resize.aloparca.com/upload/w_65${_product?.marka_logo}`}
-                          alt={_product?.stokmarka}
+                          src={`https://resize.aloparca.com/upload/w_65${product?.marka_logo}`}
+                          alt={product?.stokmarka}
                         />
                         <ReactTooltip />
                       </>
@@ -1026,28 +1047,28 @@ class Product extends React.Component {
                       {/* {site === "aloparca" && (
                         <Link
                           route="listmarka"
-                          params={{ marka: _product?.stokmarka }}
-                          title={`${_product?.stokmarka} Marka Yedek Parçaları`}
+                          params={{ marka: product?.stokmarka }}
+                          title={`${product?.stokmarka} Marka Yedek Parçaları`}
                         >
-                          {_product?.stokmarka}
+                          {product?.stokmarka}
                         </Link>
                       )} */}
-                      {site === "b2b" && _product?.stokmarka}
-                      {site === "aloparca" && _product?.orjinal_yan && (
+                      {site === "b2b" && product?.stokmarka}
+                      {site === "aloparca" && product?.orjinal_yan && (
                         <div
                           style={{ marginLeft: "5px" }}
-                        >{`(${_product?.orjinal_yan})`}</div>
+                        >{`(${product?.orjinal_yan})`}</div>
                       )}
                     </Box>
                     <Box className="marka">
-                      <span>Stok Kodu:</span> {_product?.parcakodu}
+                      <span>Stok Kodu:</span> {product?.parcakodu}
                     </Box>
                   </Flex>
                   <RatingAndMadeni mt={2} className="rating">
                     <Box>
                       <Image
                         src={
-                          _product?.orjinal_yan === "Orjinal"
+                          product?.orjinal_yan === "Orjinal"
                             ? "/static/img/t/icons/rating-full.svg"
                             : "/static/img/t/icons/rating.svg"
                         }
@@ -1078,15 +1099,15 @@ class Product extends React.Component {
                     <Box className="price">
                       <Flex>
                         {site === "aloparca" &&
-                        _product.indirim_yuzdesi && 
-                        _product.status == '1' &&
-                        _product.indirim_yuzdesi >= 1 ? (
+                        product.indirim_yuzdesi && 
+                        product.status == '1' &&
+                        product.indirim_yuzdesi >= 1 ? (
                           <Box mr={1}>
                             <ImageBg
                               className="indirim"
                               src="/static/img/t/icons/indirim.svg"
                             >
-                              <span>%{_product.indirim_yuzdesi}</span>
+                              <span>%{product.indirim_yuzdesi}</span>
                               <p>indirim</p>
                             </ImageBg>
                           </Box>
@@ -1094,14 +1115,14 @@ class Product extends React.Component {
                           ""
                         )}
                         {site === "b2b" &&
-                        _product.b2b_indirim_yuzdesi &&
-                        _product.b2b_indirim_yuzdesi >= 1 ? (
+                        product.b2b_indirim_yuzdesi &&
+                        product.b2b_indirim_yuzdesi >= 1 ? (
                           <Box mr={1}>
                             <ImageBg
                               className="indirim"
                               src="/static/img/t/icons/indirim.svg"
                             >
-                              <span>%{_product.b2b_indirim_yuzdesi}</span>
+                              <span>%{product.b2b_indirim_yuzdesi}</span>
                               <p>indirim</p>
                             </ImageBg>
                           </Box>
@@ -1109,18 +1130,18 @@ class Product extends React.Component {
                           ""
                         )}
                         <Flex mt={2} className="price-area">
-                          {_product.liste_fiyat !== _product.fiyat && (
+                          {product.liste_fiyat !== product.fiyat && (
                             <div>
                               {site === "aloparca" && (
                                 <Box className="sale">
-                                  {_product.liste_fiyat}
+                                  {product.liste_fiyat}
                                   TL
                                 </Box>
                               )}
 
                               {site === "b2b" && isLogin ? (
                                 <Box className="sale b2b">
-                                  {_product.liste_fiyat}
+                                  {product.liste_fiyat}
                                   TL
                                   {/* <div className="sale-2">
                                     {product.liste_fiyat - product.liste_fiyat * 0.17}TL
@@ -1132,19 +1153,19 @@ class Product extends React.Component {
                             </div>
                           )}
 
-                          {site === "aloparca" && _product.indirimli_urun === 0 && _product.status == '1' &&(
+                          {site === "aloparca" && product.indirimli_urun === 0 && product.status == '1' &&(
                             <Box className="sold-price">
                               <span>
-                                {_product.fiyat.toString().split(".")[0]}
+                                {product.fiyat.toString().split(".")[0]}
                               </span>
-                              {`,${_product.fiyat.toString().split(".")[1]}`} TL
+                              {`,${product.fiyat.toString().split(".")[1]}`} TL
                             </Box>
                           )}
 
-                          {site === "aloparca" && _product.indirimli_urun === 1 && _product.status == '1' &&(
+                          {site === "aloparca" && product.indirimli_urun === 1 && product.status == '1' &&(
                             <CampainPriceBox>
                               <span>
-                                {_product.fiyat.toString()} TL
+                                {product.fiyat.toString()} TL
                               </span>
                             </CampainPriceBox>
                           )}
@@ -1160,7 +1181,7 @@ class Product extends React.Component {
                             </Box>
                           )}
                         </Flex>
-                        {site === "aloparca" && _product.indirimli_urun === 1 && _product.status == '1' &&(
+                        {site === "aloparca" && product.indirimli_urun === 1 && product.status == '1' &&(
                             <CampainPriceFrame mt={2} className="price-area">
                               <CampainPriceFlex>
                                 Sepette %5 indirim
@@ -1174,12 +1195,13 @@ class Product extends React.Component {
                           )}
                       </Flex>
                     </Box>
-                    {_product.status === "1" ? (
+                    <div>{product.stokdurumu}</div>
+                    {product.status === "1" ? (
                       <>
 
                       
-                    {parseInt(_product.stokdurumu, 10) === 0 ? (
-                      <StokBilgilendirme product={_product} isLogin={isLogin} />
+                    {parseInt(product.stokdurumu, 10) === 0 ? (
+                      <StokBilgilendirme product={product} isLogin={isLogin} />
                     ) : (
                       
                       <Box className="satinal" mt={2}>
@@ -1190,7 +1212,7 @@ class Product extends React.Component {
                                 onClick={() =>
                                   this.changeQuantity(
                                     "dec",
-                                    parseInt(_product.stok_adet, 10)
+                                    parseInt(product.stok_adet, 10)
                                   )
                                 }
                               >
@@ -1203,7 +1225,7 @@ class Product extends React.Component {
                                   value={this.state.quantity}
                                   onChange={this.changeQuantityValue}
                                   onFocus={e => e.target.select()}
-                                  max={_product.stok_adet}
+                                  max={product.stok_adet}
                                   min={this.state.minimumSatis}
                                   ref={n => {
                                     this.adet = n;
@@ -1215,7 +1237,7 @@ class Product extends React.Component {
                                 onClick={() =>
                                   this.changeQuantity(
                                     "inc",
-                                    parseInt(_product.stok_adet, 10)
+                                    parseInt(product.stok_adet, 10)
                                   )
                                 }
                               >
@@ -1237,12 +1259,14 @@ class Product extends React.Component {
                     )}
                     </>
                     ):(
-                      <Box><h1>Bu ürün satışa kapalıdır!</h1></Box>
+                      <Box>
+                        
+                        <h1>Bu ürün satışa kapalıdır!</h1></Box>
                     )}
                   </Flex>
                   {site === "b2b" &&
                     isLogin &&
-                    _product.b2b_indirim_yuzdesi !== 0 && (
+                    product.b2b_indirim_yuzdesi !== 0 && (
                       <div className="b2b-aciklama-urundetay">
                         <p>
                           B2B Müşterilerine Özel Toplam İndirim:
@@ -1258,28 +1282,28 @@ class Product extends React.Component {
                       </div>
                     )}
 
-                  {_product.parca_tipi &&
-                    _product.parca_tipi === 1 &&
-                    _product.dezenfektan !== "1" && (
+                  {product.parca_tipi &&
+                    product.parca_tipi === 1 &&
+                    product.dezenfektan !== "1" && (
                       <div className="descriptionOrjYed">
                         <span>Parça Türü:</span> Logolu Orijinal Yedek Parça
                       </div>
                     )}
-                  {_product.parca_tipi &&
-                    _product.parca_tipi === 2 &&
-                    _product.dezenfektan !== "1" && (
+                  {product.parca_tipi &&
+                    product.parca_tipi === 2 &&
+                    product.dezenfektan !== "1" && (
                       <div className="descriptionOrjYed">
                         <span>Parça Türü:</span> Logosuz Orijinal Yedek Parça
                       </div>
                     )}
-                  {_product.parca_tipi &&
-                    _product.parca_tipi === 3 &&
-                    _product.dezenfektan !== "1" && (
+                  {product.parca_tipi &&
+                    product.parca_tipi === 3 &&
+                    product.dezenfektan !== "1" && (
                       <div className="descriptionOrjYed">
                         <span>Parça Türü:</span> Muadil Yedek Parça
                       </div>
                     )}
-                  {_product.dezenfektan === "1" && (
+                  {product.dezenfektan === "1" && (
                     <div className="descriptionOrjYed">
                       <span>Parça Türü:</span> Temizlik ve Hijyen
                     </div>
@@ -1287,7 +1311,7 @@ class Product extends React.Component {
 
                   <div className="description">
                     <span>Tedarikçi Açıklaması:</span>{" "}
-                    {_product.tedarikci_aciklama}
+                    {product.tedarikci_aciklama}
                   </div>
                   <Flex mt={3} className="icon-list">
                     <Flex className="item">
@@ -1323,7 +1347,7 @@ class Product extends React.Component {
                   </Flex>
                   {site === "aloparca" && (
                     <>
-                      {parseInt(_product.uyumlu_arac, 10) === 1 ? (
+                      {parseInt(product.uyumlu_arac, 10) === 1 ? (
                         uyumluKontrol ? (
                           <Flex
                             alignItems="center"
@@ -1401,17 +1425,18 @@ class Product extends React.Component {
             {/* {product?.tavsiye_urunler === null ? null : (
               <ProductSlider
                 title="Bu Ürünler ile Birlikte Tavsiye Ettiklerimiz"
-                products={_product.tavsiye_urunler.filter(
+                products={product.tavsiye_urunler.filter(
                   p => p.stokdurumu != 0
                 )}
                 isCart
               />
             )} */}
+            {/* {<div>{JSON.stringify(product)}</div> } */}
             {site === "aloparca" && (
               <>
                 <Section className="product-detail" my={1}>
                   <ProductDetailTab
-                    product={product.data}
+                    product={product}
                     taksitTutar={taksitTutar}
                     cars={uyumluArac}
                     carLimit={carLimit}
@@ -1436,10 +1461,10 @@ class Product extends React.Component {
                       </Accordion.Title>
                       <Accordion.Content active={activeIndex === 0}>
                         <TabDetail
-                          content={_product.urun_aciklama}
-                          muadil={_product.orjinal_yan}
-                          seo={_product.urunAdi}
-                          brandDescription={_product.marka_aciklama}
+                          content={product.urun_aciklama}
+                          muadil={product.orjinal_yan}
+                          seo={product.urunAdi}
+                          brandDescription={product.marka_aciklama}
                         />
                       </Accordion.Content>
                     </Menu.Item>
@@ -1489,7 +1514,7 @@ class Product extends React.Component {
                         />
                       </Accordion.Title>
                       <Accordion.Content active={activeIndex === 2}>
-                        {/* <Ozellikler ozellikler={_product.ozellikler} /> */}
+                        {/* <Ozellikler ozellikler={product.ozellikler} /> */}
                       </Accordion.Content>
                     </Menu.Item>
                     {/* <Menu.Item>
@@ -1529,7 +1554,7 @@ class Product extends React.Component {
                       <Accordion.Content active={activeIndex === 4}>
                         <Taksit
                           className="taksit"
-                          taksit={_product.taksitler}
+                          taksit={product.taksitler}
                           taksitTutar={taksitTutar}
                         />
                       </Accordion.Content>
@@ -1547,7 +1572,7 @@ class Product extends React.Component {
             <div className="site-feature">
               <SiteFeature />
             </div>
-            {parseInt(_product.stokdurumu, 10) !== 0 && (
+            {parseInt(product.stokdurumu, 10) !== 0 && (
               <Flex className="fixed-checkout">
                 <Flex width={1 / 2} className="quantity">
                   <Flex
@@ -1557,7 +1582,7 @@ class Product extends React.Component {
                     onClick={() =>
                       this.changeQuantity(
                         "dec",
-                        parseInt(_product.stok_adet, 10)
+                        parseInt(product.stok_adet, 10)
                       )
                     }
                   >
@@ -1570,7 +1595,7 @@ class Product extends React.Component {
                       value={this.state.quantity}
                       onChange={this.changeQuantityValue}
                       onFocus={e => e.target.select()}
-                      max={_product.stok_adet}
+                      max={product.stok_adet}
                     />
                     <span>adet</span>
                   </Box>
@@ -1581,7 +1606,7 @@ class Product extends React.Component {
                     onClick={() =>
                       this.changeQuantity(
                         "inc",
-                        parseInt(_product.stok_adet, 10)
+                        parseInt(product.stok_adet, 10)
                       )
                     }
                   >
@@ -1615,8 +1640,8 @@ class Product extends React.Component {
             >
               <Header>Stok Miktarı Hakkında</Header>
               <p>
-                <strong>{_product.name}</strong> için maksimum{" "}
-                <strong>{_product.stok_adet} adet</strong> ürün satın
+                <strong>{product.name}</strong> için maksimum{" "}
+                <strong>{product.stok_adet} adet</strong> ürün satın
                 alabilirsiniz.
               </p>
               <p>
@@ -1630,7 +1655,7 @@ class Product extends React.Component {
             onClose={this.closeModal}
             closeIcon
           >
-            <Modal.Header>{`${_product.stokmarka} ${_product.name} Araç Uyumluluğu`}</Modal.Header>
+            <Modal.Header>{`${product.stokmarka} ${product.name} Araç Uyumluluğu`}</Modal.Header>
             <Modal.Content>
               <Flex flexDirection="column">
                 {parents.map(({ name, title }) => {

@@ -505,7 +505,7 @@ class Product extends React.Component {
       const meta = res ? await seoMeta(res.req.url) : {};
       // console.log(res.req.url);
       const ilIlceNested = await Api.get("/Usta/ililcev2");
-      const newData = Object.assign({},{...product.data})
+      const newData = Object.assign({},{...product.data},{...product.data.product})
       return {
         product: newData,
         meta,
@@ -939,7 +939,7 @@ class Product extends React.Component {
         
           <Container>
             {/* <div>{JSON.stringify(this.handleImages(product.resim))}</div> */}
-            <div>{JSON.stringify(product.resim)}</div>
+            {/* <div>{JSON.stringify(product.resim)}</div> */}
             {site === "aloparca" && (
               <>
                 <Box className="breadcrumb-wrapper" pt={2} pb={1}>
@@ -1431,7 +1431,7 @@ class Product extends React.Component {
                 isCart
               />
             )} */}
-            {/* {<div>{JSON.stringify(product)}</div> } */}
+            {/* {<div>{JSON.stringify(product.product)}</div> } */}
             {site === "aloparca" && (
               <>
                 <Section className="product-detail" my={1}>

@@ -198,7 +198,7 @@ const parents = [
 ];
 
 const getUrunAciklama = product => {
-  return '<h2>'+product?.name+'</h2>'+product?.urun_aciklama;
+  return "<h2>" + product?.name + "</h2>" + product?.urun_aciklama;
 };
 
 const getPanes = (product, taksitTutar, cars, carLimit, changeState) => {
@@ -263,9 +263,7 @@ const getPanes = (product, taksitTutar, cars, carLimit, changeState) => {
         menuItem: "OEM Kodları",
         render: () => (
           <Tab.Pane attached={false}>
-            <OemKod
-              oemler={product?.oems}
-            />
+            <OemKod oemler={product?.oems} />
           </Tab.Pane>
         )
       }
@@ -473,11 +471,10 @@ class Product extends React.Component {
       }
       const { slug, seotitle } = query;
 
-     // slug değerini string'e çevir
-     if (typeof slug !== 'string') {
-      slug = slug.toString();
-    }
-
+      // slug değerini string'e çevir
+      if (typeof slug !== "string") {
+        slug = slug.toString();
+      }
 
       const product = await Api.get(`Products/product_v2/no/${slug}`);
 
@@ -505,13 +502,17 @@ class Product extends React.Component {
       const meta = res ? await seoMeta(res.req.url) : {};
       // console.log(res.req.url);
       const ilIlceNested = await Api.get("/Usta/ililcev2");
-      const newData = Object.assign({},{...product.data},{...product.data.product})
-      delete (newData.product)
+      const newData = Object.assign(
+        {},
+        { ...product.data },
+        { ...product.data.product }
+      );
+      delete newData.product;
       return {
         product: newData,
         meta,
         slug,
-        ilIlceNested,
+        ilIlceNested
       };
     } catch (e) {
       if (res) {
@@ -560,7 +561,6 @@ class Product extends React.Component {
     } = Router;
     let { product, garage, err } = this.props;
 
-
     this.setState({
       motorYag: !!(
         typeof product !== "undefined" && (await product.madeniyag) === "1"
@@ -588,7 +588,6 @@ class Product extends React.Component {
       }
     }
 
-  
     this.changeState({ uyumluArac });
 
     const { name } = parents[0];
@@ -599,7 +598,9 @@ class Product extends React.Component {
   }
 
   UNSAFE_componentWillReceiveProps({ slug }) {
-    if (JSON.stringify(this.props.slug.toString) !== JSON.stringify(slug.toString)) {
+    if (
+      JSON.stringify(this.props.slug.toString) !== JSON.stringify(slug.toString)
+    ) {
       this.getMeta(true);
     }
   }
@@ -805,8 +806,8 @@ class Product extends React.Component {
         id: product.no,
         quantity: this.adet.value,
         name: product.name,
-        gorsel: this.handleImages(product.gorsel),
-      }),
+        gorsel: this.handleImages(product.gorsel)
+      })
     );
 
     this.setState({ isLoading: false });
@@ -820,7 +821,7 @@ class Product extends React.Component {
     this.setState({ openModalServices: false });
   };
 
-  handleImages = (images) => {
+  handleImages = images => {
     let parsedImage;
     try {
       parsedImage = JSON.parse(images);
@@ -829,7 +830,7 @@ class Product extends React.Component {
     }
 
     return parsedImage;
-  }
+  };
 
   render() {
     const {
@@ -860,12 +861,10 @@ class Product extends React.Component {
       motorYag,
       b2bFiyati
     } = this.state;
-    
-    
-    
+
     const kart = product.taksitler;
-    
-    const {kredikarti, ...tutarlar} = kart;
+
+    const { kredikarti, ...tutarlar } = kart;
     const taksitTutar = Object.values(tutarlar);
     const remaining = product.kampanya_bitis
       ? moment(
@@ -885,7 +884,7 @@ class Product extends React.Component {
     }));
 
     const logo =
-    product && product.parca_tipi && product.parca_tipi == 1
+      product && product.parca_tipi && product.parca_tipi == 1
         ? "/static/b2b/orijinal.svg"
         : product.parca_tipi == 2
         ? "/static/b2b/logosuz-orijinal.svg"
@@ -905,7 +904,7 @@ class Product extends React.Component {
       benzerSlider = "";
     }
 
-    const kampanyaliFiyat = product.fiyat/1.05;
+    const kampanyaliFiyat = product.fiyat / 1.05;
 
     const productNameUpdated = () => {
       // console.log(product)
@@ -935,9 +934,7 @@ class Product extends React.Component {
         isProductDetail
         hasFixedAddCart={parseInt(product.stokdurumu, 10) !== 0}
       >
-        
         <ProductPage className={site === "b2b" && "b2b"}>
-        
           <Container>
             {/* <div>{JSON.stringify(this.handleImages(product.resim))}</div> */}
             {/* <div>{JSON.stringify(product)}</div> */}
@@ -965,7 +962,7 @@ class Product extends React.Component {
                 </Section>
               </>
             )}
-            
+
             <Section className="product" my={1}>
               <Flex className="product-top">
                 <Slider
@@ -975,7 +972,7 @@ class Product extends React.Component {
                   isOem={product.parca_tipi === 1}
                 />
 
-                <Box className="image-area resimsiz-urun" width={[1, 1, 3 / 7]}>
+                {/* <Box className="image-area resimsiz-urun" width={[1, 1, 3 / 7]}>
                   <Box className="product-no-image">
                     <img
                       className="zoom-items"
@@ -984,7 +981,7 @@ class Product extends React.Component {
                     />
                     <span>{product.name}</span>
                   </Box>
-                </Box>
+                </Box> */}
 
                 <Flex
                   width={[1, 1, 4 / 7]}
@@ -1033,40 +1030,40 @@ class Product extends React.Component {
                         <ReactTooltip />
                       </>
                     )}
-                    {site === 'b2b' && (
+                    {site === "b2b" && (
                       <img
                         className="brand"
                         src={logo}
                         alt={product.orjinal_yan}
-                        style={{ maxHeight: '60px' }}
+                        style={{ maxHeight: "60px" }}
                       />
                     )}
                   </Flex>
                   {product?.stokmarka && (
-                  <Flex className="marka-stok" mt={2}>
-                    <Box className="marka">
-                      <span>Marka:</span>{" "}
-                      {site === "aloparca" && (
-                        <Link
-                          route="listmarka"
-                          params={{ marka: product?.stokmarka }}
-                          title={`${product?.stokmarka} Marka Yedek Parçaları`}
-                        >
-                          {product?.stokmarka}
-                        </Link>
-                      )}
-                      {/* {JSON.stringify(product)} */}
-                      {site === "b2b" && product?.stokmarka}
-                      {site === "aloparca" && product?.orjinal_yan && (
-                        <div
-                          style={{ marginLeft: "5px" }}
-                        >{`(${product?.orjinal_yan})`}</div>
-                      )}
-                    </Box>
-                    <Box className="marka">
-                      <span>Stok Kodu:</span> {product?.parcakodu}
-                    </Box>
-                  </Flex>
+                    <Flex className="marka-stok" mt={2}>
+                      <Box className="marka">
+                        <span>Marka:</span>{" "}
+                        {site === "aloparca" && (
+                          <Link
+                            route="listmarka"
+                            params={{ marka: product?.stokmarka }}
+                            title={`${product?.stokmarka} Marka Yedek Parçaları`}
+                          >
+                            {product?.stokmarka}
+                          </Link>
+                        )}
+                        {/* {JSON.stringify(product)} */}
+                        {site === "b2b" && product?.stokmarka}
+                        {site === "aloparca" && product?.orjinal_yan && (
+                          <div
+                            style={{ marginLeft: "5px" }}
+                          >{`(${product?.orjinal_yan})`}</div>
+                        )}
+                      </Box>
+                      <Box className="marka">
+                        <span>Stok Kodu:</span> {product?.parcakodu}
+                      </Box>
+                    </Flex>
                   )}
                   <RatingAndMadeni mt={2} className="rating">
                     <Box>
@@ -1101,10 +1098,11 @@ class Product extends React.Component {
                   </RatingAndMadeni>
                   <Flex mt={motorYag ? 2 : 3} className="price-wrapper">
                     <Box className="price">
+                      
                       <Flex>
                         {site === "aloparca" &&
-                        product.indirim_zam_yuzde && 
-                        product.status == '1' &&
+                        product.indirim_zam_yuzde &&
+                        product.status == "1" &&
                         product.indirim_zam_yuzde >= 1 ? (
                           <Box mr={1}>
                             <ImageBg
@@ -1134,7 +1132,7 @@ class Product extends React.Component {
                           ""
                         )}
                         <Flex mt={2} className="price-area">
-                          {product.liste_fiyat !== product.fiyat && (
+                          {product.listefiyati !== product.fiyat && (
                             <div>
                               {site === "aloparca" && (
                                 <Box className="sale">
@@ -1148,7 +1146,9 @@ class Product extends React.Component {
                                   {product.listefiyati}
                                   TL
                                   <div className="sale-2">
-                                    {product.listefiyati - product.listefiyati * 0.17}TL
+                                    {product.listefiyati -
+                                      product.listefiyati * 0.17}
+                                    TL
                                   </div>
                                 </Box>
                               ) : (
@@ -1156,24 +1156,27 @@ class Product extends React.Component {
                               )}
                             </div>
                           )}
-                          
-                          {site === "aloparca" && product.indirim_zam_yuzde === 0 && product.status == '1' &&(
-                            <Box className="sold-price">
-                              <span>
-                                {product.fiyat.toString().split(".")[0]}
-                              </span>
-                              {`,${product.fiyat.toString().split(".")[1]}`} TL
-                            </Box>
-                          )}
 
-                          {site === "aloparca" && product.indirim_zam_yuzde === 1 && product.status == '1' &&(
-                            <CampainPriceBox>
-                              <span>
-                                {product.fiyat.toString()} TL
-                              </span>
-                            </CampainPriceBox>
-                          )}
-                          
+                          {site === "aloparca" &&
+                            product.indirim_zam_yuzde === 0 &&
+                            product.status == "1" && (
+                              <Box className="sold-price">
+                                <span>
+                                  {product.fiyat.toString().split(".")[0]}
+                                </span>
+                                {`,${product.fiyat.toString().split(".")[1]}`}{" "}
+                                TL
+                              </Box>
+                            )}
+
+                          {site === "aloparca" &&
+                            product.indirim_zam_yuzde === 1 &&
+                            product.status == "1" && (
+                              <CampainPriceBox>
+                                <span>{product.fiyat.toString()} TL</span>
+                              </CampainPriceBox>
+                            )}
+
                           {site === "b2b" && (
                             <Box className="sold-price">
                               <span>
@@ -1185,88 +1188,91 @@ class Product extends React.Component {
                             </Box>
                           )}
                         </Flex>
-                        {site === "aloparca" && product.indirim_zam_yuzde === 1 && product.status == '1' &&(
+                        {site === "aloparca" &&
+                          product.indirim_zam_yuzde === 1 &&
+                          product.status == "1" && (
                             <CampainPriceFrame mt={2} className="price-area">
                               <CampainPriceFlex>
                                 Sepette %5 indirim
                                 <Box className="campain-sold-price">
-                                <span>
-                                  {kampanyaliFiyat.toFixed(2)} TL
-                                </span>
-                              </Box>
+                                  <span>{kampanyaliFiyat.toFixed(2)} TL</span>
+                                </Box>
                               </CampainPriceFlex>
                             </CampainPriceFrame>
                           )}
                       </Flex>
                     </Box>
-                    <div>{product.stokdurumu}</div>
+                    {/* {JSON.stringify(product.status === "1")} */}
                     {product.status === "1" ? (
                       <>
-
-                      
-                    {parseInt(product.stokdurumu, 10) === 0 ? (
-                      <StokBilgilendirme product={product} isLogin={isLogin} />
+                        {parseInt(product.stokdurumu, 10) === 0 ? (
+                          <StokBilgilendirme
+                            product={product}
+                            isLogin={isLogin}
+                          />
+                        ) : (
+                          <Box className="satinal" mt={2}>
+                            <form onSubmit={this.addCartForm}>
+                              <Flex>
+                                <Flex className="quantity">
+                                  <Box
+                                    onClick={() =>
+                                      this.changeQuantity(
+                                        "dec",
+                                        parseInt(product.stok_adet, 10)
+                                      )
+                                    }
+                                  >
+                                    <Image src="/static/img/t/icons/eksi.svg" />
+                                  </Box>
+                                  <Box className="input">
+                                    <input
+                                      name="adet"
+                                      type="number"
+                                      value={this.state.quantity}
+                                      onChange={this.changeQuantityValue}
+                                      onFocus={e => e.target.select()}
+                                      max={product.stok_adet}
+                                      min={this.state.minimumSatis}
+                                      ref={n => {
+                                        this.adet = n;
+                                      }}
+                                    />
+                                    <span>adet</span>
+                                  </Box>
+                                  <Box
+                                    onClick={() =>
+                                      this.changeQuantity(
+                                        "inc",
+                                        parseInt(product.stok_adet, 10)
+                                      )
+                                    }
+                                  >
+                                    <Image src="/static/img/t/icons/arti.svg" />
+                                  </Box>
+                                </Flex>
+                                {/* {JSON.stringify(parseInt(product.stokdurumu, 10))} */}
+                                <Flex ml={2} className="add-to-cart">
+                                  <button
+                                    type="submit"
+                                    name="btn_submit"
+                                    disabled={isLoading}
+                                  >
+                                    SEPETE EKLE
+                                    {isLoading && (
+                                      <Spinner marginLeft={15} size="tiny" />
+                                    )}
+                                  </button>
+                                </Flex>
+                              </Flex>
+                            </form>
+                          </Box>
+                        )}
+                      </>
                     ) : (
-                      
-                      <Box className="satinal" mt={2}>
-                        <form onSubmit={this.addCartForm}>
-                          <Flex>
-                            <Flex className="quantity">
-                              <Box
-                                onClick={() =>
-                                  this.changeQuantity(
-                                    "dec",
-                                    parseInt(product.stok_adet, 10)
-                                  )
-                                }
-                              >
-                                <Image src="/static/img/t/icons/eksi.svg" />
-                              </Box>
-                              <Box className="input">
-                                <input
-                                  name="adet"
-                                  type="number"
-                                  value={this.state.quantity}
-                                  onChange={this.changeQuantityValue}
-                                  onFocus={e => e.target.select()}
-                                  max={product.stok_adet}
-                                  min={this.state.minimumSatis}
-                                  ref={n => {
-                                    this.adet = n;
-                                  }}
-                                />
-                                <span>adet</span>
-                              </Box>
-                              <Box
-                                onClick={() =>
-                                  this.changeQuantity(
-                                    "inc",
-                                    parseInt(product.stok_adet, 10)
-                                  )
-                                }
-                              >
-                                <Image src="/static/img/t/icons/arti.svg" />
-                              </Box>
-                            </Flex>
-                            {JSON.stringify(parseInt(product.stokdurumu, 10))}
-                            <Flex ml={2} className="add-to-cart">
-                              <button type="submit" name="btn_submit" disabled={isLoading}>
-                                SEPETE EKLE
-                                {isLoading && (
-                                  <Spinner marginLeft={15} size="tiny" />
-                                )}
-                              </button>
-                            </Flex>
-                          </Flex>
-                        </form>
-                      </Box>
-
-                    )}
-                    </>
-                    ):(
                       <Box>
-                        
-                        <h1>Bu ürün satışa kapalıdır!</h1></Box>
+                        <h1>Bu ürün satışa kapalıdır!</h1>
+                      </Box>
                     )}
                   </Flex>
                   {site === "b2b" &&

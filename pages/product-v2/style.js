@@ -132,6 +132,7 @@ const ProductPage = styled.div`
         padding: 45px 55px;
         flex-direction: column;
         justify-content: space-between;
+        width:100%;
         ${media.tablet`
           padding: 20px 0px;
           align-items: center;

@@ -20,7 +20,6 @@ class Filter extends React.Component {
           <Menu.Item>
             <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
               <i className="dropdown icon" />
-              <span>test</span>
             </Accordion.Title>
             <Accordion.Content active={activeIndex === 0}>Osman</Accordion.Content>
           </Menu.Item>

@@ -139,7 +139,7 @@ class MobileMenu extends React.Component {
     const newIndex = activeIndex === index ? -1 : index;
 
     if (index === 1 && loading) {
-      const categories = await Api.get("Anasayfa/kategoriler/");
+      const categories = await Api.get("Products/kategoriler_v2/");
       this.setState({ categories, loading: false });
     }
 

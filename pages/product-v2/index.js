@@ -1156,7 +1156,7 @@ class Product extends React.Component {
                               )}
                             </div>
                           )}
-
+                          
                           {site === "aloparca" && product.indirim_zam_yuzde === 0 && product.status == '1' &&(
                             <Box className="sold-price">
                               <span>
@@ -1248,6 +1248,7 @@ class Product extends React.Component {
                                 <Image src="/static/img/t/icons/arti.svg" />
                               </Box>
                             </Flex>
+                            {JSON.stringify(parseInt(product.stokdurumu, 10))}
                             <Flex ml={2} className="add-to-cart">
                               <button type="submit" name="btn_submit" disabled={isLoading}>
                                 SEPETE EKLE

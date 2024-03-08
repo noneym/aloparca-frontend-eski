@@ -14,7 +14,7 @@ import BreadCrumb from '../../components/breadcrumb';
 import Paginate from '../../components/paginate';
 import CarSelect from '../../components/product-list/car-select';
 import CarSelectFilter from '../../components/product-list/filter/car-select';
-import Category from '../../components/product-list/category';
+import Category from '../../components/product-list/category-v2';
 import ProductCard from '../../components/product-list/product-card';
 import ProductCardGrid from '../../components/product-list/product-card-grid';
 import SeoContent from '../../components/product-list/seo-content';
@@ -41,7 +41,7 @@ class OemList extends React.Component {
       if (!productList.urunler) {
         throw 404;
       }
-      const categories = await Api.get('Anasayfa/kategoriler');
+      const categories = await Api.get('Products/kategoriler_v2');
       if (typeof window !== 'undefined') {
         scroll.scrollToTop({
           duration: 2000,

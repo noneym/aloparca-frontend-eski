@@ -207,7 +207,7 @@ class Slider extends React.Component {
           onClose={this.togglePhotoSwipe}
           isOpen={isOpen}
           items={images.map(image => ({
-            src: `https://resize.aloparca.com/upload/w_1000,pns/${image}`,
+            src: `https://docimages.aloparca.com/${image}`,
             w: 0,
             h: 0
           }))}
@@ -243,8 +243,8 @@ class Slider extends React.Component {
               >
                 <img
                   className="zoom-items swiper-lazy"
-                  data-src={`https://resize.aloparca.com/upload/w_500,pns/${item}`}
-                  data-zoom={`https://resize.aloparca.com/upload/w_1000,pns/${item}`}
+                  data-src={`https://docimages.aloparca.com/${item}`}
+                  data-zoom={`https://docimages.aloparca.com/${item}`}
                   onError={this.onErrImg}
                   alt={name}
                 />
@@ -275,7 +275,7 @@ class Slider extends React.Component {
                   <div
                     className="thumb"
                     style={{
-                      backgroundImage: `url('https://resize.aloparca.com/upload/w_100/${item}')`
+                      backgroundImage: `url('https://docimages.aloparca.com/${item}')`
                     }}
                   />
                 </a>

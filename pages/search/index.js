@@ -13,7 +13,7 @@ import { Router } from '../../routes';
 import NotFound from '../../components/notfound';
 import Paginate from '../../components/paginate';
 import CarSelect from '../../components/product-list/car-select';
-import Category from '../../components/product-list/category';
+import Category from '../../components/product-list/category-v2';
 import CarSelectFilter from '../../components/product-list/filter/car-select';
 
 import ProductCard from './product-list';
@@ -48,7 +48,7 @@ class Search extends React.Component {
       const {
         results: { search },
       } = await Api.get(`${apiUrl}q/${encodeURIComponent(query.slug)}/limit/20/sayfa/${sayfa}/`);
-      const categories = await Api.get('Anasayfa/kategoriler/');
+      const categories = await Api.get('Products/kategoriler_v2/');
       if (typeof window !== 'undefined') {
         scroll.scrollToTop({
           duration: 2000,

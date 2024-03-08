@@ -147,7 +147,7 @@ class ProductList extends React.Component {
       if (query.marka) {
         categories = await Api.get(`Products/kategoriler/${categoryUrl}`);
       } else {
-        categories = await Api.get('Anasayfa/kategoriler');
+        categories = await Api.get('Products/kategoriler_v2');
       }
       if (typeof window !== 'undefined') {
         scroll.scrollToTop({

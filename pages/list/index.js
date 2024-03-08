@@ -24,7 +24,7 @@ import BreadCrumb from '../../components/breadcrumb';
 import Paginate from '../../components/paginate';
 import CarSelect from '../../components/product-list/car-select';
 import CarSelectFilter from '../../components/product-list/filter/car-select';
-import Category from '../../components/product-list/category';
+import Category from '../../components/product-list/category-v2';
 import ProductCard from '../../components/product-list/product-card';
 import ProductCardB2b from '../../components/product-list/product-card/b2b';
 import ProductCardGrid from '../../components/product-list/product-card-grid';
@@ -133,7 +133,7 @@ class ProductList extends React.Component {
       }
 
       const productList = await Api.get(`${apiType}/${apiUrl}limit/20/sayfa/${sayfa}/`);
-
+      // debugger
       if (parseInt(productList.status, 10) === 404) {
         // eslint-disable-next-line no-throw-literal
         throw 404;
@@ -145,9 +145,9 @@ class ProductList extends React.Component {
       let categories;
       
       if (query.marka) {
-        categories = await Api.get(`Products/kategoriler/${categoryUrl}`);
+        categories = await Api.get(`Products/kategoriler_v2/${categoryUrl}`);
       } else {
-        categories = await Api.get('Anasayfa/kategoriler');
+        categories = await Api.get('Products/kategoriler_v2');
       }
       if (typeof window !== 'undefined') {
         scroll.scrollToTop({
@@ -160,7 +160,7 @@ class ProductList extends React.Component {
 
       if (query.marka) {
         const resData = await Api.get(`Products/araclar/marka/${encodeURIComponent(query.marka)}`);
-        getModel = resData.results;
+        getModel = resData.results.map((item) => item.name);
       }
 
       const meta = res ? await seoMeta(res.req.url) : {};
@@ -590,8 +590,8 @@ class ProductList extends React.Component {
                 {query.model ? (
                   <SelectModelList>
                     {categories.length ? categories.map((item) => (
-                        <Link key={item.ust_kategoriler.link} to={`/oto-yedek-parca/${query.marka}/${query.model}/ustkategori/${item.ust_kategoriler.link}`}>
-                          {`${query.marka} ${query.model} ${item.ust_kategoriler.name}`}
+                        <Link key={item.slug} to={`/oto-yedek-parca/${query.marka}/${query.model}/ustkategori/${item.slug}`}>
+                          {`${query.marka} ${query.model} ${item.name}`}
                         </Link>
                     )) : null}
                   </SelectModelList>
@@ -633,8 +633,8 @@ class ProductList extends React.Component {
                           (acc, next) => [
                             ...acc,
                             {
-                              value: next.ust_kategoriler.link,
-                              text: next.ust_kategoriler.name,
+                              value: next.slug,
+                              text: next.name,
                             },
                           ],
                           [],
@@ -661,12 +661,12 @@ class ProductList extends React.Component {
                         placeholder="Seçiniz"
                         defaultValue={subcategory}
                         options={
-                          categories.filter(item => item.ust_kategoriler.link === maincategory)
+                          categories.filter(item => item.slug === maincategory)
                             .length > 0 &&
                           categories
-                            .filter(item => item.ust_kategoriler.link === maincategory)[0]
-                            .ust_kategoriler.altkate.reduce(
-                              (prev, next) => [...prev, { value: next.link, text: next.name }],
+                            .filter(item => item.slug === maincategory)[0]
+                            .altkate.reduce(
+                              (prev, next) => [...prev, { value: next.slug, text: next.name }],
                               [],
                             )
                         }

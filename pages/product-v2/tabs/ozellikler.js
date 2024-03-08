@@ -11,8 +11,8 @@ const TabUyumluArac = ({ ozellikler }) => (
     <Table.Body>
       {ozellikler.map((ozellik, index) => (
         <Table.Row key={index}>
-          <Table.Cell>{ozellik.NAMECRITERIA}</Table.Cell>
-          <Table.Cell>{ozellik.VALUECRITERIA}</Table.Cell>
+          <Table.Cell>{ozellik.CRITERIA_NAME}</Table.Cell>
+          <Table.Cell>{ozellik.CRITERIA_VALUES}</Table.Cell>
         </Table.Row>
       ))}
     </Table.Body>

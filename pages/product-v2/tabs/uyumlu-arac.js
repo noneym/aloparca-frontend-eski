@@ -17,12 +17,12 @@ const TabUyumluArac = ({ cars, carLimit }) => (
       {cars &&
         cars.slice(0, carLimit).map((car, index) => (
           <Table.Row key={index}>
-            <Table.Cell>{car.CAR_BRANDS}</Table.Cell>
-            <Table.Cell>{car.MODEL_CAR}</Table.Cell>
-            <Table.Cell>{car.BODY_TYPE}</Table.Cell>
-            <Table.Cell>{car.YEAR}</Table.Cell>
-            <Table.Cell>{car.TYP_CAR}</Table.Cell>
-            <Table.Cell>{car.KV}KW</Table.Cell>
+            <Table.Cell>{car.marka}</Table.Cell>
+            <Table.Cell>{car.model}</Table.Cell>
+            <Table.Cell>{car.kasa}</Table.Cell>
+            <Table.Cell>{car.year_start}</Table.Cell>
+            <Table.Cell>{car.motor_kod}</Table.Cell>
+            <Table.Cell>{car.kw}KW</Table.Cell>
           </Table.Row>
         ))}
     </Table.Body>

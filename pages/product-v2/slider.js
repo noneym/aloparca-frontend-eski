@@ -194,20 +194,32 @@ class Slider extends React.Component {
   };
 
   render() {
-    const { images, name , isOem} = this.props;
+    const { images, name ,isOem} = this.props;
     const { isOpen } = this.state;
+    const handleParseImage = (image) => {
+      let pimage;
+      try {
+        pimage = JSON.parse(image);
+      } catch (err) {
+        pimage = [image];
+      }
+      return pimage;
+    };
+    const sliderImages = handleParseImage(images);
     return (
       <Outer className="image-area" width={[1, 1, 3 / 7]}>
+        
         <OemBanner isOem={isOem}>
           <span>LOGOLU ORİJİNAL</span>
           <span>YEDEK PARÇA</span>
         </OemBanner>
+        {/* {sliderImages} */}
         <PhotoSwipe
           close={ps => this.bigSlider.slideTo(ps.getCurrentIndex())}
           onClose={this.togglePhotoSwipe}
           isOpen={isOpen}
-          items={images.map(image => ({
-            src: `https://resize.aloparca.com/upload/w_1000,pns/${image}`,
+          items={sliderImages && sliderImages.map(image => ({
+            src: `https://docimages.aloparca.com/${image}`,
             w: 0,
             h: 0
           }))}
@@ -235,7 +247,7 @@ class Slider extends React.Component {
               this.bigSlider = n;
             }}
           >
-            {images.map(item => (
+            {sliderImages && sliderImages.map(item => (
               <div
                 className="image-big"
                 key={item}
@@ -243,8 +255,8 @@ class Slider extends React.Component {
               >
                 <img
                   className="zoom-items swiper-lazy"
-                  data-src={`https://resize.aloparca.com/upload/w_500,pns/${item}`}
-                  data-zoom={`https://resize.aloparca.com/upload/w_1000,pns/${item}`}
+                  data-src={`https://docimages.aloparca.com/${item}`}
+                  data-zoom={`https://docimages.aloparca.com/${item}`}
                   onError={this.onErrImg}
                   alt={name}
                 />
@@ -252,7 +264,7 @@ class Slider extends React.Component {
             ))}
           </BigImage>
         </Box>
-        {images.length > 1 && (
+        {sliderImages && sliderImages.length > 1 && (
           <Box>
             <ThumbsImage
               settings={{
@@ -265,8 +277,8 @@ class Slider extends React.Component {
                 this.thumbSlider = n;
               }}
             >
-              {images.map((item, index) => (
-                /* eslint-disable no-script-url */
+              {sliderImages.map((item, index) => (
+                
                 <a
                   href="javascript:;"
                   onClick={() => this.bigSlider.slideTo(index)}
@@ -275,7 +287,7 @@ class Slider extends React.Component {
                   <div
                     className="thumb"
                     style={{
-                      backgroundImage: `url('https://resize.aloparca.com/upload/w_100/${item}')`
+                      backgroundImage: `url('https://docimages.aloparca.com/${item}')`
                     }}
                   />
                 </a>

@@ -243,20 +243,20 @@ const getPanes = (product, taksitTutar, cars, carLimit, changeState) => {
     ];
   }
 
-  if (product?.ozellikler && product?.ozellikler.length > 0) {
+  if (product?.criteria && product?.criteria.length > 0) {
     tabs = [
       ...tabs,
       {
         menuItem: "Özellikler",
         render: () => (
           <Tab.Pane attached={false}>
-            <Ozellikler ozellikler={product.ozellikler} />
+            <Ozellikler ozellikler={product.criteria} />
           </Tab.Pane>
         )
       }
     ];
   }
-  if (product?.oems && product?.oems.length > 0) {
+  if (product?.oems.length > 0) {
     tabs = [
       ...tabs,
       {
@@ -506,6 +506,7 @@ class Product extends React.Component {
       // console.log(res.req.url);
       const ilIlceNested = await Api.get("/Usta/ililcev2");
       const newData = Object.assign({},{...product.data},{...product.data.product})
+      delete (newData.product)
       return {
         product: newData,
         meta,
@@ -574,7 +575,7 @@ class Product extends React.Component {
     // console.log(product);
     this.setFiyat(product);
 
-    let uyumluArac = product.araclar;
+    let uyumluArac = product.cars;
     if (garage && garage.marka && garage.model && product.araclar) {
       uyumluArac = product.araclar.filter(
         arac =>
@@ -939,7 +940,7 @@ class Product extends React.Component {
         
           <Container>
             {/* <div>{JSON.stringify(this.handleImages(product.resim))}</div> */}
-            {/* <div>{JSON.stringify(product.resim)}</div> */}
+            {/* <div>{JSON.stringify(product)}</div> */}
             {site === "aloparca" && (
               <>
                 <Box className="breadcrumb-wrapper" pt={2} pb={1}>
@@ -1015,7 +1016,7 @@ class Product extends React.Component {
                     justifyContent="space-between"
                     alignItems="center"
                   >
-                    {/* <h1>{productNameUpdated().toUpperCase()}</h1> */}
+                    <h1>{productNameUpdated().toUpperCase()}</h1>
                     {product?.marka_logo && (
                       <>
                         <img
@@ -1032,19 +1033,20 @@ class Product extends React.Component {
                         <ReactTooltip />
                       </>
                     )}
-                    {/* site === 'b2b' && (
+                    {site === 'b2b' && (
                       <img
                         className="brand"
                         src={logo}
                         alt={product.orjinal_yan}
                         style={{ maxHeight: '60px' }}
                       />
-                    ) */}
+                    )}
                   </Flex>
+                  {product?.stokmarka && (
                   <Flex className="marka-stok" mt={2}>
                     <Box className="marka">
                       <span>Marka:</span>{" "}
-                      {/* {site === "aloparca" && (
+                      {site === "aloparca" && (
                         <Link
                           route="listmarka"
                           params={{ marka: product?.stokmarka }}
@@ -1052,7 +1054,8 @@ class Product extends React.Component {
                         >
                           {product?.stokmarka}
                         </Link>
-                      )} */}
+                      )}
+                      {/* {JSON.stringify(product)} */}
                       {site === "b2b" && product?.stokmarka}
                       {site === "aloparca" && product?.orjinal_yan && (
                         <div
@@ -1064,6 +1067,7 @@ class Product extends React.Component {
                       <span>Stok Kodu:</span> {product?.parcakodu}
                     </Box>
                   </Flex>
+                  )}
                   <RatingAndMadeni mt={2} className="rating">
                     <Box>
                       <Image
@@ -1099,9 +1103,9 @@ class Product extends React.Component {
                     <Box className="price">
                       <Flex>
                         {site === "aloparca" &&
-                        product.indirim_yuzdesi && 
+                        product.indirim_zam_yuzde && 
                         product.status == '1' &&
-                        product.indirim_yuzdesi >= 1 ? (
+                        product.indirim_zam_yuzde >= 1 ? (
                           <Box mr={1}>
                             <ImageBg
                               className="indirim"
@@ -1134,18 +1138,18 @@ class Product extends React.Component {
                             <div>
                               {site === "aloparca" && (
                                 <Box className="sale">
-                                  {product.liste_fiyat}
+                                  {product.listefiyati}
                                   TL
                                 </Box>
                               )}
 
                               {site === "b2b" && isLogin ? (
                                 <Box className="sale b2b">
-                                  {product.liste_fiyat}
+                                  {product.listefiyati}
                                   TL
-                                  {/* <div className="sale-2">
-                                    {product.liste_fiyat - product.liste_fiyat * 0.17}TL
-                                  </div> */}
+                                  <div className="sale-2">
+                                    {product.listefiyati - product.listefiyati * 0.17}TL
+                                  </div>
                                 </Box>
                               ) : (
                                 ""
@@ -1153,7 +1157,7 @@ class Product extends React.Component {
                             </div>
                           )}
 
-                          {site === "aloparca" && product.indirimli_urun === 0 && product.status == '1' &&(
+                          {site === "aloparca" && product.indirim_zam_yuzde === 0 && product.status == '1' &&(
                             <Box className="sold-price">
                               <span>
                                 {product.fiyat.toString().split(".")[0]}
@@ -1162,7 +1166,7 @@ class Product extends React.Component {
                             </Box>
                           )}
 
-                          {site === "aloparca" && product.indirimli_urun === 1 && product.status == '1' &&(
+                          {site === "aloparca" && product.indirim_zam_yuzde === 1 && product.status == '1' &&(
                             <CampainPriceBox>
                               <span>
                                 {product.fiyat.toString()} TL
@@ -1181,7 +1185,7 @@ class Product extends React.Component {
                             </Box>
                           )}
                         </Flex>
-                        {site === "aloparca" && product.indirimli_urun === 1 && product.status == '1' &&(
+                        {site === "aloparca" && product.indirim_zam_yuzde === 1 && product.status == '1' &&(
                             <CampainPriceFrame mt={2} className="price-area">
                               <CampainPriceFlex>
                                 Sepette %5 indirim

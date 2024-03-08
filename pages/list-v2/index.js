@@ -24,7 +24,7 @@ import BreadCrumb from '../../components/breadcrumb';
 import Paginate from '../../components/paginate';
 import CarSelect from '../../components/product-list/car-select';
 import CarSelectFilter from '../../components/product-list/filter/car-select';
-import Category from '../../components/product-list/category';
+import Category from '../../components/product-list/category-v2';
 import ProductCard from '../../components/product-list/product-card';
 import ProductCardB2b from '../../components/product-list/product-card/b2b';
 import ProductCardGrid from '../../components/product-list/product-card-grid';

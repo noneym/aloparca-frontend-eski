@@ -13,7 +13,7 @@ import NotFound from '../../components/notfound';
 import BreadCrumb from '../../components/breadcrumb';
 import Paginate from '../../components/paginate';
 import CarSelect from '../../components/product-list/car-select';
-import Category from '../../components/product-list/category';
+import Category from '../../components/product-list/category-v2';
 import ProductCard from '../../components/product-list/product-card';
 import ProductCardGrid from '../../components/product-list/product-card-grid';
 import CarSelectFilter from '../../components/product-list/filter/car-select';
@@ -48,7 +48,7 @@ class ProductList extends React.Component {
       if (!productList.urunler) {
         throw 404;
       }
-      const categories = await Api.get('Anasayfa/kategoriler/');
+      const categories = await Api.get('Products/kategoriler_v2/');
       if (typeof window !== 'undefined') {
         scroll.scrollToTop({
           duration: 2000,
@@ -421,8 +421,8 @@ class ProductList extends React.Component {
                             (acc, next) => [
                               ...acc,
                               {
-                                value: next.ust_kategoriler.link,
-                                text: next.ust_kategoriler.name,
+                                value: next.ust_kategoriler?.link,
+                                text: next.ust_kategoriler?.name,
                               },
                             ],
                             [],
@@ -449,7 +449,7 @@ class ProductList extends React.Component {
                           placeholder="Seçiniz"
                           defaultValue={subcategory}
                           options={
-                            categories.filter(item => item.ust_kategoriler.link === maincategory)
+                            categories.filter(item => item.ust_kategoriler?.link === maincategory)
                               .length > 0 &&
                             categories
                               .filter(item => item.ust_kategoriler.link === maincategory)[0]

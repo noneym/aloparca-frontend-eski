@@ -10,7 +10,7 @@ const categoryURL = `${baseURL}/ustkategori/:maincategory`;
 
 routes.add('home', '/', publicRuntimeConfig.SITE === 'aloparca' ? 'home' : 'home-b2b');
 //routes.add('product', '/yedek-parca/:seomake/:seotitle?/:seoid/:extra1?/:extra2?/:slug');
-routes.add('product-v2', '/yedek-parca/:seomake/:seotitle?/:seoid/:extra1?/:extra2?/:slug');
+routes.add('product', '/yedek-parca/:seomake/:seotitle?/:seoid/:extra1?/:extra2?/:slug');
 routes.add('product-oem', '/oem-yedek-parca/:slug');
 
 routes.add('maincategory', categoryURL, 'category');

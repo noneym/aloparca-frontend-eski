@@ -24,7 +24,7 @@ import BreadCrumb from '../../components/breadcrumb';
 import Paginate from '../../components/paginate';
 import CarSelect from '../../components/product-list/car-select';
 import CarSelectFilter from '../../components/product-list/filter/car-select';
-import Category from '../../components/product-list/category-v2';
+import Category from '../../components/product-list/category';
 import ProductCard from '../../components/product-list/product-card';
 import ProductCardB2b from '../../components/product-list/product-card/b2b';
 import ProductCardGrid from '../../components/product-list/product-card-grid';
@@ -661,10 +661,10 @@ class ProductList extends React.Component {
                         placeholder="Seçiniz"
                         defaultValue={subcategory}
                         options={
-                          categories.filter(item => item.slug === maincategory)
+                          categories.filter(item => item.ust_kategoriler.link === maincategory)
                             .length > 0 &&
                           categories
-                            .filter(item => item.slug === maincategory)[0]
+                            .filter(item => item.ust_kategoriler.link === maincategory)[0]
                             .altkate.reduce(
                               (prev, next) => [...prev, { value: next.slug, text: next.name }],
                               [],

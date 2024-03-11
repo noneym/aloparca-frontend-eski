@@ -9,7 +9,7 @@ import { Container, Link } from '../../reactor';
 import { Title } from '../../components/style';
 
 import CarSelect from '../../components/product-list/car-select';
-import Category from '../../components/product-list/category-v2';
+import Category from '../../components/product-list/category';
 
 import ListBrandPage from './style';
 import DropdownKategori from './dropdown';
@@ -21,7 +21,8 @@ import alphabetArray from './alphabet.json';
 class ListBrand extends React.Component {
   static async getInitialProps() {
     const { results } = await Api.get('Products/araclar');
-    const categories = await Api.get('Products/kategoriler_v2');
+    const categories = await Api.get('Anasayfa/kategoriler');
+    // console.log(categories);
     return { results, categories };
   }
 
@@ -61,7 +62,7 @@ class ListBrand extends React.Component {
                   ))}
                 </Flex>
                 <Flex className="mobile-dropdown">
-                  <DropdownKategori categories={categories} />
+                  {/* <DropdownKategori categories={categories} /> */}
                 </Flex>
                 <Flex flexWrap="wrap" m={-1}>
                   {brands && brands.length ? (

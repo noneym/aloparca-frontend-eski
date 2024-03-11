@@ -98,7 +98,7 @@ class Home extends React.Component {
 
     let categories = [];
     try {
-      categories = await Api.get('Products/kategoriler_v2/');
+      categories = await Api.get('Products/kategoriler/');
     } catch (e) {
       // console.log(e);
     }

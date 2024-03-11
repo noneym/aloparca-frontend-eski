@@ -21,8 +21,8 @@ const DropdownKategori = ({ categories }) => {
       Count += 1;
       list.push({
         key: `${Count}`,
-        text: `${kategori.name}`,
-        value: `${kategori.slug}`,
+        text: `${kategori.ust_kategoriler.name}`,
+        value: `${kategori.ust_kategoriler.link}`,
       });
     });
     return list;
@@ -35,7 +35,7 @@ const DropdownKategori = ({ categories }) => {
       list.push({
         key: `${Count2}`,
         text: `${kategori.name}`,
-        value: `${kategori.slug}`,
+        value: `${kategori.link}`,
       });
     });
     setSubOptions(list);

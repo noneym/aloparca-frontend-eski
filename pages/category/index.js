@@ -13,7 +13,7 @@ import NotFound from '../../components/notfound';
 import BreadCrumb from '../../components/breadcrumb';
 import Paginate from '../../components/paginate';
 import CarSelect from '../../components/product-list/car-select';
-import Category from '../../components/product-list/category-v2';
+import Category from '../../components/product-list/category';
 import ProductCard from '../../components/product-list/product-card';
 import ProductCardGrid from '../../components/product-list/product-card-grid';
 import CarSelectFilter from '../../components/product-list/filter/car-select';
@@ -45,7 +45,7 @@ class ProductList extends React.Component {
       if (!productList.urunler) {
         throw 404;
       }
-      const categories = await Api.get('Products/kategoriler_v2/');
+      const categories = await Api.get('Anasayfa/kategoriler/');
       if (typeof window !== 'undefined') {
         scroll.scrollToTop({
           duration: 2000,
@@ -53,7 +53,6 @@ class ProductList extends React.Component {
         });
       }
       const meta = res ? await seoMeta(res.req.url) : {};
-
       return {
         productList,
         categories,
@@ -155,7 +154,8 @@ class ProductList extends React.Component {
       meta, viewList, filterOpen, openFilter, original, filterCar,
     } = this.state;
     const catProps = { maincategory, subcategory };
-    console.log(productList.baslik.h1);
+    // console.log(productList.baslik.h1);
+    console.log(categories)
     return (
       <Layout meta={{title:productList.baslik.h1}}>
         <ListPage>
@@ -441,7 +441,7 @@ class ProductList extends React.Component {
                         style={{ borderBottom: '1px solid white' }}
                       >
                         Alt Kategori
-                        <Select
+                        {/* <Select
                           placeholder="Seçiniz"
                           defaultValue={subcategory}
                           options={
@@ -460,7 +460,7 @@ class ProductList extends React.Component {
                               filterCar: { ...filterCar, subcategory: value },
                             })
                           }
-                        />
+                        /> */}
                       </Flex>
                     )}
                     <Flex py={2} mb={1} alignItems="center" justifyContent="space-between">

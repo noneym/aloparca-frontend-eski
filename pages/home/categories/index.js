@@ -111,16 +111,16 @@ class Categories extends React.Component {
                   <Flex
                     width={[1, 1 / 4]}
                     p={2}
-                    key={category.slug}
+                    key={category.ust_kategoriler.link}
                     alignItems="center"
                   >
                     <Link
                       route={routeName}
-                      params={{ maincategory: category.slug, ...carList }}
+                      params={{ maincategory: category.ust_kategoriler.link, ...carList }}
                       className="category-link"
                     >
-                      <i className={`icon-kategoriler-${category.slug}`} />
-                      {category.name}
+                      <i className={`icon-kategoriler-${category.ust_kategoriler.name}`} />
+                      {category.ust_kategoriler.name}
                     </Link>
                   </Flex>
                 ))}

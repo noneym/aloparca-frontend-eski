@@ -13,7 +13,7 @@ import { Router } from '../../routes';
 import NotFound from '../../components/notfound';
 import Paginate from '../../components/paginate';
 import CarSelect from '../../components/product-list/car-select';
-import Category from '../../components/product-list/category-v2';
+import Category from '../../components/product-list/category';
 import CarSelectFilter from '../../components/product-list/filter/car-select';
 
 import ProductCard from './product-list';

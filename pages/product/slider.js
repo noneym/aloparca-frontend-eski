@@ -207,7 +207,7 @@ class Slider extends React.Component {
           onClose={this.togglePhotoSwipe}
           isOpen={isOpen}
           items={images.map(image => ({
-            src: `https://docimages.aloparca.com/${image}`,
+            src: `https://resize.aloparca.com/upload/w_600,pns/${image}`,
             w: 0,
             h: 0
           }))}

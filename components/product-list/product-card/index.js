@@ -327,6 +327,17 @@ class ProductCard extends React.Component {
     this.setState({ openModal: false, result: "" });
   };
 
+  handleImages = (images) => {
+    let parsedImage;
+    try {
+      parsedImage = JSON.parse(images)?.[0];
+    } catch (err) {
+      parsedImage = images;
+    }
+
+    return parsedImage;
+  }
+
   render() {
     const { openModal, result, isLoading } = this.state;
     const { item, breadcrumb, car, carModel, isLogin } = this.props;
@@ -338,17 +349,18 @@ class ProductCard extends React.Component {
     const marka = item.stokmarka;
     return (
       <Outer long={!(parseInt(item.stokdurumu, 10) > 0)}>
+        {/* {JSON.stringify(item)} */}
         <Box width={[1 / 3, 1 / 3, 1 / 4]} className="image-area">
           <Link to={`/yedek-parca${item.slug}`}>
             <>
               <OemBanner isOem={item.parca_tipi === 1}>
                 <span>LOGOLU ORİJİNAL</span>
-                <span>YEDEK PARÇA</span>
+                <span>YEDEKPARÇA</span>
               </OemBanner>
-
+              {/* <div>{this.handleImages(item.gorsel)}</div> */}
               <ImageBg
                 className="product-image"
-                src={`https://resize.aloparca.com/upload/w_260,h_200,pns/${item.gorsel}`}
+                src={`https://docimages.aloparca.com/${this.handleImages(item.gorsel)}`}
                 alt={`${item.stokmarka} Marka ${item.parcakodu} kodlu Oto Yedek Parça ${item.tedarikci_aciklama}`}
               />
               <Discount

@@ -162,7 +162,8 @@ class ProductList extends React.Component {
     return (
       <Layout meta={{title:productList.baslik.h1}}>
         <ListPage>
-          {/* <div>V2</div> */}
+          <div>V2</div>
+          
           <Container>
             <Flex mx={-1}>
               {site === 'aloparca' && (
@@ -436,6 +437,7 @@ class ProductList extends React.Component {
                         />
                       </Flex>
                     )}
+                    
                     {maincategory && (
                       <Flex
                         pb={1}

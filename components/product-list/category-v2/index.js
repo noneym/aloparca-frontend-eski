@@ -56,7 +56,7 @@ class Category extends React.Component {
     const {
       uyeid, sasi, not, resim, ...carList
     } = garage;
-    let linkUrl = '/oto-yedek-parca';
+    let linkUrl = '/oto-yedek-parca-v2';
     let listCar = {};
     if (query && query.marka) {
       if (query.marka) linkUrl += `/${query.marka}`;
@@ -92,10 +92,10 @@ class Category extends React.Component {
               onChange={this.search}
             />
             <Accordion as={Menu} vertical exclusive fluid>
+              {/* {JSON.stringify(categories)} */}
               {categories
                 && categories.length > 0
-                && categories
-                  .filter((item) => item.name.search(regexQuery) > -1
+                && categories.filter((item) => item.name.search(regexQuery) > -1
                       || item.subcategories.some((subItem) => subItem.name.search(regexQuery) > -1))
                   .map((category, index) => (
                     <Menu.Item key={category.name}>
@@ -115,7 +115,7 @@ class Category extends React.Component {
                           <li>
                             <a
                               href={`${linkUrl}/ustkategori/${category.slug}`}
-                              onClick={(e) => this.menuClick(e, 'listmaincategory', {
+                              onClick={(e) => this.menuClick(e, 'listmaincategory-v2', {
                                   ...listCar,
                                   maincategory: category.slug,
                                 })}
@@ -135,10 +135,10 @@ class Category extends React.Component {
                               <a
                                 href={`${linkUrl}/ustkategori/${
                                   category.slug
-                                }/altkategori/${sub.slug}`}
+                                }/altkategori/${sub.slug}`}i
                                 onClick={(e) => this.menuClick(
                                     e,
-                                    query && query.marka ? 'listsubcategory' : 'subcategory',
+                                    query && query.marka ? 'listsubcategory-v2' : 'subcategory-v2',
                                     query && query.marka
                                       ? {
                                         ...listCar,

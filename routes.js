@@ -14,6 +14,8 @@ routes.add('home', '/', publicRuntimeConfig.SITE === 'aloparca' ? 'home' : 'home
 routes.add('product', '/yedek-parca/:seomake/:seotitle?/:seoid/:extra1?/:extra2?/:slug');
 routes.add('product-oem', '/oem-yedek-parca/:slug');
 
+routes.add('product-v2', '/yedek-parca-v2/:seomake/:seotitle?/:seoid/:extra1?/:extra2?/:slug');
+
 routes.add('maincategory', categoryURL, 'category');
 routes.add('subcategory', `${categoryURL}/altkategori/:subcategory`, 'category');
 

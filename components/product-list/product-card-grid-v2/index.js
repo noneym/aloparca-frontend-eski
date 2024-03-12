@@ -6,14 +6,26 @@ import { addCart } from '../../../actions';
 
 import Outer from './style';
 
-const ProductCard = ({ item, dispatch }) => (
+const ProductCard = ({ item, dispatch }) => {
+  const handleImages = (images) => {
+    let parsedImage;
+    try {
+      parsedImage = JSON.parse(images);
+    } catch (err) {
+      parsedImage = images;
+    }
+
+    return parsedImage;
+  }
+
+  return (
   <Outer>
     <Link to={`/yedek-parca-v2${item.slug}`} className="link" title={item.name} />
     <div style={{ padding: '7.5px' }}>
       
       <ImageBg
         className="image"
-        src={`https://resize.aloparca.com/upload/w_260,h_200,pns/v2/${item.gorsel}`}
+        src={`https://resize.aloparca.com/upload/w_260,h_200,pns/v2/${handleImages(item.gorsel)?.[0]}`}
         alt={`${item.stokmarka} Marka ${item.parcakodu} kodlu Oto Yedek Parça ${item.tedarikci_aciklama}`}
       />
       <Discount percent={parseInt((1 - item.fiyat / item.liste_fiyat) * 100, 10)} type="grid" />
@@ -44,6 +56,6 @@ const ProductCard = ({ item, dispatch }) => (
       <div className="stok-yok">Güncel stok bilgisi için bizi arayın 0850 333 0686</div>
     )}
   </Outer>
-);
+)};
 
 export default connect()(ProductCard);

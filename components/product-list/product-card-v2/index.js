@@ -352,7 +352,7 @@ class ProductCard extends React.Component {
         {/* {JSON.stringify(item)} */}
         {/* {JSON.stringify(this.handleImages(item.gorsel)?.[0])} */}
         <Box width={[1 / 3, 1 / 3, 1 / 4]} className="image-area">
-          <Link to={`/yedek-parca${item.slug}`}>
+          <Link to={`/yedek-parca-v2${item.slug}`}>
             <>
               <OemBanner isOem={item.parca_tipi === 1}>
                 <span>LOGOLU ORİJİNAL</span>

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { TransitionablePortal } from 'semantic-ui-react';
+import { useRouter } from 'next/router';
 import { Link } from '../reactor';
 import { media } from '../style/theme';
 
@@ -153,6 +154,7 @@ const FlashMessage = ({ dispatch, flashMessage, getCartMessage }) => {
   };
 
   const { name, gorsel } = getCartMessage;
+  const router = useRouter();
 
   return (
     <>
@@ -165,7 +167,7 @@ const FlashMessage = ({ dispatch, flashMessage, getCartMessage }) => {
         <GetCartStyles>
           <GcsFlex>
             <GcsImage>
-              <GcsImg src={`https://resize.aloparca.com/upload/w_100,h_80,pns/${gorsel}`} alt={name} />
+              <GcsImg src={ router.asPath.indexOf('-v2') > -1 ? `https://resize.aloparca.com/upload/w_100,h_80,pns/v2/${gorsel}` : `https://resize.aloparca.com/upload/w_100,h_80,pns/${gorsel}`} alt={name} />
             </GcsImage>
             <GcsProduct>
               <GcsProductAdded>

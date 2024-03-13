@@ -719,11 +719,11 @@ class Header extends React.Component {
                         </li>
                     ))
                   }
-                  <UstMenuLi>
+                  {/* <UstMenuLi>
                     <a href="https://b2b.aloparca.com">
                       B2B
                     </a>
-                  </UstMenuLi>
+                  </UstMenuLi> */}
                   {/* menu.map(({ title, route, slug }) => (
                     <li key={title}>
                       <Link route={route} params={{ slug }}>

@@ -9,11 +9,11 @@ import { Router } from '../../../routes';
 
 const parents = [
   { title: 'Marka', name: 'marka' },
+  { title: 'Yıl', name: 'yil' },
   { title: 'Model', name: 'model' },
   { title: 'Kasa', name: 'kasa' },
-  { title: 'Yıl', name: 'yil' },
-  { title: 'Motor Hacmi', name: 'motor' },
-  { title: 'Beygir Gücü', name: 'beygir' },
+  // { title: 'Motor Hacmi', name: 'motor' },
+  // { title: 'Beygir Gücü', name: 'beygir' },
 ];
 
 class CarSelect extends React.Component {
@@ -99,8 +99,7 @@ class CarSelect extends React.Component {
     let newOptions = {};
     Object.keys(carList).forEach((key) => {
       if (key !== 'beygir') {
-        const keyValue =
-          typeof carList[key] === 'string' ? carList[key].replace(/_/g, ' ') : carList[key];
+        const keyValue = typeof carList[key] === 'string' ? carList[key].replace(/_/g, ' ') : carList[key];
         newOptions = {
           ...newOptions,
           [key]: { opts: [{ text: keyValue, value: keyValue }], selected: keyValue },
@@ -187,14 +186,15 @@ class CarSelect extends React.Component {
         }
         dataUrl += `/${newName}/${encodeURIComponent(value)}`;
       }
-
+      
       const nextParent = parents[index + (value ? 1 : 0)];
       if (nextParent) {
         const {
           results: { opts },
         } = await Api.get(dataUrl);
         // console.log(nextParent, name, value);
-        const data = opts.map(text => ({ text, value: text }));
+        const data = opts.map((text) => ({ key: text.id, value: text.id, text: text.name }));
+
         nextOptions = { [nextParent.name]: { opts: data } };
       }
     }

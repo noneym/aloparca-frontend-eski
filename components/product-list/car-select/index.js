@@ -11,10 +11,10 @@ import { Router } from '../../../routes';
 const parents = [
   { title: 'Marka', name: 'marka' },
   { title: 'Model', name: 'model' },
-  { title: 'Kasa', name: 'kasa' },
   { title: 'Yıl', name: 'yil' },
-  { title: 'Motor Hacmi', name: 'motor' },
-  { title: 'Beygir Gücü', name: 'beygir' },
+  { title: 'Kasa', name: 'kasa' },
+  // { title: 'Motor Hacmi', name: 'motor' },
+  // { title: 'Beygir Gücü', name: 'beygir' },
 ];
 
 class CarSelect extends React.Component {
@@ -25,14 +25,15 @@ class CarSelect extends React.Component {
   };
 
   componentDidMount() {
+    console.log(this.props)
     if (this.props.marka) {
       let garage = {};
       if (this.props.marka) garage = { ...garage, marka: decodeURIComponent(this.props.marka) };
       if (this.props.model) garage = { ...garage, model: decodeURIComponent(this.props.model) };
       if (this.props.kasa) garage = { ...garage, kasa: decodeURIComponent(this.props.kasa) };
       if (this.props.yil) garage = { ...garage, yil: decodeURIComponent(this.props.yil) };
-      if (this.props.motor) garage = { ...garage, motor: decodeURIComponent(this.props.motor) };
-      if (this.props.beygir) garage = { ...garage, beygir: decodeURIComponent(this.props.beygir) };
+      // if (this.props.motor) garage = { ...garage, motor: decodeURIComponent(this.props.motor) };
+      // if (this.props.beygir) garage = { ...garage, beygir: decodeURIComponent(this.props.beygir) };
       this.carLoader(garage);
     } else {
       this.carLoader(this.props.garage);
@@ -40,14 +41,15 @@ class CarSelect extends React.Component {
   }
 
   UNSAFE_componentWillReceiveProps(nextProp) {
+    // console.log("nextprop", nextProp)
     if (nextProp.marka) {
       let garage = {};
       if (nextProp.marka) garage = { ...garage, marka: decodeURIComponent(nextProp.marka) };
       if (nextProp.model) garage = { ...garage, model: decodeURIComponent(nextProp.model) };
       if (nextProp.kasa) garage = { ...garage, kasa: decodeURIComponent(nextProp.kasa) };
       if (nextProp.yil) garage = { ...garage, yil: decodeURIComponent(nextProp.yil) };
-      if (nextProp.motor) garage = { ...garage, motor: decodeURIComponent(nextProp.motor) };
-      if (nextProp.beygir) garage = { ...garage, beygir: decodeURIComponent(nextProp.beygir) };
+      // if (nextProp.motor) garage = { ...garage, motor: decodeURIComponent(nextProp.motor) };
+      // if (nextProp.beygir) garage = { ...garage, beygir: decodeURIComponent(nextProp.beygir) };
       this.carLoader(garage);
     } else {
       this.carLoader(nextProp.garage);
@@ -72,13 +74,13 @@ class CarSelect extends React.Component {
     }, {});
 
     let newParams = { ...params };
-    let routeType = 'listcar';
+    let routeType = 'listcar-v2';
     if (subcategory) {
       newParams = { ...newParams, subcategory };
-      routeType = 'listsubcategory';
+      routeType = 'listsubcategory-v2';
     } else if (maincategory) {
       newParams = { ...newParams, maincategory };
-      routeType = 'listmaincategory';
+      routeType = 'listmaincategory-v2';
     }
 
     Router.pushRoute(routeType, newParams);
@@ -86,6 +88,7 @@ class CarSelect extends React.Component {
 
   carLoader(garage) {
     const { name } = parents[0];
+    // debugger
     if (garage && garage[name]) {
       this.loadCarSelected(garage);
     } else {
@@ -104,7 +107,7 @@ class CarSelect extends React.Component {
           typeof carList[key] === 'string' ? carList[key].replace(/_/g, ' ') : carList[key];
         newOptions = {
           ...newOptions,
-          [key]: { opts: [{ text: keyValue, value: keyValue }], selected: keyValue },
+          [key]: { opts: [{ key: key.id, value: key.id, text: keyValue }], selected: keyValue },
         };
       }
     });
@@ -114,9 +117,8 @@ class CarSelect extends React.Component {
 
   async loadCarOptions(carList) {
     let dataURL = 'Products/araclar';
-
+    
     const queryKeys = Object.keys(carList);
-
     const newOptions = await reduce(
       queryKeys,
       async (prevObj, name) => {
@@ -130,7 +132,7 @@ class CarSelect extends React.Component {
           newName = name;
         }
         dataURL += `/${newName}/${encodeURIComponent(selected)}`;
-        const opts = results.opts.map(text => ({ text, value: text.toString() }));
+        const opts = results.opts.map(text => ({ key:text.id, text:text.name, value: text.id }));
 
         return { ...prevObj, [name]: { opts, selected } };
       },
@@ -138,10 +140,12 @@ class CarSelect extends React.Component {
     );
 
     const keys = Object.keys(newOptions);
+
     if (keys.length < parents.length) {
       const lastName = parents[keys.length].name;
       const { results } = await Api.get(dataURL);
-      const opts = results.opts.map(text => ({ text, value: text.toString() }));
+
+      const opts = results.opts.map(text => ({ key:text.id, text:text.name, value: text.id }));
       const options = { ...newOptions, [lastName]: { opts } };
       this.setState({ options });
     } else {
@@ -151,7 +155,7 @@ class CarSelect extends React.Component {
 
   async optionsData(name, value) {
     singleSelect = false;
-
+    // debugger
     const { options } = this.state;
 
     if (value && options[name].selected === value) return;
@@ -196,7 +200,8 @@ class CarSelect extends React.Component {
         const {
           results: { opts },
         } = await Api.get(dataUrl);
-        const data = opts.map(text => ({ text, value: text }));
+        const data = opts.map((text) => ({ key: text.id, value: text.id, text: text.name }));
+
         nextOptions = { [nextParent.name]: { opts: data } };
 
         var sNext=Object;

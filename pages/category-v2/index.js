@@ -116,11 +116,11 @@ class ProductList extends React.Component {
     const { filterCar } = this.state;
     const reparams = { ...this.props.query, ...filterCar };
     let routeName;
-    if (filterCar.marka) routeName = 'listcar';
-    if (filterCar.maincategory) routeName = 'maincategory';
-    if (filterCar.subcategory) routeName = 'subcategory';
-    if (filterCar.marka && filterCar.maincategory) routeName = 'listmaincategory';
-    if (filterCar.marka && filterCar.subcategory) routeName = 'listsubcategory';
+    if (filterCar.marka) routeName = 'listcar-v2';
+    if (filterCar.maincategory) routeName = 'maincategory-v2';
+    if (filterCar.subcategory) routeName = 'subcategory-v2';
+    if (filterCar.marka && filterCar.maincategory) routeName = 'listmaincategory-v2';
+    if (filterCar.marka && filterCar.subcategory) routeName = 'listsubcategory-v2';
     Router.pushRoute(routeName, reparams);
     this.setState({ openFilter: false });
   };
@@ -131,11 +131,11 @@ class ProductList extends React.Component {
     } = this.props;
 
     let routeName;
-    if (marka) routeName = 'listcar';
-    if (maincategory) routeName = 'maincategory';
-    if (subcategory) routeName = 'subcategory';
-    if (marka && maincategory) routeName = 'listmaincategory';
-    if (marka && subcategory) routeName = 'listsubcategory';
+    if (marka) routeName = 'listcar-v2';
+    if (maincategory) routeName = 'maincategory-v2';
+    if (subcategory) routeName = 'subcategory-v2';
+    if (marka && maincategory) routeName = 'listmaincategory-v2';
+    if (marka && subcategory) routeName = 'listsubcategory-v2';
     const reparams = { ...this.props.query, ...params };
     Router.pushRoute(routeName, reparams);
   }

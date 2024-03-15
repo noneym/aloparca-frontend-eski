@@ -25,9 +25,9 @@ import Paginate from '../../components/paginate';
 import CarSelect from '../../components/product-list/car-select';
 import CarSelectFilter from '../../components/product-list/filter/car-select';
 import Category from '../../components/product-list/category-v2';
-import ProductCard from '../../components/product-list/product-card';
+import ProductCard from '../../components/product-list/product-card-v2';
 import ProductCardB2b from '../../components/product-list/product-card/b2b';
-import ProductCardGrid from '../../components/product-list/product-card-grid';
+import ProductCardGrid from '../../components/product-list/product-card-grid-v2';
 import SearchBar from '../../components/header/search2';
 import SeoContent from '../../components/product-list/seo-content';
 
@@ -94,28 +94,29 @@ class ProductList extends React.Component {
     let apiUrl = '';
     let apiType = '';
     let categoryUrl = '';
-    if (query.marka) {
+    if (query.kasa) {
       apiType = 'Products/products_v2';
-      if (query.marka) apiUrl += `marka/${encodeURIComponent(query.marka).replace(/_/g, ' ')}/`;
-      if (query.model) apiUrl += `model/${encodeURIComponent(query.model).replace(/_/g, ' ')}/`;
-      if (query.kasa) apiUrl += `kasa/${encodeURIComponent(query.kasa).replace(/_/g, ' ')}/`;
-      if (query.yil) {
-        apiUrl += `model_yili/${encodeURIComponent(query.yil).replace(/_/g, ' ')}/`;
-      }
-      if (query.motor) apiUrl += `motor/${encodeURIComponent(query.motor).replace(/_/g, ' ')}/`;
-      if (query.beygir) apiUrl += `beygir/${encodeURIComponent(query.beygir).replace(/_/g, ' ')}/`;
+      // if(query.pc_id) apiUrl += '?pc_id='+query.pc_id
+      // if (query.marka) apiUrl += `marka/${encodeURIComponent(query.marka).replace(/_/g, ' ')}/`;
+      // if (query.model) apiUrl += `model/${encodeURIComponent(query.model).replace(/_/g, ' ')}/`;
+      if (query.kasa) apiUrl += `?pc_id=${encodeURIComponent(query.kasa).replace(/_/g, ' ')}/`;
+      // if (query.yil) {
+      //   apiUrl += `model_yili/${encodeURIComponent(query.yil).replace(/_/g, ' ')}/`;
+      // }
+      // if (query.motor) apiUrl += `motor/${encodeURIComponent(query.motor).replace(/_/g, ' ')}/`;
+      // if (query.beygir) apiUrl += `beygir/${encodeURIComponent(query.beygir).replace(/_/g, ' ')}/`;
     } else if (garage.marka) {
-      apiType = 'Products/products_v2';
-      if (garage.marka) apiUrl += `marka/${encodeURIComponent(garage.marka).replace(/_/g, ' ')}/`;
-      if (garage.model) apiUrl += `model/${encodeURIComponent(garage.model).replace(/_/g, ' ')}/`;
-      if (garage.kasa) apiUrl += `kasa/${encodeURIComponent(garage.kasa).replace(/_/g, ' ')}/`;
-      if (garage.yil) {
-        apiUrl += `model_yili/${encodeURIComponent(garage.yil).replace(/_/g, ' ')}/`;
-      }
-      if (garage.motor) apiUrl += `motor/${encodeURIComponent(garage.motor).replace(/_/g, ' ')}/`;
-      if (garage.beygir) {
-        apiUrl += `beygir/${encodeURIComponent(garage.beygir).replace(/_/g, ' ')}/`;
-      }
+      // apiType = 'Products/products_v2';
+      // if (garage.marka) apiUrl += `marka/${encodeURIComponent(garage.marka).replace(/_/g, ' ')}/`;
+      // if (garage.model) apiUrl += `model/${encodeURIComponent(garage.model).replace(/_/g, ' ')}/`;
+      // if (garage.kasa) apiUrl += `kasa/${encodeURIComponent(garage.kasa).replace(/_/g, ' ')}/`;
+      // if (garage.yil) {
+      //   apiUrl += `model_yili/${encodeURIComponent(garage.yil).replace(/_/g, ' ')}/`;
+      // }
+      // if (garage.motor) apiUrl += `motor/${encodeURIComponent(garage.motor).replace(/_/g, ' ')}/`;
+      // if (garage.beygir) {
+      //   apiUrl += `beygir/${encodeURIComponent(garage.beygir).replace(/_/g, ' ')}/`;
+      // }
     } else {
       apiType = 'Products/kategori_urunler_v2';
     }
@@ -125,29 +126,27 @@ class ProductList extends React.Component {
     // if (query.srt === 'PRICE_HIGH') apiUrl += 'order_by/desc/';
     // if (query.srt === 'PRICE_LOW') apiUrl += 'order_by/asc/';
     // if (query.type === 'original') apiUrl += 'orjinal_yansanayi/Orjinal/';
-
+    
     try {
       if (res) {
         const redirect = await redirectCheck(res, '200');
         if (redirect) return redirect;
       }
 
-      const productList = await Api.get(`${apiType}/${apiUrl}&limit=20&sayfa=${sayfa}`);
-      console.log(`${apiType}/${apiUrl}&limit=20&sayfa=${sayfa}`, productList)
+      const productList = await Api.get(`${apiType}${apiUrl}&limit=20&sayfa=${sayfa}`);
+      // console.log(`222222${apiType}${apiUrl}&limit=20&sayfa=${sayfa}`, productList)
       if (parseInt(productList.status, 10) === 404) {
         // eslint-disable-next-line no-throw-literal
-        throw 404;
+        // throw 404;
       }
       if (!productList.urunler) {
         // eslint-disable-next-line no-throw-literal
-        throw 404;
+        // throw 404;
       }
       let categories;
       
-      if (query.marka) {
-        categories = await Api.get(`Products/kategoriler/${categoryUrl}`);
-      } else {
-        categories = await Api.get('Products/kategoriler_v2');
+      if (query.kasa) {
+        categories = await Api.get(`Products/kategoriler_v2`);
       }
       if (typeof window !== 'undefined') {
         scroll.scrollToTop({
@@ -159,8 +158,8 @@ class ProductList extends React.Component {
       let getModel = [];
 
       if (query.marka) {
-        const resData = await Api.get(`Products/araclar/marka/${encodeURIComponent(query.marka)}`);
-        getModel = resData.results.map((item) => item.name);
+        // const resData = await Api.get(`Products/araclar/marka/${encodeURIComponent(query.marka)}`);
+        // getModel = resData.results.map((item) => item.name);
       }
 
       const meta = res ? await seoMeta(res.req.url) : {};
@@ -232,11 +231,11 @@ class ProductList extends React.Component {
     } = this.props;
     
     let routeName;
-    if (marka) routeName = 'listcar';
-    if (maincategory) routeName = 'maincategory';
-    if (subcategory) routeName = 'subcategory';
-    if (marka && maincategory) routeName = 'listmaincategory';
-    if (marka && subcategory) routeName = 'listsubcategory';
+    if (marka) routeName = 'listcar-v2';
+    if (maincategory) routeName = 'maincategory-v2';
+    if (subcategory) routeName = 'subcategory-v2';
+    if (marka && maincategory) routeName = 'listmaincategory-v2';
+    if (marka && subcategory) routeName = 'listsubcategory-v2';
     Router.pushRoute(routeName, reparams);
   }
 
@@ -244,11 +243,11 @@ class ProductList extends React.Component {
     const { filterCar } = this.state;
     const reparams = { ...this.props.query, ...filterCar };
     let routeName;
-    if (filterCar.marka) routeName = 'listcar';
-    if (filterCar.maincategory) routeName = 'maincategory';
-    if (filterCar.subcategory) routeName = 'subcategory';
-    if (filterCar.marka && filterCar.maincategory) routeName = 'listmaincategory';
-    if (filterCar.marka && filterCar.subcategory) routeName = 'listsubcategory';
+    if (filterCar.marka) routeName = 'listcar-v2';
+    if (filterCar.maincategory) routeName = 'maincategory-v2';
+    if (filterCar.subcategory) routeName = 'subcategory-v2';
+    if (filterCar.marka && filterCar.maincategory) routeName = 'listmaincategory-v2';
+    if (filterCar.marka && filterCar.subcategory) routeName = 'listsubcategory-v2';
     Router.pushRoute(routeName, reparams);
     this.setState({ openFilter: false });
   };
@@ -306,7 +305,7 @@ class ProductList extends React.Component {
         }}
       >
         <ListPage site={site}>
-          <h1>listing</h1>
+          {/* <h1>listing</h1> */}
           <Container>
             <Flex mx={-1}>
                 <Box className="left-area" px={1}>
@@ -591,8 +590,8 @@ class ProductList extends React.Component {
                 {query.model ? (
                   <SelectModelList>
                     {categories.length ? categories.map((item) => (
-                        <Link key={item.ust_kategoriler.link} to={`/oto-yedek-parca/${query.marka}/${query.model}/ustkategori/${item.ust_kategoriler.link}`}>
-                          {`${query.marka} ${query.model} ${item.ust_kategoriler.name}`}
+                        <Link key={item.slug} to={`/oto-yedek-parca/${query.marka}/${query.model}/ustkategori/${item.slug}`}>
+                          {`${query.marka} ${query.model} ${item.name}`}
                         </Link>
                     )) : null}
                   </SelectModelList>
@@ -634,8 +633,8 @@ class ProductList extends React.Component {
                           (acc, next) => [
                             ...acc,
                             {
-                              value: next.ust_kategoriler.link,
-                              text: next.ust_kategoriler.name,
+                              value: next.slug,
+                              text: next.name,
                             },
                           ],
                           [],
@@ -662,12 +661,12 @@ class ProductList extends React.Component {
                         placeholder="Seçiniz"
                         defaultValue={subcategory}
                         options={
-                          categories.filter(item => item.ust_kategoriler.link === maincategory)
+                          categories.filter(item => item.slug === maincategory)
                             .length > 0 &&
                           categories
-                            .filter(item => item.ust_kategoriler.link === maincategory)[0]
-                            .ust_kategoriler.altkate.reduce(
-                              (prev, next) => [...prev, { value: next.link, text: next.name }],
+                            .filter(item => item.slug === maincategory)[0]
+                            .subcategories.reduce(
+                              (prev, next) => [...prev, { value: next.slug, text: next.name }],
                               [],
                             )
                         }

@@ -48,6 +48,7 @@ class CarForm extends React.Component {
   onChange = (e, { name, value }) => {
     this.optionsData(name, value);
     // localStorage alanı
+    //debugger
     const activeParent = parents.findIndex((item) => item.name === name);
     localStorage.setItem(name, value);
     parents.forEach((item, index) => {
@@ -66,22 +67,27 @@ class CarForm extends React.Component {
         if (item.name === 'model_yili') {
           newName = 'yil';
         }
+        // if (item.name === 'kasa') {
+        //   newName = 'pc_id';
+        // }
         return { ...prevParams, [newName]: selectedValue };
       }
       return prevParams;
     }, {});
     if (options.beygir && options.beygir.selected) {
       const data = {
-        marka: options.marka.selected,
-        model: options.model.selected,
-        kasa: options.kasa.selected,
-        yil: options.model_yili.selected,
-        motor: options.motor.selected,
-        beygir: options.beygir.selected,
+        // marka: options.marka.selected,
+        // model: options.model.selected,
+        // pc_id: options.kasa.selected,
+        // yil: options.model_yili.selected,
+        // motor: options.motor.selected,
+        // beygir: options.beygir.selected,
       };
-      this.props.dispatch(addGarage(data));
+      // this.props.dispatch(addGarage(data));
     }
-    Router.pushRoute('listcar', params);
+    //  debugger
+    // consoe.log(params)
+    Router.pushRoute('listcar-v2', params);
   };
 
   async optionsData(name, value) {

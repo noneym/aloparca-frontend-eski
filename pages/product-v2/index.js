@@ -962,16 +962,22 @@ class Product extends React.Component {
                 </Section>
               </>
             )}
-
+            {/* {JSON.stringify(product.resim)} */}
             <Section className="product" my={1}>
               <Flex className="product-top">
+                
+             
                 <Slider
                   images={product.resim}
                   key={product.no}
                   name={product.name}
                   isOem={product.parca_tipi === 1}
                 />
+                
 
+               {/* {!product.resim && <div className="image-big"><img src={}/></div>} */}
+                
+                {/* <img className="image-big" src={`/static/img/noimg.jpg`}/> */}
                 {/* <Box className="image-area resimsiz-urun" width={[1, 1, 3 / 7]}>
                   <Box className="product-no-image">
                     <img
@@ -1172,7 +1178,7 @@ class Product extends React.Component {
                             )}
 
                           {site === "aloparca" &&
-                            product.indirim_zam_yuzde === 1 &&
+                            product.indirim_zam_yuzde == 1 &&
                             product.status == "1" && (
                               <CampainPriceBox>
                                 <span>{product.fiyat.toString()} TL</span>

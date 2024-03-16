@@ -208,21 +208,42 @@ class Slider extends React.Component {
     const sliderImages = handleParseImage(images);
     return (
       <Outer className="image-area" width={[1, 1, 3 / 7]}>
-        
         <OemBanner isOem={isOem}>
           <span>LOGOLU ORİJİNAL</span>
           <span>YEDEK PARÇA</span>
         </OemBanner>
+
+        {!images && (
+          <Box className="big-image">
+            <div>
+              <img
+                style={{
+                  objectFit: 'contain',
+                  width: '100%',
+                  padding: '100px',
+                  margin: '0 auto',
+                }}
+                src="./static/img/noimg.jpg"
+                data-zoom="./static/img/noimg.jpg"
+                onError={this.onErrImg}
+                alt={name}
+              />
+            </div>
+          </Box>
+        )}
         {/* {sliderImages} */}
         <PhotoSwipe
           close={ps => this.bigSlider.slideTo(ps.getCurrentIndex())}
           onClose={this.togglePhotoSwipe}
           isOpen={isOpen}
-          items={sliderImages && sliderImages.map(image => ({
-            src: `https://docimages.aloparca.com/${image}`,
-            w: 0,
-            h: 0
-          }))}
+          items={
+            sliderImages &&
+            sliderImages.map(image => ({
+              src: `https://resize.aloparca.com/upload/w_600,pns/${image}`,
+              w: 0,
+              h: 0
+            }))
+          }
           options={{
             shareEl: false,
             fullscreenEl: false,
@@ -232,39 +253,43 @@ class Slider extends React.Component {
           gettingData={this.gettingData}
         />
 
-        <Box className="big-image">
-          <BigImage
-            settings={{
-              preloadImages: false,
-              lazy: true,
-              on: {
-                slideChange: () => {
-                  this.thumbSlider.slideTo(this.bigSlider.activeIndex);
+        {(
+          <Box className="big-image">
+            <BigImage
+              settings={{
+                preloadImages: false,
+                lazy: true,
+                on: {
+                  slideChange: () => {
+                    this.thumbSlider.slideTo(this.bigSlider.activeIndex);
+                  }
                 }
-              }
-            }}
-            getSwiper={n => {
-              this.bigSlider = n;
-            }}
-          >
-            {sliderImages && sliderImages.map(item => (
-              <div
-                className="image-big"
-                key={item}
-                onClick={this.togglePhotoSwipe}
-              >
-                <img
-                  className="zoom-items swiper-lazy"
-                  data-src={`https://docimages.aloparca.com/${item}`}
-                  data-zoom={`https://docimages.aloparca.com/${item}`}
-                  onError={this.onErrImg}
-                  alt={name}
-                />
-              </div>
-            ))}
-          </BigImage>
-        </Box>
-        {sliderImages && sliderImages.length > 1 && (
+              }}
+              getSwiper={n => {
+                this.bigSlider = n;
+              }}
+            >
+              {sliderImages &&
+                sliderImages.map(item => (
+                  <div
+                    className="image-big"
+                    key={item}
+                    onClick={this.togglePhotoSwipe}
+                  >
+                    <img
+                      className="zoom-items swiper-lazy"
+                      data-src={`https://docimages.aloparca.com/${item}`}
+                      data-zoom={`https://docimages.aloparca.com/${item}`}
+                      onError={this.onErrImg}
+                      alt={name}
+                    />
+                  </div>
+                ))}
+              {/* {JSON.stringify(images)} */}
+            </BigImage>
+          </Box>
+        )}
+        {images && sliderImages && sliderImages.length > 1 && (
           <Box>
             <ThumbsImage
               settings={{
@@ -278,7 +303,6 @@ class Slider extends React.Component {
               }}
             >
               {sliderImages.map((item, index) => (
-                
                 <a
                   href="javascript:;"
                   onClick={() => this.bigSlider.slideTo(index)}
@@ -295,6 +319,7 @@ class Slider extends React.Component {
             </ThumbsImage>
           </Box>
         )}
+
       </Outer>
     );
   }

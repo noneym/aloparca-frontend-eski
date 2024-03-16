@@ -587,7 +587,7 @@ class ProductList extends React.Component {
                   />
                 )}
 
-                {query.model ? (
+                {/* {query.model ? (
                   <SelectModelList>
                     {categories.length ? categories.map((item) => (
                         <Link key={item.slug} to={`/oto-yedek-parca/${query.marka}/${query.model}/ustkategori/${item.slug}`}>
@@ -603,7 +603,7 @@ class ProductList extends React.Component {
                         </Link>
                     )) : null}
                   </SelectModelList>
-                )}
+                )} */}
               </Box>
             </Flex>
           </Container>

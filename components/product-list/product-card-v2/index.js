@@ -306,13 +306,14 @@ class ProductCard extends React.Component {
   addCartForm = async () => {
     this.setState({ isLoading: true });
     const { dispatch, item } = this.props;
+    console.log(this.handleImages(item.gorsel)?.[0])
     await dispatch(
       addCart({
         id: item.no,
         quantity: 1,
         name: item.name,
-        gorsel: this.handleImages(item.gorsel)?.[0]
-      })
+        gorsel: this.handleImages(item.gorsel)?.[0],
+      }),
     );
     this.setState({ isLoading: false });
   };
@@ -350,7 +351,7 @@ class ProductCard extends React.Component {
     return (
       <Outer long={!(parseInt(item.stokdurumu, 10) > 0)}>
         {/* {JSON.stringify(item)} */}
-        {/* {JSON.stringify(this.handleImages(item.gorsel)?.[0])} */}
+        {/* {JSON.stringify(`https://resize.aloparca.com/upload/w_260,h_200,pns/v2/${this.handleImages(item.gorsel)?.[0]}`)} */}
         <Box width={[1 / 3, 1 / 3, 1 / 4]} className="image-area">
           <Link to={`/yedek-parca-v2${item.slug}`}>
             <>

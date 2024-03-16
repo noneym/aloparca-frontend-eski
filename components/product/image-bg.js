@@ -5,7 +5,7 @@ import LazyLoad from 'react-lazyload';
 
 const onErrImg = (e) => {
   e.target.onerror = null;
-  e.target.src = '../../static/img/noimg.jpg';
+  e.target.src = 'https://resize.aloparca.com/upload/w_200,h_150/null';
 };
 
 const ImageBg = ({ className, src, alt,children }) => (

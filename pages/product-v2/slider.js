@@ -156,7 +156,7 @@ class Slider extends React.Component {
   onErrImg = e => {
     e.target.onerror = null;
     e.target.src =
-      "https://resize.aloparca.com/upload/w_260,h_200/yedekparca_img//A27015906001000302561.JPG";
+      "/static/img/noimg.jpg";
   };
 
   gettingData = (gallery, index, item) => {

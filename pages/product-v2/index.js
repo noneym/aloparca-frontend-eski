@@ -1076,6 +1076,7 @@ class Product extends React.Component {
                         alt="Rating"
                       />
                     </Box>
+                    {/* <div>{JSON.stringify(product)}</div> */}
                     {/* <Box className="text">(48 kullanıcı oyu)</Box> */}
                     {motorYag ? (
                       <MadenYag>
@@ -1109,7 +1110,7 @@ class Product extends React.Component {
                               className="indirim"
                               src="/static/img/t/icons/indirim.svg"
                             >
-                              <span>%{product.indirim_yuzdesi}</span>
+                              <span>%{product.discount_percentage}</span>
                               <p>indirim</p>
                             </ImageBg>
                           </Box>
@@ -1132,6 +1133,7 @@ class Product extends React.Component {
                           ""
                         )}
                         <Flex mt={2} className="price-area">
+                          {/* {product.fiyat} */}
                           {product.listefiyati !== product.fiyat && (
                             <div>
                               {site === "aloparca" && (
@@ -1156,9 +1158,9 @@ class Product extends React.Component {
                               )}
                             </div>
                           )}
-
+                          {/* {<div>bla bla bla {product.indirim_zam_yuzde == 0} {JSON.stringify(product.indirim_zam_yuzde == 0 && product.status == 1)} </div>} */}
                           {site === "aloparca" &&
-                            product.indirim_zam_yuzde === 0 &&
+                            product.indirim_zam_yuzde == 0 &&
                             product.status == "1" && (
                               <Box className="sold-price">
                                 <span>

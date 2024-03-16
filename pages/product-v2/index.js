@@ -1234,7 +1234,7 @@ class Product extends React.Component {
                                       value={this.state.quantity}
                                       onChange={this.changeQuantityValue}
                                       onFocus={e => e.target.select()}
-                                      max={product.stok_adet}
+                                      max={product.stok_adet == 0 ? 1:product.stok_adet}
                                       min={this.state.minimumSatis}
                                       ref={n => {
                                         this.adet = n;

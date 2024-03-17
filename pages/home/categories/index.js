@@ -8,51 +8,36 @@ import Outer from './style';
 
 class Categories extends React.Component {
   state = { showAll: false };
+
   render() {
     const { showAll } = this.state;
     const { categories, garage } = this.props;
     const {
       uyeid, sasi, not, resim, ...carList
     } = garage;
-    const routeName = carList.marka ? 'listmaincategory' : 'maincategory';
+    const routeName = carList.marka ? 'listmaincategory-v2' : 'maincategory-v2';
+
+    let cat = categories.filter((item, idx) => idx < 5);
+    // const cat = useState(cats.splice(0,5));
+
     return (
       <Outer flexWrap="wrap" alignItems="center">
         <Flex className="categories" width={1}>
           {[
-            {
-              icon: 'icon-kategoriler-aydinlatma',
-              title: 'Aydınlatma Aksamı',
-              maincategory: 'aydinlatma-aksami',
-            },
-            {
-              icon: 'icon-kategoriler-debriyaj',
-              title: 'Debriyaj Sistemi',
-              maincategory: 'debriyaj-sistemi',
-            },
-            {
-              icon: 'icon-kategoriler-direksiyon',
-              title: 'Direksiyon Sistemi',
-              maincategory: 'direksiyon-sistemi',
-            },
-            {
-              icon: 'icon-kategoriler-filtre',
-              title: 'Filtre Sistemi',
-              maincategory: 'filtre-sistemi',
-            },
-            { icon: 'icon-kategoriler-fren', title: 'Fren Sistemi', maincategory: 'fren-sistemi' },
+            ...cat,
           ].map((item) => {
-            const title = item.title.split(' ');
+            const title = item.name.split(' ');
             return (
               <Flex
                 as={Link}
                 route={routeName}
-                params={{ maincategory: item.maincategory, ...carList }}
-                title={item.title}
+                params={{ maincategory: item.slug, ...carList }}
+                title={item.name}
                 className="category-item"
                 width={[1 / 6]}
                 p={[0, 0, 0]}
                 alignItems="center"
-                key={item.title}
+                key={item.name}
               >
                 <Flex
                   className="item"
@@ -62,7 +47,12 @@ class Categories extends React.Component {
                   width={1}
                 >
                   <Flex className="content" alignItems="center">
-                    <i className={`icon ${item.icon}`} />
+                    <i
+                      className={`${item.ico}`}
+                      style={{
+                        marginRight: '10px',
+                      }}
+                    />
                     <span>
                       <strong>{title[0]}</strong>
                       {title.length > 1 && title[1]}
@@ -111,16 +101,17 @@ class Categories extends React.Component {
                   <Flex
                     width={[1, 1 / 4]}
                     p={2}
-                    key={category.ust_kategoriler.link}
+                    key={category.slug}
                     alignItems="center"
                   >
                     <Link
                       route={routeName}
-                      params={{ maincategory: category.ust_kategoriler.link, ...carList }}
+                      params={{ maincategory: category.slug, ...carList }}
                       className="category-link"
                     >
-                      <i className={`icon-kategoriler-${category.ust_kategoriler.name}`} />
-                      {category.ust_kategoriler.name}
+                      {/* {JSON.stringify(category)} */}
+                      <i className={`${category.ico}`} />
+                      {category.name}
                     </Link>
                   </Flex>
                 ))}

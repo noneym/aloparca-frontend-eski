@@ -98,7 +98,7 @@ class Home extends React.Component {
 
     let categories = [];
     try {
-      categories = await Api.get('Products/kategoriler/');
+      categories = await Api.get('Products/kategoriler_v2');
     } catch (e) {
       // console.log(e);
     }
@@ -124,6 +124,7 @@ class Home extends React.Component {
         <Slider />
         <CarSelect />
         <HomeContainer>
+          {/* {JSON.stringify(categories)} */}
           {categories.length > 0 && <Categories categories={categories} />}
           <SeoText />
           
@@ -174,12 +175,12 @@ class Home extends React.Component {
             products={motorYaglar.filter((p) => p.stok_adet != 0)}
           />
 
-          <Section mt={[3, 3, 5]} mb={[3, 3, 5]}>
+          {/* <Section mt={[3, 3, 5]} mb={[3, 3, 5]}>
             <MainTitle>Oto Yedek Parça</MainTitle>
             <Brands />
-          </Section>
+          </Section> */}
 
-          <Section mt={[3, 3, 5]} mb={[3, 3, 5]}>
+          {/* <Section mt={[3, 3, 5]} mb={[3, 3, 5]}>
             <Title>Çok Satan Yedek Parçalar</Title>
             <Flex mx={-1} flexWrap="wrap">
               <Swiper
@@ -225,7 +226,7 @@ class Home extends React.Component {
                 ))}
               </Swiper>
             </Flex>
-          </Section>
+          </Section> */}
 
           <SiteFeature />
         </HomeContainer>

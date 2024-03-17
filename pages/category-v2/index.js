@@ -162,7 +162,7 @@ class ProductList extends React.Component {
     return (
       <Layout meta={{title:productList.baslik.h1}}>
         <ListPage>
-          <div>V2</div>
+          {/* <div>V2</div> */}
           
           <Container>
             <Flex mx={-1}>
@@ -184,7 +184,7 @@ class ProductList extends React.Component {
                 </Box>
               )}
               <Box className="main-area" px={1}>
-                <BreadCrumb items={productList.breadcrumb} />
+                {productList.breadcrumb && <BreadCrumb items={productList.breadcrumb} />}
                 {productList.makale && (
                   <SeoContent title={productList.baslik.h1} content={productList.makale} />
                 )}

@@ -941,7 +941,7 @@ class Product extends React.Component {
             {site === "aloparca" && (
               <>
                 <Box className="breadcrumb-wrapper" pt={2} pb={1}>
-                  <BreadCrumb items={product.breadcrumb || ""} isProduct />
+                  {product.breadcrumb && <BreadCrumb items={product.breadcrumb || ''} isProduct />}
                 </Box>
 
                 <Section className="product-header" my={0} mx={-2}>
@@ -965,18 +965,15 @@ class Product extends React.Component {
             {/* {JSON.stringify(product.resim)} */}
             <Section className="product" my={1}>
               <Flex className="product-top">
-                
-             
                 <Slider
                   images={product.resim}
                   key={product.no}
                   name={product.name}
                   isOem={product.parca_tipi === 1}
                 />
-                
 
-               {/* {!product.resim && <div className="image-big"><img src={}/></div>} */}
-                
+                {/* {!product.resim && <div className="image-big"><img src={}/></div>} */}
+
                 {/* <img className="image-big" src={`/static/img/noimg.jpg`}/> */}
                 {/* <Box className="image-area resimsiz-urun" width={[1, 1, 3 / 7]}>
                   <Box className="product-no-image">
@@ -1105,7 +1102,6 @@ class Product extends React.Component {
                   </RatingAndMadeni>
                   <Flex mt={motorYag ? 2 : 3} className="price-wrapper">
                     <Box className="price">
-                      
                       <Flex>
                         {site === "aloparca" &&
                         product.indirim_zam_yuzde &&
@@ -1240,7 +1236,11 @@ class Product extends React.Component {
                                       value={this.state.quantity}
                                       onChange={this.changeQuantityValue}
                                       onFocus={e => e.target.select()}
-                                      max={product.stok_adet == 0 ? 1:product.stok_adet}
+                                      max={
+                                        product.stok_adet == 0
+                                          ? 1
+                                          : product.stok_adet
+                                      }
                                       min={this.state.minimumSatis}
                                       ref={n => {
                                         this.adet = n;

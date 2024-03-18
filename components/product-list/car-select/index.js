@@ -10,8 +10,8 @@ import { Router } from '../../../routes';
 
 const parents = [
   { title: 'Marka', name: 'marka' },
-  { title: 'Model', name: 'model' },
   { title: 'Yıl', name: 'yil' },
+  { title: 'Model', name: 'model' },
   { title: 'Kasa', name: 'kasa' },
   // { title: 'Motor Hacmi', name: 'motor' },
   // { title: 'Beygir Gücü', name: 'beygir' },
@@ -25,13 +25,14 @@ class CarSelect extends React.Component {
   };
 
   componentDidMount() {
-    console.log(this.props)
+    // console.log(this.props)
     if (this.props.marka) {
       let garage = {};
       if (this.props.marka) garage = { ...garage, marka: decodeURIComponent(this.props.marka) };
+      if (this.props.yil) garage = { ...garage, yil: decodeURIComponent(this.props.yil) };
       if (this.props.model) garage = { ...garage, model: decodeURIComponent(this.props.model) };
       if (this.props.kasa) garage = { ...garage, kasa: decodeURIComponent(this.props.kasa) };
-      if (this.props.yil) garage = { ...garage, yil: decodeURIComponent(this.props.yil) };
+      
       // if (this.props.motor) garage = { ...garage, motor: decodeURIComponent(this.props.motor) };
       // if (this.props.beygir) garage = { ...garage, beygir: decodeURIComponent(this.props.beygir) };
       this.carLoader(garage);
@@ -45,9 +46,10 @@ class CarSelect extends React.Component {
     if (nextProp.marka) {
       let garage = {};
       if (nextProp.marka) garage = { ...garage, marka: decodeURIComponent(nextProp.marka) };
+      if (nextProp.yil) garage = { ...garage, yil: decodeURIComponent(nextProp.yil) };
       if (nextProp.model) garage = { ...garage, model: decodeURIComponent(nextProp.model) };
       if (nextProp.kasa) garage = { ...garage, kasa: decodeURIComponent(nextProp.kasa) };
-      if (nextProp.yil) garage = { ...garage, yil: decodeURIComponent(nextProp.yil) };
+      
       // if (nextProp.motor) garage = { ...garage, motor: decodeURIComponent(nextProp.motor) };
       // if (nextProp.beygir) garage = { ...garage, beygir: decodeURIComponent(nextProp.beygir) };
       this.carLoader(garage);
@@ -157,7 +159,7 @@ class CarSelect extends React.Component {
     singleSelect = false;
     // debugger
     const { options } = this.state;
-
+    // debugger
     if (value && options[name].selected === value) return;
 
     const index = parents.findIndex(item => item.name === name);
@@ -196,6 +198,7 @@ class CarSelect extends React.Component {
       }
 
       const nextParent = parents[index + (value ? 1 : 0)];
+      console.log("dataurl", dataUrl);
       if (nextParent) {
         const {
           results: { opts },

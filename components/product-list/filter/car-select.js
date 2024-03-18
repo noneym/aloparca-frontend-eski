@@ -27,11 +27,12 @@ class CarSelect extends React.Component {
     if (this.props.marka) {
       let garage = {};
       if (this.props.marka) garage = { ...garage, marka: this.props.marka };
+      if (this.props.yil) garage = { ...garage, yil: this.props.yil };
       if (this.props.model) garage = { ...garage, model: this.props.model };
       if (this.props.kasa) garage = { ...garage, kasa: this.props.kasa };
-      if (this.props.yil) garage = { ...garage, yil: this.props.yil };
-      if (this.props.motor) garage = { ...garage, motor: this.props.motor };
-      if (this.props.beygir) garage = { ...garage, beygir: this.props.beygir };
+      
+      // if (this.props.motor) garage = { ...garage, motor: this.props.motor };
+      // if (this.props.beygir) garage = { ...garage, beygir: this.props.beygir };
       this.carLoader(garage);
     } else {
       this.carLoader(this.props.garage);
@@ -42,11 +43,12 @@ class CarSelect extends React.Component {
     if (nextProp.marka) {
       let garage = {};
       if (nextProp.marka) garage = { ...garage, marka: nextProp.marka };
+      if (nextProp.yil) garage = { ...garage, yil: nextProp.yil };
       if (nextProp.model) garage = { ...garage, model: nextProp.model };
       if (nextProp.kasa) garage = { ...garage, kasa: nextProp.kasa };
-      if (nextProp.yil) garage = { ...garage, yil: nextProp.yil };
-      if (nextProp.motor) garage = { ...garage, motor: nextProp.motor };
-      if (nextProp.beygir) garage = { ...garage, beygir: nextProp.beygir };
+      
+      // if (nextProp.motor) garage = { ...garage, motor: nextProp.motor };
+      // if (nextProp.beygir) garage = { ...garage, beygir: nextProp.beygir };
       this.carLoader(garage);
     } else {
       this.carLoader(nextProp.garage);
@@ -186,7 +188,6 @@ class CarSelect extends React.Component {
         }
         dataUrl += `/${newName}/${encodeURIComponent(value)}`;
       }
-      
       const nextParent = parents[index + (value ? 1 : 0)];
       if (nextParent) {
         const {

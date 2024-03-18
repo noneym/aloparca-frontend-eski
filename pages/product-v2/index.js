@@ -1104,9 +1104,9 @@ class Product extends React.Component {
                     <Box className="price">
                       <Flex>
                         {site === "aloparca" &&
-                        product.indirim_zam_yuzde &&
+                        product.discount_percentage &&
                         product.status == "1" &&
-                        product.indirim_zam_yuzde >= 1 ? (
+                        product.discount_percentage >= 1 ? (
                           <Box mr={1}>
                             <ImageBg
                               className="indirim"
@@ -1140,7 +1140,7 @@ class Product extends React.Component {
                             <div>
                               {site === "aloparca" && (
                                 <Box className="sale">
-                                  {product.listefiyati}
+                                  {product.fiyat}
                                   TL
                                 </Box>
                               )}
@@ -1166,9 +1166,9 @@ class Product extends React.Component {
                             product.status == "1" && (
                               <Box className="sold-price">
                                 <span>
-                                  {product.fiyat.toString().split(".")[0]}
+                                  {product.listefiyati.toString().split(".")[0]}
                                 </span>
-                                {`,${product.fiyat.toString().split(".")[1]}`}{" "}
+                                {`,${product.listefiyati.toString().split(".")[1]}`}{" "}
                                 TL
                               </Box>
                             )}

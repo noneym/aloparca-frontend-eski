@@ -324,7 +324,7 @@ class ProductList extends React.Component {
                   </Flex>
                 </Box>
               <Box className="main-area" px={1}>
-                {site === 'aloparca' && <BreadCrumb items={productList.breadcrumb || ''} />}
+                {productList.breadcrumb && site === 'aloparca' && <BreadCrumb items={productList.breadcrumb || ''} />}
                 {site === 'aloparca' && productList.makale && (
                   <SeoContent title={productList.baslik.h1} content={productList.makale} />
                 )}

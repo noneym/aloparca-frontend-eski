@@ -12,7 +12,7 @@ class Category extends React.Component {
 
   componentDidMount() {
     const { categories, query } = this.props;
-    if (query && query.maincategory) {
+    if (categories && query && query.maincategory) {
       const activeIndex = categories.findIndex((item) => item.slug === query.maincategory);
       if (activeIndex !== -1) {
         this.changeState({ activeIndex });
@@ -76,7 +76,7 @@ class Category extends React.Component {
       if (garage.beygir) linkUrl += `/${garage.beygir}`;
       listCar = carList;
     }
-    if (categories.status === false || (categories && categories.length === 0)) return null;
+    if (categories?.status === false || (categories && categories.length === 0)) return null;
     return (
       <Outer>
         <Flex p={2} flexDirection="column">

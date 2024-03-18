@@ -13,7 +13,7 @@ const parents = [
   { title: 'Marka', name: 'marka' },
   { title: 'Yıl', name: 'yil' },
   { title: 'Model', name: 'model' },
-  { title: 'Araç', name: 'arac' } // 'Kasa', 'Motor Hacmi' ve 'Beygir Gücü' adımlarını kaldırdık
+  { title: 'Araç', name: 'kasa' } // 'Kasa', 'Motor Hacmi' ve 'Beygir Gücü' adımlarını kaldırdık
 ];
 const steps = {
   0: {
@@ -102,19 +102,23 @@ class SearchBar extends React.Component {
 
   onSubmit = (e, autofill = false) => {
     if (e) e.preventDefault();
+    // debugger
+    
     const { query, activeStep } = this.state;
     const params = this.getParams();
     const optionsLength = this.optionElements.filter((item) => item).length;
     if (Object.keys(params).length === 0 && !query) return;
     const { clickedElement } = this.state;
+    console.log("activeStep",activeStep);
     if (
       clickedElement
       && ![...clickedElement.classList].includes('search-button')
       && (!query || (query && optionsLength !== 0))
-      && activeStep !== 6
+      && activeStep !== 4
     ) {
       return;
     }
+    
     if (!autofill) {
       this.setState({ isSubmitStart: true });
       setTimeout(() => {
@@ -126,7 +130,7 @@ class SearchBar extends React.Component {
       if (query) {
         Router.pushRoute('search', { ...params, slug: query });
       } else {
-        Router.pushRoute('listcar', { ...params });
+        Router.pushRoute('listcar-v2', { ...params });
       }
     }
   };
@@ -148,12 +152,13 @@ class SearchBar extends React.Component {
     if (params.yil) {
       apiUrl += `model_yili/${encodeURIComponent(params.yil).replace(/_/g, ' ')}/`;
     }
-    if (params.motor) apiUrl += `motor/${encodeURIComponent(params.motor).replace(/_/g, ' ')}/`;
-    if (params.beygir) apiUrl += `beygir/${encodeURIComponent(params.beygir).replace(/_/g, ' ')}/`;
+    // if (params.motor) apiUrl += `motor/${encodeURIComponent(params.motor).replace(/_/g, ' ')}/`;
+    // if (params.beygir) apiUrl += `beygir/${encodeURIComponent(params.beygir).replace(/_/g, ' ')}/`;
     const {
       results: { search },
     } = await Api.get(`${apiUrl}q/${encodeURIComponent(query)}/limit/10/sayfa/1/`);
-    if (typeof search.hits !== 'undefined' && search.nbHits !== 0) {
+    // console.log("search", search);
+    if (typeof search?.hits !== 'undefined' && search?.nbHits !== 0) {
       this.setState({ search: search.hits, searchLoading: false });
     } else {
       this.setState({ search: [], searchLoading: false });
@@ -289,18 +294,18 @@ handlePressVerticalArrow = (dir) => {
 
   fillSearchTags = async (q) => {
     if (q.marka) await this.handleSelect(q.marka.replace(/_/g, ' '), true);
+    if (q.yil) await this.handleSelect(q.yil.replace(/_/g, ' '), true);
     if (q.model) await this.handleSelect(q.model.replace(/_/g, ' '), true);
     if (q.kasa) await this.handleSelect(q.kasa.replace(/_/g, ' '), true);
-    if (q.yil) await this.handleSelect(q.yil.replace(/_/g, ' '), true);
-    if (q.motor) await this.handleSelect(q.motor.replace(/_/g, ' '), true);
-    if (q.beygir) await this.handleSelect(q.beygir.replace(/_/g, ' '), true);
+    // if (q.motor) await this.handleSelect(q.motor.replace(/_/g, ' '), true);
+    // if (q.beygir) await this.handleSelect(q.beygir.replace(/_/g, ' '), true);
   };
 
   // eslint-disable-next-line react/sort-comp
   async handleSelect(selectedOption, autofill = false) {
     const { activeStep } = this.state;
   
-    if (activeStep === 3) {
+    if (activeStep === 4) {
       // Araç seçimi durumu için ayrı bir işlem
       this.setState({
         tags: [{ ...selectedOption }],
@@ -322,11 +327,10 @@ handlePressVerticalArrow = (dir) => {
     }
     this.onSearch();
   
-    if (activeStep !== 5) {
-      if (!autofill) this.searchInput.focus();
-      return;
-    }
-  
+    // if (activeStep !== 5) {
+    //   if (!autofill) this.searchInput.focus();
+    //   return;
+    // }
     // Submit only in last step
     this.onSubmit(null, autofill);
   }
@@ -364,7 +368,7 @@ handlePressVerticalArrow = (dir) => {
     try {
       const { options, activeStep } = this.state;
   
-      if (activeStep === 4) return; // Eğer son adımdaysak, işlem yapma
+      // if (activeStep === 4) return; // Eğer son adımdaysak, işlem yapma
   
       const index = parents.findIndex((item) => item.name === name);
       
@@ -584,13 +588,16 @@ handlePressVerticalArrow = (dir) => {
                         {item.tedarikci_aciklama}
                       </span>
                       <span className="marka">
-                        <strong>Marka:</strong> {item.stokmarka}
+                        <strong>Marka:</strong>
+                        {item.stokmarka}
                       </span>
                       <span className="stok_kodu">
-                        <strong>Stok Kodu:</strong> {item.parcakodu}
+                        <strong>Stok Kodu:</strong>
+                        {item.parcakodu}
                       </span>
                       <span className="stok_adedi">
-                        <strong>Stok Adedi:</strong> {item.stok_adet}
+                        <strong>Stok Adedi:</strong>
+                        {item.stok_adet}
                       </span>
                     </div>
                     <span className="fiyat">

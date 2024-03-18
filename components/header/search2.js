@@ -9,11 +9,11 @@ import { media } from '../../style/theme';
 
 const parents = [
   { title: 'Marka', name: 'marka' },
-  { title: 'Model', name: 'model' },
-  { title: 'Kasa', name: 'kasa' },
   { title: 'Yıl', name: 'yil' },
-  { title: 'Motor Hacmi', name: 'motor' },
-  { title: 'Beygir Gücü', name: 'beygir' },
+  { title: 'Model', name: 'model' },
+  { title: 'Araçlar', name: 'kasa' },
+  // { title: 'Motor Hacmi', name: 'motor' },
+  // { title: 'Beygir Gücü', name: 'beygir' },
 ];
 
 const steps = {

@@ -13,6 +13,7 @@ import { seoMeta } from '../../reactor/func';
 
 import { MainTitle, Title, Section } from '../../components/style';
 import ProductSlider from '../../components/product-slider-home';
+import ProductSliderV2 from '../../components/product-slider-home-v2';
 import SiteFeature from '../../components/site-feature';
 import { media } from '../../style/theme';
 
@@ -140,7 +141,7 @@ class Home extends React.Component {
               <a href="https://www.youtube.com/channel/UCjvosQ4Scra1tS_4qTR29gQ" target="_blank"><Image fluid src="/static/img/t/banner/aloparca-youtube-kanali.jpg" alt="Youtube kanalımıza abone olmayı unutmayın"/></a>
             </Box>
           </Flex>
-          <ProductSlider
+          <ProductSliderV2
             title="Son Eklenen Ürünler"
             products={sonEklenenUrunler.filter((p) => p.stok_adet != 0)}
           />

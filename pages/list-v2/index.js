@@ -145,9 +145,9 @@ class ProductList extends React.Component {
       }
       let categories;
       
-      if (query.kasa) {
-        categories = await Api.get(`Products/kategoriler_v2`);
-      }
+      
+      categories = await Api.get(`Products/kategoriler_v2`);
+      
       if (typeof window !== 'undefined') {
         scroll.scrollToTop({
           duration: 2000,
@@ -648,7 +648,7 @@ class ProductList extends React.Component {
                       />
                     </Flex>
                   )}
-                  {maincategory && (
+                  {categories && maincategory && (
                     <Flex
                       pb={1}
                       mb={1}

@@ -10,7 +10,7 @@ import { seoMeta, redirectCheck, site } from '../../reactor/func';
 import { Router } from '../../routes';
 
 import NotFound from '../../components/notfound';
-import BreadCrumb from '../../components/breadcrumb';
+import BreadCrumb from '../../components/breadcrumb-v2';
 import Paginate from '../../components/paginate';
 import CarSelect from '../../components/product-list/car-select';
 import Category from '../../components/product-list/category-v2';

@@ -243,8 +243,8 @@ class Slider extends React.Component {
               >
                 <img
                   className="zoom-items swiper-lazy"
-                  data-src={`https://docimages.aloparca.com/${item}`}
-                  data-zoom={`https://docimages.aloparca.com/${item}`}
+                  data-src={`https://resize.aloparca.com/upload/w_600,pns/${item}`}
+                  data-zoom={`https://resize.aloparca.com/upload/w_600,pns/${item}`}
                   onError={this.onErrImg}
                   alt={name}
                 />

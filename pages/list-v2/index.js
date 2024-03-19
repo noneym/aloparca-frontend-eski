@@ -20,7 +20,7 @@ import { seoMeta, redirectCheck, site } from '../../reactor/func';
 import { Router } from '../../routes';
 
 import NotFound from '../../components/notfound';
-import BreadCrumb from '../../components/breadcrumb';
+import BreadCrumb from '../../components/breadcrumb-v2';
 import Paginate from '../../components/paginate';
 import CarSelect from '../../components/product-list/car-select';
 import CarSelectFilter from '../../components/product-list/filter/car-select';
@@ -97,12 +97,13 @@ class ProductList extends React.Component {
     if (query.kasa) {
       apiType = 'Products/products_v2';
       // if(query.pc_id) apiUrl += '?pc_id='+query.pc_id
-      // if (query.marka) apiUrl += `marka/${encodeURIComponent(query.marka).replace(/_/g, ' ')}/`;
-      // if (query.model) apiUrl += `model/${encodeURIComponent(query.model).replace(/_/g, ' ')}/`;
+      if (query.marka) apiUrl += `marka/${encodeURIComponent(query.marka).replace(/_/g, ' ')}/`;
+      if (query.yil) {
+        apiUrl += `model_yili/${encodeURIComponent(query.yil).replace(/_/g, ' ')}/`;
+      }
+      if (query.model) apiUrl += `model/${encodeURIComponent(query.model).replace(/_/g, ' ')}/`;
       if (query.kasa) apiUrl += `?pc_id=${encodeURIComponent(query.kasa).replace(/_/g, ' ')}/`;
-      // if (query.yil) {
-      //   apiUrl += `model_yili/${encodeURIComponent(query.yil).replace(/_/g, ' ')}/`;
-      // }
+      
       // if (query.motor) apiUrl += `motor/${encodeURIComponent(query.motor).replace(/_/g, ' ')}/`;
       // if (query.beygir) apiUrl += `beygir/${encodeURIComponent(query.beygir).replace(/_/g, ' ')}/`;
     } else if (garage.marka) {
@@ -129,12 +130,12 @@ class ProductList extends React.Component {
     
     try {
       if (res) {
-        const redirect = await redirectCheck(res, '200');
-        if (redirect) return redirect;
+        // const redirect = await redirectCheck(res, '200');
+        // if (redirect) return redirect;
       }
 
       const productList = await Api.get(`${apiType}${apiUrl}&limit=20&sayfa=${sayfa}`);
-      // console.log(`222222${apiType}${apiUrl}&limit=20&sayfa=${sayfa}`, productList)
+      console.log(`${apiType}${apiUrl}&limit=20&sayfa=${sayfa}`, productList)
       if (parseInt(productList.status, 10) === 404) {
         // eslint-disable-next-line no-throw-literal
         // throw 404;
@@ -158,8 +159,8 @@ class ProductList extends React.Component {
       let getModel = [];
 
       if (query.marka) {
-        // const resData = await Api.get(`Products/araclar/marka/${encodeURIComponent(query.marka)}`);
-        // getModel = resData.results.map((item) => item.name);
+        const resData = await Api.get(`Products/araclar/marka/${encodeURIComponent(query.marka)}`);
+        getModel = resData.results.map((item) => item.name);
       }
 
       const meta = res ? await seoMeta(res.req.url) : {};
@@ -171,10 +172,11 @@ class ProductList extends React.Component {
         meta,
         pageUrl: res ? res.req.url.replace(`?sayfa=${productList.sayfa}`, '') : null,
         getModel,
+        info: `${apiType}${apiUrl}&limit=20&sayfa=${sayfa}`
       };
     } catch (e) {
-      const redirect = await redirectCheck(res);
-      if (redirect) return redirect;
+      // const redirect = await redirectCheck(res);
+      // if (redirect) return redirect;
       return { err: true, query };
     }
   }
@@ -254,7 +256,7 @@ class ProductList extends React.Component {
 
   render() {
     const {
-      productList, categories, query, garage, pageUrl, err, isLogin, getModel,
+      productList, categories, query, garage, pageUrl, err, isLogin, getModel, info
     } = this.props;
     if (err) {
       return <NotFound />;
@@ -343,7 +345,9 @@ class ProductList extends React.Component {
                     )) : null}
                   </SelectModelList>
                 )}
-
+                {/* {JSON.stringify(info)} */}
+                {/* {JSON.stringify(productList)} */}
+                {/* {`${apiType}${apiUrl}&limit=20&sayfa=${sayfa}`} */}
                 {site === 'aloparca' && (
                   <Flex mx={-1} alignItems="center" className="config-mobile">
                     <Flex px={1} justifyContent="center" alignItems="center" className="config-style">
@@ -535,6 +539,7 @@ class ProductList extends React.Component {
                     )}
                   </Flex>
                 </Flex>
+                {/* {JSON.stringify(productList.urunler.breadcrumb)} */}
                 { productList.urunler && site === "aloparca" &&
                   (viewList ? (
                     productList.urunler

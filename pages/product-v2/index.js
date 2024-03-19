@@ -45,7 +45,7 @@ import { Section } from "../../components/style";
 import ProductSlider from "../../components/product-slider";
 import SiteFeature from "../../components/site-feature";
 import ProductPage from "./style";
-import BreadCrumb from "../../components/breadcrumb";
+import BreadCrumb from "../../components/breadcrumb-v2";
 import Slider from "./slider";
 import Taksit from "./tabs/taksit";
 import UyumluArac from "./tabs/uyumlu-arac";
@@ -917,7 +917,7 @@ class Product extends React.Component {
           return "5W40 MOTOR YAĞI (BENZİNLİ) 229.3 1LT";
 
         default:
-          return product.urunAdi;
+          return product.stokadi;
       }
     };
 
@@ -985,7 +985,7 @@ class Product extends React.Component {
                     <span>{product.name}</span>
                   </Box>
                 </Box> */}
-
+                
                 <Flex
                   width={[1, 1, 4 / 7]}
                   className="detail"
@@ -1064,7 +1064,7 @@ class Product extends React.Component {
                         )}
                       </Box>
                       <Box className="marka">
-                        <span>Stok Kodu:</span> {product?.parcakodu}
+                        <span>Stok Kodu:</span> {product?.stokkodu}
                       </Box>
                     </Flex>
                   )}
@@ -1103,10 +1103,11 @@ class Product extends React.Component {
                   <Flex mt={motorYag ? 2 : 3} className="price-wrapper">
                     <Box className="price">
                       <Flex>
+                        {/* {JSON.stringify(product)} */}
                         {site === "aloparca" &&
                         product.discount_percentage &&
                         product.status == "1" &&
-                        product.discount_percentage >= 1 ? (
+                        product.indirim_zam_yuzde >= 1 ? (
                           <Box mr={1}>
                             <ImageBg
                               className="indirim"
@@ -1161,14 +1162,15 @@ class Product extends React.Component {
                             </div>
                           )}
                           {/* {<div>bla bla bla {product.indirim_zam_yuzde == 0} {JSON.stringify(product.indirim_zam_yuzde == 0 && product.status == 1)} </div>} */}
+                          {/* {JSON.stringify(product.breadcrump)} */}
                           {site === "aloparca" &&
                             product.indirim_zam_yuzde == 0 &&
                             product.status == "1" && (
                               <Box className="sold-price">
                                 <span>
-                                  {product.listefiyati.toString().split(".")[0]}
+                                  {product.stokfiyati.toString().split(".")[0]}
                                 </span>
-                                {`,${product.listefiyati.toString().split(".")[1]}`}{" "}
+                                {`,${product.stokfiyati.toString().split(".")[1]}`}{" "}
                                 TL
                               </Box>
                             )}
@@ -1177,7 +1179,7 @@ class Product extends React.Component {
                             product.indirim_zam_yuzde == 1 &&
                             product.status == "1" && (
                               <CampainPriceBox>
-                                <span>{product.fiyat.toString()} TL</span>
+                                <span>{product.stokfiyati.toString()} TL</span>
                               </CampainPriceBox>
                             )}
 
@@ -1330,7 +1332,7 @@ class Product extends React.Component {
 
                   <div className="description">
                     <span>Tedarikçi Açıklaması:</span>{" "}
-                    {product.tedarikci_aciklama}
+                    {product.urunAdi}
                   </div>
                   <Flex mt={3} className="icon-list">
                     <Flex className="item">

@@ -943,7 +943,9 @@ class Product extends React.Component {
             )}
 
             <Section className="product" my={1}>
+              {/* {JSON.stringify(product.gorsel)} */}
               <Flex className="product-top">
+                
                 <Slider
                   images={product.gorsel}
                   key={product.no}

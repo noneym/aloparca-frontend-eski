@@ -1137,7 +1137,7 @@ class Product extends React.Component {
                         )}
                         <Flex mt={2} className="price-area">
                           {/* {product.fiyat} */}
-                          {product.listefiyati !== product.fiyat && (
+                          {product.stokfiyati !== product.fiyat && (
                             <div>
                               {site === "aloparca" && (
                                 <Box className="sale">
@@ -1179,7 +1179,7 @@ class Product extends React.Component {
                             product.indirim_zam_yuzde == 1 &&
                             product.status == "1" && (
                               <CampainPriceBox>
-                                <span>{product.stokfiyati.toString()} TL</span>
+                                <span>{product.fiyat.toString()} TL</span>
                               </CampainPriceBox>
                             )}
 

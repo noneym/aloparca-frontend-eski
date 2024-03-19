@@ -805,9 +805,9 @@ class Product extends React.Component {
       addCart({
         id: product.no,
         quantity: this.adet.value,
-        name: product.name,
-        gorsel: this.handleImages(product.gorsel)
-      })
+        name: product.stokadi,
+        gorsel: this.handleImages(product.resim)?.[0],
+      }),
     );
 
     this.setState({ isLoading: false });

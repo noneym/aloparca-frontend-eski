@@ -63,7 +63,8 @@ export const addCart = (data) => async (dispatch, getState) => {
   // dispatch({ type: 'FLASH_MESSAGE', payload: 'Ürün sepetinize eklenmiştir.' });
   const getName = data.name === undefined ? '' : data.name;
   const getGorsel = data.gorsel === undefined ? '' : data.gorsel;
-  dispatch({ type: 'GET_CART_MESSAGE', payload: { name: getName, gorsel: getGorsel } });
+  const getVersion = data.version === undefined ? '' : data.version;
+  dispatch({ type: 'GET_CART_MESSAGE', payload: { name: getName, gorsel: getGorsel, version: getVersion } });
   const { isLogin } = getState();
   if (isLogin) {
     const fd = new FormData();

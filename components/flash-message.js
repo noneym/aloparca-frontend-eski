@@ -147,13 +147,13 @@ const FlashMessage = ({ dispatch, flashMessage, getCartMessage }) => {
     setTimeout(() => dispatch({ type: 'FLASH_MESSAGE', payload: null }), 3000);
   };
 
-  const alertClose2 = () => dispatch({ type: 'GET_CART_MESSAGE', payload: { name: '', gorsel: '' } });
+  const alertClose2 = () => dispatch({ type: 'GET_CART_MESSAGE', payload: { name: '', gorsel: '', version: '' } });
 
   const alertOpen2 = () => {
-    setTimeout(() => dispatch({ type: 'GET_CART_MESSAGE', payload: { name: '', gorsel: '' } }), 5000);
+    setTimeout(() => dispatch({ type: 'GET_CART_MESSAGE', payload: { name: '', gorsel: '', version: '' } }), 5000);
   };
 
-  const { name, gorsel } = getCartMessage;
+  const { name, gorsel, version } = getCartMessage;
   const router = useRouter();
 
   return (
@@ -167,7 +167,7 @@ const FlashMessage = ({ dispatch, flashMessage, getCartMessage }) => {
         <GetCartStyles>
           <GcsFlex>
             <GcsImage>
-              <GcsImg src={ router.asPath.indexOf('-v2') > -1 ? `https://resize.aloparca.com/upload/w_100,h_80,pns/v2/${gorsel}` : `https://resize.aloparca.com/upload/w_100,h_80,pns/${gorsel}`} alt={name} />
+              <GcsImg src={version === 'v2' ? `https://resize.aloparca.com/upload/w_100,h_80,pns/v2/${gorsel}` : `https://resize.aloparca.com/upload/w_100,h_80,pns/${gorsel}`} alt={name} />
             </GcsImage>
             <GcsProduct>
               <GcsProductAdded>

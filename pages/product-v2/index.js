@@ -807,6 +807,7 @@ class Product extends React.Component {
         quantity: this.adet.value,
         name: product.stokadi,
         gorsel: this.handleImages(product.resim)?.[0],
+        version: 'v2',
       }),
     );
 

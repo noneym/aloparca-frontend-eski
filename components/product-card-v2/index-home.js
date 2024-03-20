@@ -68,8 +68,9 @@ const ProductCard = ({ product, isCart, dispatch, onClose, swiperLazy }) => {
         id: product.no,
         quantity: 1,
         name: product.name,
-        gorsel: product.gorsel,
-      })
+        gorsel: `${imgSRC}`,
+        version: 'v2',
+      }),
     );
     // onClose();
   };
@@ -107,6 +108,7 @@ const ProductCard = ({ product, isCart, dispatch, onClose, swiperLazy }) => {
         </LazyLoad>
       )}
       <div className="info">
+        {/* {JSON.stringify(product)} */}
         <h3 className="title">{product.name}</h3>
         <strong className="brand">{product.stokmarka}</strong>
       </div>

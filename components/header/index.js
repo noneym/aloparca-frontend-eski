@@ -375,52 +375,75 @@ const UstMenuLi = styled.li`
 
 const barText = '';// "Yılın En Son Kampanyası, 200 TL ve Üzeri Alışverişinize Sepette %5 İndirim";
 class Header extends React.Component {
-
   state = {
-    isLoading: true, guncelKumbara: null, isScroll: false, b2bAccess: null, open: true
+    isLoading: true,
+    guncelKumbara: null,
+    isScroll: false,
+    b2bAccess: null,
+    open: true
   };
 
   componentDidMount() {
     this.setState({ isLoading: false });
-    site === "b2b" && this.props.userData !== null ? 
-    this.getKumbara(this.props.userData) :
-    (site === "b2b" && this.getKumbara(0)) ;
-;  }
+    site === "b2b" && this.props.userData !== null
+      ? this.getKumbara(this.props.userData)
+      : site === "b2b" && this.getKumbara(0);
+  }
 
-
-  getKumbara = async (data) => {
+  getKumbara = async data => {
     try {
       const response = await data;
 
-      const kumbaraTutar = await response.kumbara_tutar && response.kumbara_tutar !== undefined ||
-      
-      response.kumbara_tutar !== null ? response.kumbara_tutar : 0;
-      
-      this.setState({ b2bAccess: await (response.user !== undefined && response.user[0].b2b_access === "1" ? true : false) });
-      
-      await this.setState({ isLoading: false, guncelKumbara: kumbaraTutar === undefined || null ? 0 : kumbaraTutar }); // Burada VSCode await gereksiz diyor ama değil denendi await olmayınca komponent yükleyince null dönüyor. 
+      const kumbaraTutar =
+        ((await response.kumbara_tutar) &&
+          response.kumbara_tutar !== undefined) ||
+        response.kumbara_tutar !== null
+          ? response.kumbara_tutar
+          : 0;
 
+      this.setState({
+        b2bAccess: await (response.user !== undefined &&
+        response.user[0].b2b_access === "1"
+          ? true
+          : false)
+      });
+
+      await this.setState({
+        isLoading: false,
+        guncelKumbara: kumbaraTutar === undefined || null ? 0 : kumbaraTutar
+      }); // Burada VSCode await gereksiz diyor ama değil denendi await olmayınca komponent yükleyince null dönüyor.
     } catch (error) {
-      
       //console.log(error);
-
     }
-  }
-
-
-  changeCar = (car) => {
-    const {
-      Id, uyeid, not, resim, sasi, ...carList
-    } = car;
-    this.props.dispatch({ type: 'ADD_GARAGE', payload: carList });
-    Router.pushRoute('listcar', carList);
   };
-  render() {
-    const {
-      isLogin, cart, userData, garage, toggleMobileMenu,
-    } = this.props;
 
-    const { isLoading, isScroll, open} = this.state;
+  changeCar = car => {
+    const { Id, uyeid, not, resim, sasi, ...carList } = car;
+    this.props.dispatch({ type: "ADD_GARAGE", payload: carList });
+    Router.pushRoute("listcar", carList);
+  };
+
+  handleImages = (images) => {
+    let img;
+    let imgUrl = 'https://resize.aloparca.com/upload/w_50/';
+    try {
+      img = JSON.parse(images);
+      imgUrl += 'v2/';
+    } catch (err) {
+      img = [images];
+    }
+    return `${imgUrl}${img?.[0]}`;
+  };
+
+  onErrImg = (e) => {
+    e.target.onerror = null;
+    e.target.src = 'https://resize.aloparca.com/upload/w_200,h_150/null';
+  };
+
+  render() {
+    const { isLogin, cart, userData, garage, toggleMobileMenu } = this.props;
+
+    const { isLoading, isScroll, open } = this.state;
     return (
       <Outer site={site}>
         <div className="top-bar">
@@ -432,7 +455,7 @@ class Header extends React.Component {
               </strong>
             </div>
 
-            {(site === 'aloparca' || (site === 'b2b' && isLogin)) && (
+            {(site === "aloparca" || (site === "b2b" && isLogin)) && (
               <nav>
                 <ul>
                   {ustmenu.map(({ title, route, slug }) => (
@@ -446,7 +469,6 @@ class Header extends React.Component {
               </nav>
             )}
           </Container>
-          
         </div>
         <div className="mobile-contact">
           <BackButton />
@@ -458,8 +480,13 @@ class Header extends React.Component {
 
         <Container className="main">
           <Flex>
-            {(site === 'aloparca' || (site === 'b2b' && isLogin)) && (
-              <a href="javascript:;" onClick={toggleMobileMenu} className="mobile-menu" altt="Menü">
+            {(site === "aloparca" || (site === "b2b" && isLogin)) && (
+              <a
+                href="javascript:;"
+                onClick={toggleMobileMenu}
+                className="mobile-menu"
+                altt="Menü"
+              >
                 <i className="icon-mobile-menu" />
               </a>
             )}
@@ -471,15 +498,15 @@ class Header extends React.Component {
             </div>
           </Flex>
 
-          {site === 'aloparca' && <SearchBar />}
+          {site === "aloparca" && <SearchBar />}
 
-          {(site === 'aloparca' || (site === 'b2b' && isLogin)) && (
+          {(site === "aloparca" || (site === "b2b" && isLogin)) && (
             <ButtonsDiv>
               <ul className="buttons">
                 <li className="garage">
                   <div className="link">
                     <Dropdown
-                      trigger={(
+                      trigger={
                         <>
                           <i className="icon icon-garaj" />
                           <div className="content-area">Garaj</div>
@@ -491,41 +518,41 @@ class Header extends React.Component {
                               : 0}
                           </strong>
                         </>
-                      )}
+                      }
                       onRight
                     >
                       {isLoading ? (
                         <Spinner />
-                      ) : userData
-                        && userData.status !== false
-                        && userData.uye_garaj ? (
-                            <ListGaraga>
-                              {userData.uye_garaj.map((garageItem) => (
-                                <ListGaragaItem
-                                  onClick={() => this.changeCar(garageItem)}
-                                  key={garageItem.Id}
-                                  title="Aloparça'yı bu araç bilgileri ile kullan"
-                                >
-                                  <ListGaragaContent>
-                                    <ListGaragaHeader>
-                                      {`${garageItem.marka} ${garageItem.model} ${garageItem.kasa} ${garageItem.yil}`}
-                                    </ListGaragaHeader>
-                                    <ListGaragaDescription>
-                                      {`Motor Hacmi: ${garageItem.motor} - Beygir Gücü: ${garageItem.beygir}`}
-                                    </ListGaragaDescription>
-                                  </ListGaragaContent>
-                                </ListGaragaItem>
-                              ))}
-                              <ListResultLink route="hesabim/garaj">
-                                Garajı Görüntüle
-                              </ListResultLink>
-                            </ListGaraga>
-                          ) : (
-                            <NotingGaraga>
-                              {`Garajınıza araç eklemek için `}
-                              <Link route="profile">giriş yapınız</Link>
-                            </NotingGaraga>
-                          )}
+                      ) : userData &&
+                        userData.status !== false &&
+                        userData.uye_garaj ? (
+                        <ListGaraga>
+                          {userData.uye_garaj.map(garageItem => (
+                            <ListGaragaItem
+                              onClick={() => this.changeCar(garageItem)}
+                              key={garageItem.Id}
+                              title="Aloparça'yı bu araç bilgileri ile kullan"
+                            >
+                              <ListGaragaContent>
+                                <ListGaragaHeader>
+                                  {`${garageItem.marka} ${garageItem.model} ${garageItem.kasa} ${garageItem.yil}`}
+                                </ListGaragaHeader>
+                                <ListGaragaDescription>
+                                  {`Motor Hacmi: ${garageItem.motor} - Beygir Gücü: ${garageItem.beygir}`}
+                                </ListGaragaDescription>
+                              </ListGaragaContent>
+                            </ListGaragaItem>
+                          ))}
+                          <ListResultLink route="hesabim/garaj">
+                            Garajı Görüntüle
+                          </ListResultLink>
+                        </ListGaraga>
+                      ) : (
+                        <NotingGaraga>
+                          {`Garajınıza araç eklemek için `}
+                          <Link route="profile">giriş yapınız</Link>
+                        </NotingGaraga>
+                      )}
                     </Dropdown>
                   </div>
                 </li>
@@ -537,77 +564,89 @@ class Header extends React.Component {
 
                       <BrowserView>
                         <span className="mobilde-gizle">
-                          {userData
-                            && userData.status !== false
-                            && `${userData.user[0].uyeadi} ${userData.user[0].uyesoyadi}`}
+                          {userData &&
+                            userData.status !== false &&
+                            `${userData.user[0].uyeadi} ${userData.user[0].uyesoyadi}`}
                         </span>
                       </BrowserView>
 
                       <strong className="mobilde-gizle">HESABIM</strong>
                     </Link>
                   ) : (
-                      <Link
-                        className="link"
-                        route="profile"
-                        title="Üye Girişi/Yeni Üye"
-                      >
-                        <span className="icon icon-uyelik" />
-                        <span className="mobilde-gizle">Üye Girişi</span>
-                        <BrowserView>
-                          <span className="mobilde-gizle">/Yeni Üye</span>
-                        </BrowserView>
-                      </Link>
-                    )}
+                    <Link
+                      className="link"
+                      route="profile"
+                      title="Üye Girişi/Yeni Üye"
+                    >
+                      <span className="icon icon-uyelik" />
+                      <span className="mobilde-gizle">Üye Girişi</span>
+                      <BrowserView>
+                        <span className="mobilde-gizle">/Yeni Üye</span>
+                      </BrowserView>
+                    </Link>
+                  )}
                 </li>
-                {site === 'b2b' &&
+                {site === "b2b" && (
                   <li className="content-area kumbaram">
-
-                    <Link className="link" route="/hesabim/kumbara" title="Kumbara">
+                    <Link
+                      className="link"
+                      route="/hesabim/kumbara"
+                      title="Kumbara"
+                    >
                       <span className="icon icon-hesabim-kumbara" />
 
                       <BrowserView>
                         <span className="mobilde-gizle">
-                          {
-                            `${this.state.guncelKumbara} TL`
-                          }
+                          {`${this.state.guncelKumbara} TL`}
                         </span>
                       </BrowserView>
 
                       <strong className="mobilde-gizle">KUMBARAM</strong>
                     </Link>
-
                   </li>
-                }
+                )}
 
                 <li>
                   <div className="link">
                     <Dropdown
-                      trigger={(
+                      trigger={
                         <>
                           <i className="icon icon-sepet" />
                           <div className="content-area">Sepet</div>
                           <strong className="count">
-                            {cart ? (cart.urunler ? cart.urunler.length : 0) : 0}
+                            {cart
+                              ? cart.urunler
+                                ? cart.urunler.length
+                                : 0
+                              : 0}
                           </strong>
                         </>
-                      )}
+                      }
                       onRight
                     >
                       {isLoading ? (
                         <Spinner />
                       ) : (
-                          <ListCart fixWidth={cart && cart.urunler}>
-                            {cart && cart.urunler ? (
-                              <>
-                                <ListScroll scroll={cart.urunler.length < 6 ? !isScroll : isScroll}>
-                                  <ListScrollUl>
-                                    {cart.urunler.map(
-                                      (cartItem) => cartItem.urun_detay && (
-                                        <ListScrollLi key={cartItem.urun_detay.no}>
+                        <ListCart fixWidth={cart && cart.urunler}>
+                          {cart && cart.urunler ? (
+                            <>
+                              <ListScroll
+                                scroll={
+                                  cart.urunler.length < 6 ? !isScroll : isScroll
+                                }
+                              >
+                                <ListScrollUl>
+                                  {cart.urunler.map(
+                                    cartItem =>
+                                      cartItem.urun_detay && (
+                                        <ListScrollLi
+                                          key={cartItem.urun_detay.no}
+                                        >
                                           <ListImage>
                                             <ListImageImg
-                                              src={`https://resize.aloparca.com/upload/w_50/${cartItem.urun_detay.gorsel}`}
+                                              src={`${this.handleImages(cartItem.urun_detay.gorsel)}`}
                                               alt={cartItem.urun_detay.name}
+                                              onError={this.onErrImg}
                                               avatar
                                             />
                                           </ListImage>
@@ -620,69 +659,73 @@ class Header extends React.Component {
                                                 <TextBold>
                                                   {cartItem.adet}
                                                 </TextBold>
-                                                <TextBold>
-                                                  Adet
-                                        </TextBold>
+                                                <TextBold>Adet</TextBold>
                                               </ListScrollPiece>
                                               <ListScrollPrice>
                                                 <TextBold>
                                                   {parseFloat(
-                                                    cartItem.urun_detay.fiyat
-                                                    * cartItem.adet,
-                                                  ).toFixed(2)}
-                                                  {' '}
-                                          TL
-                                        </TextBold>
-                                                <TextBold>
-                                                  KDV Dahil
-                                        </TextBold>
+                                                    cartItem.urun_detay.fiyat *
+                                                      cartItem.adet
+                                                  ).toFixed(2)}{" "}
+                                                  TL
+                                                </TextBold>
+                                                <TextBold>KDV Dahil</TextBold>
                                               </ListScrollPrice>
                                             </ListScrollFlex>
                                           </ListScrollContent>
                                         </ListScrollLi>
-                                      ),
-                                    )}
-                                  </ListScrollUl>
-                                </ListScroll>
-                                <ListResult>
-                                  <ListResultFlex>
-                                    <ListResultText>Ara Toplam</ListResultText>
-                                    <ListResultText>{`${cart.subtotal} TL`}</ListResultText>
-                                  </ListResultFlex>
-                                  <ListResultFlex>
-                                    <ListResultText>Kargo</ListResultText>
-                                    <ListResultText>{(site === 'b2b' && isLogin) ? "Ücretsiz" : `${cart.kargo} TL`}</ListResultText>
-                                  </ListResultFlex>
-                                  <ListResultFlex>
-                                    <ListResultTextBold>Toplam Tutar</ListResultTextBold>
-                                    <ListResultTextBold>{(site === 'b2b' && isLogin) ? `${cart.subtotal} TL` : `${cart.total} TL`}</ListResultTextBold>
-                                  </ListResultFlex>
-                                  <ListResultLink route="sepet">
-                                    Sepeti Görüntüle
-                                  </ListResultLink>
-                                </ListResult>
-                              </>
-                            ) : (
-                                <NotingCart>
-                                  Sepetinizde ürün bulunmamaktadır
-                                </NotingCart>
-                              )}
-                          </ListCart>
-                        )}
+                                      )
+                                  )}
+                                </ListScrollUl>
+                              </ListScroll>
+                              <ListResult>
+                                <ListResultFlex>
+                                  <ListResultText>Ara Toplam</ListResultText>
+                                  <ListResultText>{`${cart.subtotal} TL`}</ListResultText>
+                                </ListResultFlex>
+                                <ListResultFlex>
+                                  <ListResultText>Kargo</ListResultText>
+                                  <ListResultText>
+                                    {site === "b2b" && isLogin
+                                      ? "Ücretsiz"
+                                      : `${cart.kargo} TL`}
+                                  </ListResultText>
+                                </ListResultFlex>
+                                <ListResultFlex>
+                                  <ListResultTextBold>
+                                    Toplam Tutar
+                                  </ListResultTextBold>
+                                  <ListResultTextBold>
+                                    {site === "b2b" && isLogin
+                                      ? `${cart.subtotal} TL`
+                                      : `${cart.total} TL`}
+                                  </ListResultTextBold>
+                                </ListResultFlex>
+                                <ListResultLink route="sepet">
+                                  Sepeti Görüntüle
+                                </ListResultLink>
+                              </ListResult>
+                            </>
+                          ) : (
+                            <NotingCart>
+                              Sepetinizde ürün bulunmamaktadır
+                            </NotingCart>
+                          )}
+                        </ListCart>
+                      )}
                     </Dropdown>
                   </div>
                 </li>
               </ul>
-
             </ButtonsDiv>
           )}
 
-          {site === 'b2b' && !isLogin && (
+          {site === "b2b" && !isLogin && (
             <Flex className="b2b-actions" alignItems="center">
               <Link
                 className="b2b-register"
                 route="profile"
-                params={{ slug: 'yeni-uye' }}
+                params={{ slug: "yeni-uye" }}
                 title="Üye Ol"
               >
                 Üye Ol
@@ -690,7 +733,7 @@ class Header extends React.Component {
               <Link
                 className="b2b-login"
                 route="profile"
-                params={{ slug: 'giris' }}
+                params={{ slug: "giris" }}
                 title="Giriş Yap"
               >
                 Giriş Yap
@@ -698,27 +741,24 @@ class Header extends React.Component {
             </Flex>
           )}
         </Container>
-        {site === 'aloparca' && (
+        {site === "aloparca" && (
           <div className="bottom">
             <Container>
               <nav>
                 <UstMenuUl>
-                  {
-                    menu.map(({ title, route, slug }) => (
-                      title === 'ÜYE İŞYERİ BAŞVURUSU' ?
-                        <li key={title}>
-                          <a href={"https://test-b2b.aloparca.com"}>
-                            {title}
-                          </a>
-                        </li>
-                        :
-                        <li key={title}>
-                          <Link route={route} params={{ slug }}>
-                            {title}
-                          </Link>
-                        </li>
-                    ))
-                  }
+                  {menu.map(({ title, route, slug }) =>
+                    title === "ÜYE İŞYERİ BAŞVURUSU" ? (
+                      <li key={title}>
+                        <a href={"https://test-b2b.aloparca.com"}>{title}</a>
+                      </li>
+                    ) : (
+                      <li key={title}>
+                        <Link route={route} params={{ slug }}>
+                          {title}
+                        </Link>
+                      </li>
+                    )
+                  )}
                   {/* <UstMenuLi>
                     <a href="https://b2b.aloparca.com">
                       B2B
@@ -736,9 +776,9 @@ class Header extends React.Component {
             </Container>
           </div>
         )}
-       {/*<KampanyaBar><p>{barText}</p></KampanyaBar>*/}
+        {/*<KampanyaBar><p>{barText}</p></KampanyaBar>*/}
 
-        {site === 'b2b' && isLogin && (
+        {site === "b2b" && isLogin && (
           <div className="bottom b2b-ustmenu">
             <Container>
               <nav>

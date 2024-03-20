@@ -223,6 +223,20 @@ class ProductCard extends React.Component {
     this.setState({ deleteLoading: false });
   };
 
+  handleImages = (images) => {
+    let img;
+    let imgUrl = 'https://resize.aloparca.com/upload/w_200,h_150/';
+    try {
+      img = JSON.parse(images);
+      imgUrl += 'v2/';
+    } catch (err) {
+      img = [images];
+    }
+
+    if (!images) return 'https://resize.aloparca.com/upload/w_200,h_150/null';
+    return `${imgUrl}${img?.[0]}`;
+  };
+
   render() {
     const { product } = this.props;
     const { openAlert, quantity, deleteLoading } = this.state;
@@ -235,9 +249,7 @@ class ProductCard extends React.Component {
             <Box
               className="product-image"
               style={{
-                backgroundImage: `url('https://resize.aloparca.com/upload/w_200,h_150/${
-                  product.urun_detay.gorsel
-                }')`,
+                backgroundImage: `url('${this.handleImages(product.urun_detay.gorsel)}')`,
               }}
             >
               <Link className="product-image-link" to={`/yedek-parca${product.urun_detay.slug}`} />

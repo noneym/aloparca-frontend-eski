@@ -477,7 +477,8 @@ class Product extends React.Component {
       }
 
       const product = await Api.get(`Products/product_v2/no/${slug}`);
-
+      // console.log("slug ------>", `Products/product_v2/no/${slug}`);
+      // console.log(product);
       // console.log(seotitle);
       // if (product.status === false) {
       //   return await Router.push(`/arama/q/${slug}`);
@@ -500,7 +501,8 @@ class Product extends React.Component {
       //   throw 404;
       // }
       const meta = res ? await seoMeta(res.req.url) : {};
-      // console.log(res.req.url);
+      //console.log(res.req.url);
+      //console.log("meta", meta)
       const ilIlceNested = await Api.get("/Usta/ililcev2");
       const newData = Object.assign(
         {},
@@ -927,8 +929,8 @@ class Product extends React.Component {
     // if(product.breadcrumb !== null){
     //   newTitle = product.breadcrumb[1].name + ' | ' + newTitle;
     // }
-    // const prodMeta = meta ? meta : {title:newTitle, description:product.metaDescription,canonical:'https://www.aloparca.com/'+product.breadcrumb[2].link};
-    const prodMeta = null;
+    // const prodMeta = meta ? meta : {title:newTitle, description:product.metaDescription,canonical:'https://www.aloparca.com/'+product.breadcrumb[product.breadcrumb.length - 1].link};
+    const prodMeta = this.props.meta;
     return (
       <Layout
         meta={prodMeta}
@@ -937,6 +939,8 @@ class Product extends React.Component {
       >
         <ProductPage className={site === "b2b" && "b2b"}>
           <Container>
+            {/* {<div>meta {JSON.stringify(this.props.meta)}</div>} */}
+            {/* {<div>{JSON.stringify(prodMeta)}</div>} */}
             {/* <div>{JSON.stringify(this.handleImages(product.resim))}</div> */}
             {/* <div>{JSON.stringify(product)}</div> */}
             {site === "aloparca" && (

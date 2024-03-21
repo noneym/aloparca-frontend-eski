@@ -245,6 +245,7 @@ class ProductCard extends React.Component {
     return (
       <Outer>
         <Flex className="main-area" width={[1, 2 / 3]}>
+          {/* {JSON.stringify(product.urun_detay.version == 'v2')} */}
           <Box className="image-wrapper" width={1 / 3}>
             <Box
               className="product-image"
@@ -257,7 +258,7 @@ class ProductCard extends React.Component {
           </Box>
           <Flex width={2 / 3} mx={1} justifyContent="space-between" flexDirection="column">
             <Box className="title" mb={1} flex={1}>
-              <Link to={`/yedek-parca${product.urun_detay.slug}`}>
+              <Link to={`/yedek-parca${product.urun_detay.version == 'v2'?'-v2':''}${product.urun_detay.slug}`}>
                 <DotDotDot clamp={2}>{product.urun_detay.name}</DotDotDot>
               </Link>
             </Box>

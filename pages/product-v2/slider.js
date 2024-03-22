@@ -239,7 +239,7 @@ class Slider extends React.Component {
           items={
             sliderImages &&
             sliderImages.map(image => ({
-              src: `https://resize.aloparca.com/upload/w_600,pns/${image}`,
+              src: `https://resize.aloparca.com/upload/w_600,pns/v2/${image}`,
               w: 0,
               h: 0
             }))

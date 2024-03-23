@@ -68,10 +68,11 @@ class ListBrand extends React.Component {
                   {brands && brands.length ? (
                     brands.map((brand) => (
                       <Flex className="brand-wrapper" p={1} key={brand.name}>
+                        {/* {JSON.stringify(brand)} */}
                         <Flex className="brand" alignItems="center" justifyContent="center">
                           <Link
-                            route="listcar"
-                            params={{ marka: brand.name.replace(/\s/g, '_') }}
+                            route="listcar-v2"
+                            params={{ marka: brand.id.replace(/\s/g, '_') }}
                             title={brand.name}
                           >
                             <LazyLoad>

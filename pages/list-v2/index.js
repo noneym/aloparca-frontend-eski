@@ -97,16 +97,16 @@ class ProductList extends React.Component {
     if (query.kasa) {
       apiType = 'Products/products_v2';
       // if(query.pc_id) apiUrl += '?pc_id='+query.pc_id
-      if (query.marka) apiUrl += `marka/${encodeURIComponent(query.marka).replace(/_/g, ' ')}/`;
+      if (query.marka) apiUrl += `/marka/${encodeURIComponent(query.marka).replace(/_/g, ' ')}`;
       if (query.yil) {
-        apiUrl += `model_yili/${encodeURIComponent(query.yil).replace(/_/g, ' ')}/`;
+        apiUrl += `/yil/${encodeURIComponent(query.yil).replace(/_/g, ' ')}`;
       }
-      if (query.model) apiUrl += `model/${encodeURIComponent(query.model).replace(/_/g, ' ')}/`;
-      if (query.kasa) apiUrl += `?pc_id=${encodeURIComponent(query.kasa).replace(/_/g, ' ')}/`;
+      if (query.model) apiUrl += `/model/${encodeURIComponent(query.model).replace(/_/g, ' ')}`;
+      if (query.kasa) apiUrl += `?pc_id=${encodeURIComponent(query.kasa).replace(/_/g, ' ')}`;
       
       // if (query.motor) apiUrl += `motor/${encodeURIComponent(query.motor).replace(/_/g, ' ')}/`;
       // if (query.beygir) apiUrl += `beygir/${encodeURIComponent(query.beygir).replace(/_/g, ' ')}/`;
-    } else if (garage.marka) {
+    } //else if (garage.marka) {
       // apiType = 'Products/products_v2';
       // if (garage.marka) apiUrl += `marka/${encodeURIComponent(garage.marka).replace(/_/g, ' ')}/`;
       // if (garage.model) apiUrl += `model/${encodeURIComponent(garage.model).replace(/_/g, ' ')}/`;
@@ -118,12 +118,16 @@ class ProductList extends React.Component {
       // if (garage.beygir) {
       //   apiUrl += `beygir/${encodeURIComponent(garage.beygir).replace(/_/g, ' ')}/`;
       // }
+    // } 
+    else if(query.marka) {
+      apiType = `Products/products_marka_v2`;
+      apiUrl += `?mfa_id=${encodeURIComponent(query.marka).replace(/_/g, ' ')}`
     } else {
       apiType = 'Products/kategori_urunler_v2';
     }
     categoryUrl = apiUrl;
-    if (query.maincategory) apiUrl += `?ustkategori=${query.maincategory}`;
-    if (query.subcategory) apiUrl += `&altkategori=${query.subcategory}`;
+    if (query.maincategory) apiUrl += `${apiUrl.indexOf('?') > -1 ? '&':'?'}ustkategori=${query.maincategory}`;
+    if (query.subcategory) apiUrl += `${apiUrl.indexOf('?') > -1 ? '&':'?'}altkategori=${query.subcategory}`;
     // if (query.srt === 'PRICE_HIGH') apiUrl += 'order_by/desc/';
     // if (query.srt === 'PRICE_LOW') apiUrl += 'order_by/asc/';
     // if (query.type === 'original') apiUrl += 'orjinal_yansanayi/Orjinal/';
@@ -134,15 +138,16 @@ class ProductList extends React.Component {
         // if (redirect) return redirect;
       }
 
-      const productList = await Api.get(`${apiType}${apiUrl}&limit=20&sayfa=${sayfa}`);
-      console.log(`${apiType}${apiUrl}&limit=20&sayfa=${sayfa}`, productList)
+      const productList = await Api.get(`${apiType}${apiUrl}${apiUrl.indexOf('?') > -1 ? '&':'?'}limit=20&sayfa=${sayfa}`);
+      console.log(`----------------> ${apiType}${apiUrl}&limit=20&sayfa=${sayfa}`, productList)
+      console.log("-----------> query", query)
       if (parseInt(productList.status, 10) === 404) {
         // eslint-disable-next-line no-throw-literal
         // throw 404;
       }
       if (!productList.urunler) {
         // eslint-disable-next-line no-throw-literal
-        // throw 404;
+        throw 404;
       }
       let categories;
       
@@ -157,10 +162,11 @@ class ProductList extends React.Component {
       }
 
       let getModel = [];
-
+      
+      
       if (query.marka) {
         const resData = await Api.get(`Products/araclar/marka/${encodeURIComponent(query.marka)}`);
-        getModel = resData.results.map((item) => item.name);
+        getModel = resData.results.opts.map((item) => item.name);
       }
 
       const meta = res ? await seoMeta(res.req.url) : {};
@@ -175,8 +181,9 @@ class ProductList extends React.Component {
         info: `${apiType}${apiUrl}&limit=20&sayfa=${sayfa}`
       };
     } catch (e) {
-      // const redirect = await redirectCheck(res);
-      // if (redirect) return redirect;
+      console.log(e)
+      const redirect = await redirectCheck(res);
+      if (redirect) return redirect;
       return { err: true, query };
     }
   }
@@ -258,13 +265,16 @@ class ProductList extends React.Component {
     const {
       productList, categories, query, garage, pageUrl, err, isLogin, getModel, info
     } = this.props;
+    // console.log("-----> err", err)
+    // console.log("-----> props", this.props)
+    // console.log("product-list", productList)
     if (err) {
       return <NotFound />;
     }
     let isCar = false;
     let BrandImgPath = '';
     
-    if(productList.breadcrumb?.[0]?.name !== null){
+    if(productList?.breadcrumb?.[0]?.name !== null){
        BrandImgPath = `../../../static/img/logolar/markalar/marka_${productList?.breadcrumb?.[0]?.name.replace(/ /g, '').toLowerCase()}.svg`;
     }
     let carModel;
@@ -299,11 +309,11 @@ class ProductList extends React.Component {
 
     return (
       <Layout
-        meta={{title:productList.baslik.h1}}
+        meta={{title:productList?.baslik?.h1}}
         paginate={{
           pageUrl,
-          current: parseInt(productList.sayfa, 10),
-          total: parseInt(productList.sayfa_sayisi, 10),
+          current: parseInt(productList?.sayfa, 10),
+          total: parseInt(productList?.sayfa_sayisi, 10),
         }}
       >
         <ListPage site={site}>
@@ -326,9 +336,9 @@ class ProductList extends React.Component {
                   </Flex>
                 </Box>
               <Box className="main-area" px={1}>
-                {productList.breadcrumb && site === 'aloparca' && <BreadCrumb items={productList.breadcrumb || ''} />}
-                {site === 'aloparca' && productList.makale && (
-                  <SeoContent title={productList.baslik.h1} content={productList.makale} />
+                {productList?.breadcrumb && site === 'aloparca' && <BreadCrumb items={productList.breadcrumb || ''} />}
+                {site === 'aloparca' && productList?.makale && (
+                  <SeoContent title={productList?.baslik?.h1} content={productList.makale} />
                 )}
 
                 {!query.model && (
@@ -447,8 +457,8 @@ class ProductList extends React.Component {
                   flexWrap="wrap"
                 >
                   <Flex flexWrap='wrap' className={cx('title', { b2b: site === 'b2b' })} alignItems="flex-end">
-                  <h1>{site === 'b2b' && <Small_brand>{<img src={BrandImgPath} alt="" />}</Small_brand>}{ productList.baslik && productList.baslik.h1}
-                      <span>({productList.satir_sayisi} ürün)</span>
+                  <h1>{site === 'b2b' && <Small_brand>{<img src={BrandImgPath} alt="" />}</Small_brand>}{ productList?.baslik && productList?.baslik?.h1}
+                      <span>({productList?.satir_sayisi} ürün)</span>
                     </h1>
                     {site === 'b2b' && (
                       <Flex ml={2} className="add-to-cart">
@@ -540,7 +550,7 @@ class ProductList extends React.Component {
                   </Flex>
                 </Flex>
                 {/* {JSON.stringify(productList.urunler.breadcrumb)} */}
-                { productList.urunler && site === "aloparca" &&
+                { productList?.urunler && site === "aloparca" &&
                   (viewList ? (
                     productList.urunler
                       .filter(item => item)
@@ -569,7 +579,7 @@ class ProductList extends React.Component {
                     </Flex>
                   ))} 
 
-                  { productList.urunler && site === "b2b" &&    
+                  { productList?.urunler && site === "b2b" &&    
                       productList.urunler
                         .filter(item => item)
                         .map(item => (
@@ -584,14 +594,14 @@ class ProductList extends React.Component {
                       )
                   } 
                   
-                {productList.sayfa_sayisi > 1 && (
+                {productList?.sayfa_sayisi > 1 && (
                   <Paginate
                     current={productList.sayfa}
                     total={productList.sayfa_sayisi}
                     onChange={this.onPageChange}
                   />
                 )}
-
+                {/* <div>product list -> {JSON.stringify(productList)}</div> */}
                 {/* {query.model ? (
                   <SelectModelList>
                     {categories.length ? categories.map((item) => (

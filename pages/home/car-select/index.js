@@ -76,10 +76,10 @@ class CarForm extends React.Component {
     }, {});
     if (options.beygir && options.beygir.selected) {
       const data = {
-        // marka: options.marka.selected,
-        // model: options.model.selected,
-        // pc_id: options.kasa.selected,
-        // yil: options.model_yili.selected,
+        marka: options.marka.selected,
+        model: options.model.selected,
+        pc_id: options.kasa.selected,
+        yil: options.model_yili.selected,
         // motor: options.motor.selected,
         // beygir: options.beygir.selected,
       };

@@ -47,7 +47,7 @@ class CarSelect extends React.Component {
     if (nextProp.marka) {
       let garage = {};
       if (nextProp.marka) garage = { ...garage, marka: decodeURIComponent(nextProp.marka) };
-      if (nextProp.yil) garage = { ...garage, yil: decodeURIComponent(nextProp.yil) };
+      if (nextProp.yil) garage = { ...garage, yil: parseInt(decodeURIComponent(nextProp.yil)) };
       if (nextProp.model) garage = { ...garage, model: decodeURIComponent(nextProp.model) };
       if (nextProp.kasa) garage = { ...garage, kasa: decodeURIComponent(nextProp.kasa) };
       

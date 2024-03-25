@@ -28,13 +28,14 @@ class CarSelect extends React.Component {
     // console.log(this.props)
     if (this.props.marka) {
       let garage = {};
+      console.log(this.props)
       if (this.props.marka) garage = { ...garage, marka: decodeURIComponent(this.props.marka) };
-      if (this.props.yil) garage = { ...garage, yil: decodeURIComponent(this.props.yil) };
+      if (this.props.yil) garage = { ...garage, yil: parseInt(decodeURIComponent(this.props.yil)) };
       if (this.props.model) garage = { ...garage, model: decodeURIComponent(this.props.model) };
       if (this.props.kasa) garage = { ...garage, kasa: decodeURIComponent(this.props.kasa) };
-      
       // if (this.props.motor) garage = { ...garage, motor: decodeURIComponent(this.props.motor) };
       // if (this.props.beygir) garage = { ...garage, beygir: decodeURIComponent(this.props.beygir) };
+      console.log(garage)
       this.carLoader(garage);
     } else {
       this.carLoader(this.props.garage);
@@ -198,7 +199,7 @@ class CarSelect extends React.Component {
       }
 
       const nextParent = parents[index + (value ? 1 : 0)];
-      console.log("dataurl", dataUrl);
+      // console.log("dataurl", dataUrl);
       if (nextParent) {
         const {
           results: { opts },

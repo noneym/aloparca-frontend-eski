@@ -94,7 +94,7 @@ class ProductList extends React.Component {
     let apiUrl = '';
     let apiType = '';
     let categoryUrl = '';
-    if (query.kasa) {
+    if (query.yil) {
       apiType = 'Products/products_v2';
       // if(query.pc_id) apiUrl += '?pc_id='+query.pc_id
       if (query.marka) apiUrl += `/marka/${encodeURIComponent(query.marka).replace(/_/g, ' ')}`;
@@ -122,6 +122,9 @@ class ProductList extends React.Component {
     else if(query.marka) {
       apiType = `Products/products_marka_v2`;
       apiUrl += `?mfa_id=${encodeURIComponent(query.marka).replace(/_/g, ' ')}`
+    }else if(query.kasa){
+      apiType = 'Products/products_v2';
+      if (query.kasa) apiUrl += `?pc_id=${encodeURIComponent(query.kasa).replace(/_/g, ' ')}`;
     } else {
       apiType = 'Products/kategori_urunler_v2';
     }
@@ -321,7 +324,8 @@ class ProductList extends React.Component {
           <Container>
             <Flex mx={-1}>
                 <Box className="left-area" px={1}>
-                  <CarSelect {...query} />
+                  
+                  {!query.hs && <CarSelect {...query} />}
                   <Category categories={categories} query={query} />
                   <Flex className="muadil-ara">
                     <ul>

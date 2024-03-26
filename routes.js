@@ -24,7 +24,7 @@ routes.add('subcategory-v2', `${categoryURL2}/altkategori/:subcategory`, 'catego
 
 routes.add(
   'listsubcategory',
-  `${baseURL}/:marka?/:model?/:kasa?/:yil?/:motor?/:beygir?/altkategori/:subcategory`,
+  `${baseURL}/:marka?/:model?/:kasa?/:yil?/:motor?/:beygir?/altekategori/:subcategory`,
   'list',
 );
 routes.add(
@@ -34,18 +34,22 @@ routes.add(
 );
 routes.add('listcar', `${baseURL}/:marka?/:model?/:kasa?/:yil?/:motor?/:beygir?`, 'list');
 
+// routes.add('listcarparts', `${baseURL2}/:pcid`, 'list-v2');
 /* */
+
+routes.add('listcarparts', `${baseURL2}/:kasa`, 'list-v2');
+
 routes.add(
   'listsubcategory-v2',
-  `${baseURL2}/:marka?/:model?/:kasa?/:yil?/:motor?/:beygir?/altkategori/:subcategory`,
+  `${baseURL2}/:marka?/:model?/:kasa?/:yil?/altkategori/:subcategory`,
   'list-v2',
 );
 routes.add(
   'listmaincategory-v2',
-  `${baseURL2}/:marka?/:model?/:kasa?/:yil?/:motor?/:beygir?/ustkategori/:maincategory`,
+  `${baseURL2}/:marka?/:model?/:kasa?/:yil?/ustkategori/:maincategory`,
   'list-v2',
 );
-routes.add('listcar-v2', `${baseURL2}/:marka?/:model?/:kasa?/:yil?/:motor?/:beygir?`, 'list-v2');
+routes.add('listcar-v2', `${baseURL2}/:marka?/:model?/:kasa?/:yil?`, 'list-v2');
 /* */
 // routes.add('listcar', `${baseURL}/:marka?/:model?/:kasa?/:yil?/:motor?/:beygir?`, 'list-v2');
 
@@ -53,8 +57,8 @@ routes.add('listcar-v2', `${baseURL2}/:marka?/:model?/:kasa?/:yil?/:motor?/:beyg
 // routes.add('listcar-b2b',`${baseURL}/:marka?`, 'list' )
 routes.add('listoem', '/i/:no/:slug', 'list-oem');
 routes.add('listmarka', '/marka/:marka/:slug?', 'list-marka');
-routes.add('list-brand', '/yedek-parca-marka');
-routes.add('list-brand-v2', '/yedek-parca-marka-v2');
+routes.add('list-brand-v2', '/yedek-parca-marka');
+// routes.add('list-brand-v2', '/yedek-parca-marka-v2');
 routes.add('accessories', '/otoaksesuar/:kategori?/:marka?/:model?', 'accessories');
 routes.add(
   'accessories-with-page',
